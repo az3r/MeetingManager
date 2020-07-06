@@ -6,16 +6,16 @@
         <property name="show_sql">true</property>
         <!-- mysql database-->
         <property name="dialect">
-            org.hibernate.dialect.MariaDB103Dialect
+            org.hibernate.dialect.MYSQLDialect
         </property>
 
         <property name="connection.driver_class">
-            org.mariadb.jdbc.Driver
+            com.mysql.cj.jdbc.Driver
         </property>
 
         <!-- connection -->
         <property name="connection.url">
-            jdbc:mariadb://localhost/javafx
+            jdbc:mysql://localhost/javafx
         </property>
 
         <property name="connection.username">

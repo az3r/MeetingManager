@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.mariadb.jdbc.Driver;
 
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;

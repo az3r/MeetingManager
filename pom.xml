@@ -33,13 +33,14 @@
       <version>14</version>
     </dependency>
 
-    <!-- mariaDB -->
+
+    <!-- mysql -->
     <dependency>
-      <groupId>org.mariadb.jdbc</groupId>
-      <artifactId>mariadb-java-client</artifactId>
-      <version>2.6.1</version>
-  </dependency>
-  
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.20</version>
+    </dependency>
+
 
     <!-- hibernate -->
     <dependency>
