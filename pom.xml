@@ -19,17 +19,26 @@
   </properties>
 
   <dependencies>
+    <!-- unit test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.5</version>
       <scope>test</scope>
     </dependency>
+
     <!-- javafx -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>14</version>
+    </dependency>
+
+    <!-- hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.4.10.Final</version>
     </dependency>
 
     <!-- gson -->
