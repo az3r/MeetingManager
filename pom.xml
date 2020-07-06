@@ -107,9 +107,6 @@
           <version>0.0.4</version>
           <configuration>
             <mainClass>com.azer.meetingmanager.App</mainClass>
-            <descriptorRefs>
-              <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
           </configuration>
         </plugin>
       </plugins>

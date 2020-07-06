@@ -4,10 +4,18 @@ public class Location {
     private int locationId;
     private String name;
     private String address;
-    private int capactity;
+    private int capacity;
 
     public int getLocationId() {
         return locationId;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public void setLocationId(int locationId) {
@@ -30,11 +38,4 @@ public class Location {
         this.address = address;
     }
 
-    public int getCapactity() {
-        return capactity;
-    }
-
-    public void setCapactity(int capactity) {
-        this.capactity = capactity;
-    }
 }
