@@ -19,11 +19,14 @@
 
         <property name="hibernate.connection.username">
             javafx-admin
-        </property>
-
+        </property>        
+        
         <property name="hibernate.connection.password">
             123
         </property>
 
+        <mapping resource="Location.hbm.xml"/>
+        <mapping resource="Meeting.hbm.xml"/>
+        <mapping resource="User.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

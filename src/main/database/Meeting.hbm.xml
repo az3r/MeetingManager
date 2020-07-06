@@ -10,7 +10,7 @@
             <generator class="native"></generator>
         </id>
 
-        <one-to-one name="location" class="com.azer.meetingmanager.data.models.Location"/>
+        <one-to-one name="location" class="com.azer.meetingmanager.data.models.Meeting"/>
 
         <property name="shortDesc" column="short_desc" type="string" />
         <property name="detailDesc" column="detailDesc" type="string" />
