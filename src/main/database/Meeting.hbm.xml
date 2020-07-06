@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Meeting" table="meeting">
+        <meta attribute="class-description">
+            meeting's information
+        </meta>
+
+        <id name="meetingId" column="meeting_id" type="integer">
+            <generator class="native"></generator>
+        </id>
+
+        <one-to-one name="location" class="com.azer.meetingmanager.data.models.Location"/>
+
+        <property name="shortDesc" column="short_desc" type="string" />
+        <property name="detailDesc" column="detailDesc" type="string" />
+        <property name="photo" column="photo" type="string" />
+        <property name="holdTime" column="hold_time" type="timestamp" />
+    </class>
+</hibernate-mapping>
