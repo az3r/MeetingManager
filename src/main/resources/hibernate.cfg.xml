@@ -6,7 +6,7 @@
         <property name="show_sql">true</property>
         <!-- mysql database-->
         <property name="dialect">
-            org.hibernate.dialect.MYSQLDialect
+            org.hibernate.dialect.MySQLDialect
         </property>
 
         <property name="connection.driver_class">
