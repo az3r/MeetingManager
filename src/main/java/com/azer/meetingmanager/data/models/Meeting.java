@@ -7,8 +7,8 @@ public class Meeting {
     private String shortDesc;
     private String detailDesc;
     private String photo;
-    private Date hold_time;
-    private int locationId;
+    private Date holdTime;
+    private Location location;
 
 
     public int getMeetingId() {
@@ -43,19 +43,20 @@ public class Meeting {
         this.photo = photo;
     }
 
-    public Date getHold_time() {
-        return hold_time;
+    public Date getHoldTime() {
+        return holdTime;
     }
 
-    public void setHold_time(Date hold_time) {
-        this.hold_time = hold_time;
+    public void setHoldTime(Date holdTime) {
+        this.holdTime = holdTime;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
+
 }
