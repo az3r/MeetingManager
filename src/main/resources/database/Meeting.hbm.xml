@@ -10,9 +10,9 @@
             <generator class="native"></generator>
         </id>
 
-        <one-to-one name="location" class="com.azer.meetingmanager.data.models.Meeting"/>
+        <one-to-one name="location" cascade="" class="com.azer.meetingmanager.data.models.Meeting"/>
 
-        <property name="shortDesc" column="short_desc" type="string" />
+        <property name="shortDesc" column="short_desc" type="string" not-null="true" length="50"/>
         <property name="detailDesc" column="detailDesc" type="string" />
         <property name="photo" column="photo" type="string" />
         <property name="holdTime" column="hold_time" type="timestamp" />

@@ -34,8 +34,9 @@ public class UserRepository extends Repository<User> {
 	public List<User> getAll() {
 		if (users == null) {
 			Session session = sessionFactory.openSession();
-			Query<User> query = session.createQuery("select * from user", User.class);
+			Query<User> query = session.createQuery("from User", User.class);
 			users = query.list();
+
 		}
 
 		return users;
