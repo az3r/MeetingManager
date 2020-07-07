@@ -1,5 +1,7 @@
 package com.azer.meetingmanager.data.repositories;
 
+import java.util.List;
+
 import com.azer.meetingmanager.data.models.Meeting;
 
 import org.hibernate.SessionFactory;
@@ -18,6 +20,13 @@ public class MeetingRepository extends Repository<Meeting> {
 
     @Override
     public void update(Meeting entity) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public List<Meeting> getAll() {
+        return null;
         // TODO Auto-generated method stub
 
     }
