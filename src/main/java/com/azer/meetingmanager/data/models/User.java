@@ -2,7 +2,6 @@ package com.azer.meetingmanager.data.models;
 
 public class User {
     private int userId;
-    private String accountName;
     private String userName;
     private String salt;
     private String password;
@@ -14,14 +13,6 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
     }
 
     public String getUserName() {

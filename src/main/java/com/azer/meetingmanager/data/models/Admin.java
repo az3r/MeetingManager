@@ -1,12 +1,13 @@
 package com.azer.meetingmanager.data.models;
 
-public class Customer extends User {
+public class Admin extends User {
+
     /**
-     * this function always returns false
+     * this function always returns true
      */
     @Override
     public boolean getIsAdmin() {
-        return false;
+        return true;
     }
 
     /**
@@ -15,5 +16,5 @@ public class Customer extends User {
     @Override
     public void setIsAdmin(boolean isAdmin) {
     }
-
+    
 }
