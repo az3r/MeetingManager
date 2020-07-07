@@ -24,7 +24,9 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Meetings Manager");
-        primaryStage.setScene(new Scene(new HomeView().getRoot(), 1440,1024));
+        Scene scene = new Scene(new HomeView().getRoot(), 1440, 1024);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("main.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

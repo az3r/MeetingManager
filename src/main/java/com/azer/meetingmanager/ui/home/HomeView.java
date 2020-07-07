@@ -6,10 +6,11 @@ import com.azer.meetingmanager.ui.IParent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.GridPane;
 
 public class HomeView implements IParent {
 
-    private Parent root;
+    private GridPane root;
 
     public HomeView() {
         try {
