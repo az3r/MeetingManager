@@ -1,13 +1,5 @@
 package com.azer.meetingmanager;
 
-import java.util.List;
-
-// import javafx.application.*;
-// import javafx.scene.layout.BorderPane;
-// import javafx.stage.Stage;
-
-import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.ui.MainScene;
 
 import org.hibernate.SessionFactory;
@@ -19,27 +11,11 @@ import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class App  extends Application {
+public class App extends Application {
+
+    private static SessionFactory sessionFactory;
+
     public static void main(String[] args) {
-
-        SessionFactory factory = null;
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-
-        try {
-
-            factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            UserRepository repository = new UserRepository(factory);
-            List<User> users = repository.getAll();
-            System.out.println(users.get(0).toString());
-
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        } finally {
-            if (factory != null) {
-                factory.close();
-            }
-        }
 
         launch(args);
     }
@@ -50,7 +26,33 @@ public class App  extends Application {
         primaryStage.setTitle("Meetings Manager");
 
         primaryStage.setScene(new MainScene(new BorderPane(), 1440, 1024));
-
+        
         primaryStage.show();
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        initialize();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    private static void initialize() throws ExceptionInInitializerError {
+        try {
+            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
     }
 }
