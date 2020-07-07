@@ -3,7 +3,10 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name="show_sql">true</property>
+        <property name="show_sql">
+            true
+        </property>
+
         <!-- mysql database-->
         <property name="dialect">
             org.hibernate.dialect.MySQLDialect
@@ -11,6 +14,10 @@
 
         <property name="connection.driver_class">
             com.mysql.cj.jdbc.Driver
+        </property>
+
+        <property name="hbm2ddl.auto">
+            update
         </property>
 
         <!-- connection -->

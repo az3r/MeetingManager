@@ -1,18 +1,13 @@
 package com.azer.meetingmanager.data.repositories;
 
-public class Repository<T> implements IRepository<T>{
+import org.hibernate.SessionFactory;
 
-    @Override
-    public void insert(T entity) {
-        // TODO Auto-generated method stub
+public abstract class Repository<T> implements IRepository<T> {
 
+    protected SessionFactory sessionFactory;
+
+    public Repository(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public void update(T entity) {
-        // TODO Auto-generated method stub
-
-    }
-
-    
 }
