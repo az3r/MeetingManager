@@ -12,11 +12,11 @@
             <generator class="native"></generator>
         </id>
 
-        <property name="name" column="name" type="string"></property>
-        <property name="email" column="email" type="string"/>
-        <property name="salt" column="salt" type="string"/>
-        <property name="password" column="password" type="string"/>
-        <property name="isAdmin" column="is_admin" type="boolean"/>
+        <property name="name" column="name" type="string" not-null="true" length="50"/>
+        <property name="email" column="email" type="string" not-null="true" length="50"/>
+        <property name="salt" column="salt" type="binary" not-null="true" length="1000"/>
+        <property name="password" column="password" type="binary" not-null="true" length="1000"/>
+        <property name="isAdmin" column="is_admin" type="boolean" not-null="true"/>
 
     </class>
 </hibernate-mapping>

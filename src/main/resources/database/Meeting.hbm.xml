@@ -13,8 +13,8 @@
         <one-to-one name="location" cascade="" class="com.azer.meetingmanager.data.models.Meeting"/>
 
         <property name="shortDesc" column="short_desc" type="string" not-null="true" length="50"/>
-        <property name="detailDesc" column="detailDesc" type="string" />
-        <property name="photo" column="photo" type="string" />
+        <property name="detailDesc" column="detailDesc" type="string" not-null="true" length="1000"/>
+        <property name="photo" column="photo" type="text"/>
         <property name="holdTime" column="hold_time" type="timestamp" />
     </class>
 </hibernate-mapping>

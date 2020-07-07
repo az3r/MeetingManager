@@ -3,8 +3,8 @@ package com.azer.meetingmanager.data.models;
 public class User {
     private int userId;
     private String name;
-    private String salt;
-    private String password;
+    private byte[] salt;
+    private byte[] password;
     private boolean isAdmin;
     private String email;
 
@@ -23,23 +23,7 @@ public class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+   
     public boolean getIsAdmin() {
         return isAdmin;
     }
@@ -59,5 +43,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
+    public byte[] getPassword() {
+        return password;
+    }
+
+    public void setPassword(byte[] password) {
+        this.password = password;
     }
 }
