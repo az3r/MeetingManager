@@ -1,6 +1,7 @@
 package com.azer.meetingmanager;
 
 import com.azer.meetingmanager.ui.MainScene;
+import com.azer.meetingmanager.ui.home.HomeScene;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -8,7 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javafx.application.Application;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -24,9 +25,8 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Meetings Manager");
+        primaryStage.setScene(new Scene(new HomeScene(), 1440, 1024));
 
-        primaryStage.setScene(new MainScene(new BorderPane(), 1440, 1024));
-        
         primaryStage.show();
     }
 

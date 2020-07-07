@@ -1,5 +1,5 @@
 package com.azer.meetingmanager.ui.home;
 
-public class HomeScene {
+public class HomeView {
     
 }
