@@ -12,8 +12,8 @@
             <generator class="native"></generator>
         </id>
 
-        <property name="userName" column="user_name" type="integer"></property>
-        <property name="accountName" column="account_name" type="integer"/>
+        <property name="name" column="name" type="string"></property>
+        <property name="email" column="email" type="string"/>
         <property name="salt" column="salt" type="string"/>
         <property name="password" column="password" type="string"/>
         <property name="isAdmin" column="is_admin" type="boolean"/>

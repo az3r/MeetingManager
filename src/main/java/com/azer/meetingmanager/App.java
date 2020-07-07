@@ -1,10 +1,13 @@
 package com.azer.meetingmanager;
 
+import java.util.List;
+
 // import javafx.application.*;
 // import javafx.scene.layout.BorderPane;
 // import javafx.stage.Stage;
 
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.data.repositories.UserRepository;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -24,6 +27,9 @@ public class App  extends Application {
         try {
 
             factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            UserRepository repository = new UserRepository(factory);
+            List<User> users = repository.getAll();
+            System.out.println(users.get(0).toString());
 
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
