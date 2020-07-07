@@ -1,0 +1,28 @@
+.root {
+    -fx-background-color: #FCFCFC;
+    -fx-font-size: 14;
+}
+.navbar {
+    -fx-background-color: #3CB961;
+}
+
+.navbar-title {
+    -fx-fill: #ffffff;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+
+.navbar-action {
+    -fx-fill: #ffffff;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.footer {
+    -fx-background-color: #f6f6f6;
+}
+
+.popular-meeting {
+    -fx-background-image: url("../icons/background.jpg");
+    -fx-background-size: stretch;
+}

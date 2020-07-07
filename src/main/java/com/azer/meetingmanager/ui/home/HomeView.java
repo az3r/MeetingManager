@@ -6,19 +6,23 @@ import com.azer.meetingmanager.ui.IParent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class HomeView implements IParent {
 
-    private GridPane root;
+    private Parent root;
 
     public HomeView() {
+
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Home.fxml"));
         } catch (IOException e) {
-            System.err.println("Unable to load fxml resource: " + e);
-            throw new ExceptionInInitializerError(e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+
     }
 
     @Override
