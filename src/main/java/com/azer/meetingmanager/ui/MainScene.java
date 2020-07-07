@@ -1,4 +1,4 @@
-package com.azer.meetingmanager;
+package com.azer.meetingmanager.ui;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

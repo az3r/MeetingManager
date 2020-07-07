@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.ui.MainScene;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
