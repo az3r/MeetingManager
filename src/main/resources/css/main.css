@@ -68,17 +68,8 @@
     -fx-font-size: 26;
 }
 
-.overlay-container {
-
-}
-
 .overlay {
     -fx-alignment: CENTER;
     -fx-background-color: #000000;
-    -fx-opacity: 0.8;
     visibility: false;
-}
-
-.overlay-container:hover .overlay {
-    visibility: true;
 }

@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -44,9 +45,21 @@ public class HomeController implements Initializable {
 
     @FXML
     void onOverlayFadeIn(MouseEvent event) {
-        FadeTransition fadein = new FadeTransition(new Duration(0.3), overlay);
+        overlay.setVisible(true);
+        FadeTransition fadein = new FadeTransition(new Duration(100), overlay);
+        fadein.setInterpolator(Interpolator.EASE_OUT);
         fadein.setFromValue(0);
         fadein.setToValue(0.8);
+        fadein.play();
+    }
 
+    @FXML
+    void onOverlayFadeOut(MouseEvent event) {
+        FadeTransition fadeout = new FadeTransition(new Duration(200), overlay);
+        fadeout.setInterpolator(Interpolator.EASE_OUT);
+        fadeout.setOnFinished(e -> overlay.setVisible(false));
+        fadeout.setFromValue(0.8);
+        fadeout.setToValue(0);
+        fadeout.play();
     }
 }

@@ -16,8 +16,8 @@ public class HomeView implements IParent {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
-            loader.<HomeController>getController().setSessionFactory(App.getSessionFactory());
             root = loader.load();
+            loader.<HomeController>getController().setSessionFactory(App.getSessionFactory());
         } catch (IOException e) {
             System.err.println(e);
             throw new ExceptionInInitializerError(e);
