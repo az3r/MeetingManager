@@ -6,34 +6,57 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class TopbarController implements Initializable {
 
     @FXML
-    private HBox homeLayout;
+    private Button backButton;
 
     @FXML
-    private Button backButton;
+    private Text titleText;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Button signUpButton;
+
+    @FXML
+    private MenuButton accountButton;
 
     @FXML
     private TextField searchView;
 
-    @FXML Text titleText;
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {    
+    public void initialize(URL location, ResourceBundle resources) {
         backButton.managedProperty().bind(backButton.visibleProperty());
+        loginButton.managedProperty().bind(loginButton.visibleProperty());
+        signUpButton.managedProperty().bind(signUpButton.visibleProperty());
+        accountButton.managedProperty().bind(accountButton.visibleProperty());
+
     }
 
-    public void showBackButton(boolean visible){
+    public void showBackButton(boolean visible) {
         backButton.setVisible(visible);
+    }
+
+    public void showLoginButton(boolean visible) {
+        loginButton.setVisible(visible);
+    }
+
+    public void showSignUpButton(boolean visible) {
+        signUpButton.setVisible(visible);
+    }
+
+    public void showAccountButton(boolean visible) {
+        accountButton.setVisible(visible);
     }
 
     public void setTitle(String title) {
         titleText.setText(title);
     }
-    
+
 }
