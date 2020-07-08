@@ -2,15 +2,11 @@ package com.azer.meetingmanager.ui.home;
 
 import java.io.IOException;
 
+import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.ui.IParent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class HomeView implements IParent {
 
@@ -19,11 +15,11 @@ public class HomeView implements IParent {
     public HomeView() {
 
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Home.fxml"));
-            Image image = new Image(getClass().getClassLoader().getResource("icons/background.jpg").toExternalForm());
+            FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("views/Home.fxml"));
+            loader.<HomeController>getController().setSessionFactory(App.getSessionFactory());
+            root = loader.load();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e);
             throw new ExceptionInInitializerError(e);
         }
     }

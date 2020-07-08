@@ -19,8 +19,10 @@ import javafx.util.Duration;
 
 public class HomeController implements Initializable {
 
-    @FXML private StackPane overlayContainer;
-    @FXML private BorderPane overlay;
+    @FXML
+    private StackPane overlayContainer;
+    @FXML
+    private BorderPane overlay;
 
     private SessionFactory sessionFactory;
     private UserRepository userRepository;
@@ -30,9 +32,15 @@ public class HomeController implements Initializable {
         if (sessionFactory != null) {
             throw new NullPointerException("sessionFactory is null");
         }
+        this.setSessionFactory(sessionFactory);
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        userRepository = new UserRepository(sessionFactory);
-        meetingRepository = new MeetingRepository(sessionFactory);
     }
 
     @Override
