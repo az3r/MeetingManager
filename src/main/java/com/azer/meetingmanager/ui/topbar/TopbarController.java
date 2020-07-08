@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -16,7 +16,7 @@ public class TopbarController implements Initializable {
     private HBox homeLayout;
 
     @FXML
-    private ImageView backButton;
+    private Button backButton;
 
     @FXML
     private TextField searchView;
@@ -24,10 +24,8 @@ public class TopbarController implements Initializable {
     @FXML Text titleText;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        backButton.managedProperty().bind(backButton.visibleProperty());;
-
+    public void initialize(URL location, ResourceBundle resources) {    
+        backButton.managedProperty().bind(backButton.visibleProperty());
     }
 
     public void showBackButton(boolean visible){
