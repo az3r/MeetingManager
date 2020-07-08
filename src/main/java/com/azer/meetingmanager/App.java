@@ -1,6 +1,7 @@
 package com.azer.meetingmanager;
 
 import com.azer.meetingmanager.ui.home.HomeView;
+import com.azer.meetingmanager.ui.master.MasterView;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -24,7 +25,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Meetings Manager");
-        Scene scene = new Scene(new HomeView().getRoot(), 1440, 1024);
+        Scene scene = new Scene(new MasterView(sessionFactory).getRoot(), 1440, 1024);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

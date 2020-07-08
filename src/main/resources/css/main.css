@@ -12,12 +12,6 @@
     -fx-font-weight: bold;
 }
 
-.navbar-action {
-    -fx-fill: #ffffff;
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
-}
-
 .footer {
     -fx-background-color: #f6f6f6;
 }
@@ -39,6 +33,7 @@
 
 
 .primary-button {
+    -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-font-size: 24;
     -fx-background-radius: 12;
@@ -72,4 +67,14 @@
     -fx-alignment: CENTER;
     -fx-background-color: #000000;
     visibility: false;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-fill: transparent;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgb(109, 212, 140);
 }
