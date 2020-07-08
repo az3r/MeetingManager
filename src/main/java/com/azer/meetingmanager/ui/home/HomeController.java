@@ -28,12 +28,6 @@ public class HomeController implements Initializable {
     private UserRepository userRepository;
     private MeetingRepository meetingRepository;
 
-    public HomeController(SessionFactory sessionFactory) {
-        if (sessionFactory != null) {
-            throw new NullPointerException("sessionFactory is null");
-        }
-        this.setSessionFactory(sessionFactory);
-    }
 
     public SessionFactory getSessionFactory() {
         return sessionFactory;
