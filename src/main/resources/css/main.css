@@ -26,3 +26,59 @@
     -fx-background-image: url("../icons/background.jpg");
     -fx-background-size: stretch;
 }
+
+.popular-meeting-title {
+    -fx-font-size: 40;
+    -fx-fill: #ffffff;
+}
+
+.popular-meeting-desc {
+    -fx-font-size: 24;
+    -fx-fill: #DBDBDB;
+}
+
+
+.primary-button {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24;
+    -fx-background-radius: 12;
+    -fx-background-color: #3CB961;
+}
+
+.text-button {
+    -fx-text-fill: #3CB961;
+    -fx-font-size: 24;
+    -fx-background-color: transparent;
+}
+
+.outline-button {
+    -fx-text-fill: #3CB961;
+    -fx-font-size: 24;
+
+    -fx-background-color: transparent;
+    -fx-border-color: #3CB961;
+    -fx-border-width: 2px;;
+    -fx-border-radius: 12;
+}
+
+.headline-4 {
+    -fx-font-size: 40;
+}
+.headline-6 {
+    -fx-font-size: 26;
+}
+
+.overlay-container {
+
+}
+
+.overlay {
+    -fx-alignment: CENTER;
+    -fx-background-color: #000000;
+    -fx-opacity: 0.8;
+    visibility: false;
+}
+
+.overlay-container:hover .overlay {
+    visibility: true;
+}

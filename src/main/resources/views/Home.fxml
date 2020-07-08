@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" styleClass="root" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" styleClass="root" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.home.HomeController">
    <children>
       <AnchorPane prefHeight="80.0" prefWidth="412.0" styleClass="navbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-title" text="Home" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                      <HBox.margin>
-                        <Insets right="15.0" />
+                        <Insets />
                      </HBox.margin>
                      <image>
                         <Image url="@../icons/home.png" />
@@ -33,12 +36,12 @@
                   </ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-action" text="Log in">
                      <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
+                        <Insets />
                      </HBox.margin>
                   </Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-action" text="Sign up">
                      <HBox.margin>
-                        <Insets left="15.0" />
+                        <Insets />
                      </HBox.margin>
                   </Text>
                </children>
@@ -95,12 +98,72 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-image: url('../../icons/background.jpg');" GridPane.rowIndex="1">
-               <effect>
-                  <ColorAdjust brightness="-0.6" />
-               </effect>
-            </VBox>
+            <StackPane fx:id="overlayContainer" onMouseEntered="#onOverlayFadeIn" prefHeight="150.0" prefWidth="200.0" styleClass="overlay-container" GridPane.rowIndex="1">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="popular-meeting">
+                     <effect>
+                        <ColorAdjust brightness="-0.6" />
+                     </effect>
+                  </AnchorPane>
+                  <VBox alignment="BOTTOM_LEFT" fillWidth="false" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-title" text="Meeting Title" />
+                        <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-desc" text="Trường dại học Khoa học Tự nhiên, định kỳ hai năm một lần, tổ chức Hội nghị Khoa học toàn trường cho tất cả các ngành khoa học, các lĩnh vực nghiên cứu, đào tạo của trường." wrappingWidth="800.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="60.0" right="60.0" top="60.0" />
+                     </padding>
+                  </VBox>
+                  <BorderPane fx:id="overlay" prefHeight="200.0" prefWidth="200.0" styleClass="overlay">
+                     <center>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="160.0" styleClass="primary-button" text="Button" />
+                              <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="160.0" styleClass="outline-button" text="Button" />
+                           </children>
+                        </HBox>
+                     </center>
+                     <bottom>
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" styleClass="text-button" text="SEE MORE" BorderPane.alignment="BOTTOM_RIGHT">
+                           <padding>
+                              <Insets bottom="20.0" right="20.0" />
+                           </padding>
+                        </Button>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </StackPane>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-padding: 30;" GridPane.columnIndex="1">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" styleClass="headline-4" text="MEETING MANAGER" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headline-6" text="Create and manage your meetings">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="headline-6" text="Find and register your favorite meetings">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../icons/app.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
          </children>
       </GridPane>
    </children>
