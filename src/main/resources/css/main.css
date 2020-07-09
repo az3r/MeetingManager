@@ -33,8 +33,6 @@
 
 
 .button {
-    -fx-min-width: 160;
-    -fx-min-height: 40;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
     -fx-font-size: 20;
@@ -83,6 +81,7 @@
     -fx-fill: transparent;
 }
 
+
 .menu-button {
     -fx-background-color: transparent;
 }
@@ -125,7 +124,7 @@
 
 
 .meeting-item:hover {
--fx-background-color: red;
+    -fx-background-color: red;
 }
 
 .meeting-item-title {

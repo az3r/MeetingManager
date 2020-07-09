@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,40 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" styleClass="root" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.home.HomeController">
    <children>
-      <AnchorPane prefHeight="80.0" prefWidth="412.0" styleClass="navbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-title" text="Home" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../icons/home.png" />
-                     </image>
-                  </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-action" text="Log in">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="navbar-action" text="Sign up">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets left="60.0" right="60.0" />
-         </padding>
-      </AnchorPane>
+      <fx:include fx:id="topbarController" source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <HBox layoutX="375.0" layoutY="513.0" prefHeight="80.0" prefWidth="200.0" styleClass="footer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
@@ -114,23 +79,7 @@
                         <Insets bottom="30.0" left="60.0" right="60.0" top="60.0" />
                      </padding>
                   </VBox>
-                  <BorderPane fx:id="overlay" onMouseExited="#onOverlayFadeOut" prefHeight="200.0" prefWidth="200.0" styleClass="overlay">
-                     <center>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="160.0" styleClass="primary-button" text="Button" />
-                              <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="160.0" styleClass="outline-button" text="Button" />
-                           </children>
-                        </HBox>
-                     </center>
-                     <bottom>
-                        <Button alignment="TOP_LEFT" mnemonicParsing="false" styleClass="text-button" text="SEE MORE" BorderPane.alignment="BOTTOM_RIGHT">
-                           <padding>
-                              <Insets bottom="20.0" right="20.0" />
-                           </padding>
-                        </Button>
-                     </bottom>
-                  </BorderPane>
+                  <fx:include fx:id="overlayController" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/Overlay.fxml" />
                </children>
             </StackPane>
             <GridPane>

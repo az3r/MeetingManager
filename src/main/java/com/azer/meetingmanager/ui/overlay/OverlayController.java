@@ -1,10 +1,14 @@
 package com.azer.meetingmanager.ui.overlay;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 public class OverlayController {
 
@@ -18,11 +22,11 @@ public class OverlayController {
     private Button rightButton;
 
     public void setLeftButtonText(String value) {
-        leftButton.setText(value);
+        leftButton.setText(value.toUpperCase());
     }
 
     public void setRightButtonText(String value) {
-        rightButton.setText(value);
+        rightButton.setText(value.toUpperCase());
     }
 
     public void setLeftButtonOnAction(EventHandler<ActionEvent> handler) {
@@ -31,5 +35,25 @@ public class OverlayController {
 
     public void setRightButtonOnAction(EventHandler<ActionEvent> handler) {
         rightButton.setOnAction(handler);
+    }
+
+    @FXML
+    void onOverlayFadeIn(MouseEvent event) {
+        overlay.setVisible(true);
+        FadeTransition fadein = new FadeTransition(new Duration(100), overlay);
+        fadein.setInterpolator(Interpolator.EASE_OUT);
+        fadein.setFromValue(0);
+        fadein.setToValue(0.8);
+        fadein.play();
+    }
+
+    @FXML
+    void onOverlayFadeOut(MouseEvent event) {
+        FadeTransition fadeout = new FadeTransition(new Duration(200), overlay);
+        fadeout.setInterpolator(Interpolator.EASE_OUT);
+        fadeout.setOnFinished(e -> overlay.setVisible(false));
+        fadeout.setFromValue(0.8);
+        fadeout.setToValue(0);
+        fadeout.play();
     }
 }

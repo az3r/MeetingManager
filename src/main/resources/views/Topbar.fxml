@@ -32,7 +32,7 @@
       </HBox>
    </left>
    <right>
-      <HBox alignment="CENTER_RIGHT" spacing="30.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" spacing="30.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button">
                <graphic>
