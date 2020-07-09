@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefWidth="400.0" styleClass="mee" stylesheets="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
+<StackPane prefWidth="400.0" styleClass="mee" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ffffff;" StackPane.alignment="CENTER">
          <children>
             <ImageView fx:id="photoImageView" fitHeight="160.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/background.jpg" />
+                  <Image url="@../icons/background.jpg" />
                </image>
                <effect>
                   <ColorAdjust />
@@ -29,7 +29,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/time.png" />
+                              <Image url="@../icons/time.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.6" />
@@ -42,7 +42,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/location.png" />
+                              <Image url="@../icons/location.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.6" />
@@ -55,7 +55,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/capacity.png" />
+                              <Image url="@../icons/capacity.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.6" />
@@ -68,7 +68,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/pending.png" />
+                              <Image url="@../icons/pending.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.6" />

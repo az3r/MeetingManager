@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.master.MasterController">
    <children>
       <fx:include fx:id="topbar" source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox fx:id="displayLayout" layoutX="350.0" layoutY="255.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+      <VBox layoutX="350.0" layoutY="255.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <children>
             <BorderPane prefHeight="60.0" VBox.vgrow="NEVER">
                <padding>
@@ -19,7 +19,7 @@
                   <Button fx:id="displayButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onChangeDisplay" prefHeight="40.0" prefWidth="160.0" styleClass="text-button-on-surface" text="List view" BorderPane.alignment="CENTER_LEFT" />
                </left>
             </BorderPane>
-            <fx:include fx:id="meetingCollectionContainer" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/MeetingCollectionLayout.fxml" />
+            <fx:include source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/MeetingItemContainer.fxml" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

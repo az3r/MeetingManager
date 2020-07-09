@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.ui.containers.MeetingCollectionController;
+import com.azer.meetingmanager.ui.containers.MeetingContainerController;
 import com.azer.meetingmanager.ui.topbar.TopbarController;
 
 import javafx.collections.ObservableList;
@@ -29,7 +29,7 @@ public class MasterController implements Initializable {
     private TopbarController topbarController;
 
     @FXML
-    private MeetingCollectionController meetingLayoutController;
+    private MeetingContainerController meetingContainerController;
 
     @FXML
     private Button displayButton;
@@ -37,7 +37,7 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
-        useListView();
+        changeMeetingContainer(true);
     }
 
     private void setupTopbar() {
@@ -45,52 +45,13 @@ public class MasterController implements Initializable {
         topbarController.useLoggedUserTopbar(false);
     }
 
-    private void useListView() {
-        displayButton.setText(DISPLAY_CARD);
-
-        ObservableList<Node> children = displayLayout.getChildren();
-
-        // remove TilePane if exists
-        if (children.get(children.size() - 1) instanceof TilePane) {
-            children.remove(children.size() - 1);
-
-        }
-
-        // add ListView
-        try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingListView.fxml"));
-            children.add(root);
-        } catch (IOException e) {
-            System.err.println("Unable to load MeetingListView.faml");
-            throw new ExceptionInInitializerError(e);
-        }
-    }
-
-    private void useCardView() {
-        displayButton.setText(DISPLAY_LIST);
-
-        ObservableList<Node> children = displayLayout.getChildren();
-
-        // remove ListView if exists
-        if (children.get(children.size() - 1) instanceof ListView) {
-            children.remove(children.size() - 1);
-        }
-
-        // add TilePane
-        try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingCardView.fxml"));
-            children.add(root);
-        } catch (IOException e) {
-            System.err.println("Unable to load MeetingCardView.faml");
-            throw new ExceptionInInitializerError(e);
-        }
+    private void changeMeetingContainer(boolean vbox) {
+        displayButton.setText(vbox ? DISPLAY_CARD : DISPLAY_LIST);
+        meetingContainerController.changeContainerPane(vbox);
     }
 
     @FXML
     public void onChangeDisplay(ActionEvent event) {
-        if (displayButton.getText().equals(DISPLAY_LIST))
-            useListView();
-        else
-            useCardView();
+        changeMeetingContainer(displayButton.getText().equals(DISPLAY_LIST));
     }
 }
