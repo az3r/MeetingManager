@@ -39,7 +39,6 @@ public class OverlayController {
 
     @FXML
     void onOverlayFadeIn(MouseEvent event) {
-        overlay.setVisible(true);
         FadeTransition fadein = new FadeTransition(new Duration(100), overlay);
         fadein.setInterpolator(Interpolator.EASE_OUT);
         fadein.setFromValue(0);
@@ -51,7 +50,6 @@ public class OverlayController {
     void onOverlayFadeOut(MouseEvent event) {
         FadeTransition fadeout = new FadeTransition(new Duration(200), overlay);
         fadeout.setInterpolator(Interpolator.EASE_OUT);
-        fadeout.setOnFinished(e -> overlay.setVisible(false));
         fadeout.setFromValue(0.8);
         fadeout.setToValue(0);
         fadeout.play();

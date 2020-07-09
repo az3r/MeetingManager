@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<fx:root fx:id="overlay" onMouseEntered="#onOverlayFadeIn" onMouseExited="#onOverlayFadeOut" styleClass="overlay" stylesheets="@../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.overlay.OverlayController">
+<HBox fx:id="overlay" onMouseEntered="#onOverlayFadeIn" onMouseExited="#onOverlayFadeOut" styleClass="overlay" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.overlay.OverlayController">
    <children>
       <Button fx:id="leftButton" minHeight="50.0" minWidth="160.0" mnemonicParsing="false" styleClass="text-button" text="LeftAction" />
       <Button fx:id="rightButton" minHeight="50.0" minWidth="160.0" mnemonicParsing="false" text="RightAction" />
    </children>
-</fx:root>
+</HBox>
