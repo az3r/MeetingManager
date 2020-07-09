@@ -16,9 +16,10 @@
                   <Insets left="30.0" right="30.0" />
                </padding>
                <left>
-                  <Button fx:id="displayButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onChangeDisplay" prefHeight="40.0" prefWidth="100.0" styleClass="text-button-on-surface" text="List view" BorderPane.alignment="CENTER" />
+                  <Button fx:id="displayButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onChangeDisplay" prefHeight="40.0" prefWidth="160.0" styleClass="text-button-on-surface" text="List view" BorderPane.alignment="CENTER_LEFT" />
                </left>
             </BorderPane>
+            <fx:include fx:id="meetingCollectionContainer" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/MeetingCollectionLayout.fxml" />
          </children>
       </VBox>
    </children>

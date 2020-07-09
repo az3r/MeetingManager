@@ -46,8 +46,8 @@ private static class MeetingItemCell extends ListCell<Meeting> {
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getClassLoader().getResource("views/MeetingItemList.fxml"));
-                Parent root = loader.load();
                 loadModelData(loader.getController(), item);
+                Parent root = loader.load();
                 this.setGraphic(root);
             } catch (IOException e) {
                 System.err.println("Unable to load MeetingItemList.fxml");

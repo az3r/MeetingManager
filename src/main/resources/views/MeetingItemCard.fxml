@@ -90,6 +90,6 @@
             <DropShadow height="15.0" offsetY="4.0" radius="7.0" width="15.0" />
          </effect>
       </VBox>
-      <fx:include source="Overlay.fxml" />
+      <fx:include fx:id="overlay" source="Overlay.fxml" />
    </children>
 </StackPane>

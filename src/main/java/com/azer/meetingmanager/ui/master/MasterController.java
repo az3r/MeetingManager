@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.ui.containers.MeetingCollectionController;
 import com.azer.meetingmanager.ui.topbar.TopbarController;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class MasterController implements Initializable {
@@ -27,7 +29,7 @@ public class MasterController implements Initializable {
     private TopbarController topbarController;
 
     @FXML
-    private VBox displayLayout;
+    private MeetingCollectionController meetingLayoutController;
 
     @FXML
     private Button displayButton;
@@ -44,12 +46,12 @@ public class MasterController implements Initializable {
     }
 
     private void useListView() {
-        displayButton.setText(DISPLAY_LIST);
+        displayButton.setText(DISPLAY_CARD);
 
         ObservableList<Node> children = displayLayout.getChildren();
 
-        // remove GridPane if exists
-        if (children.get(children.size() - 1) instanceof GridPane) {
+        // remove TilePane if exists
+        if (children.get(children.size() - 1) instanceof TilePane) {
             children.remove(children.size() - 1);
 
         }
@@ -65,17 +67,16 @@ public class MasterController implements Initializable {
     }
 
     private void useCardView() {
-        displayButton.setText(DISPLAY_CARD);
+        displayButton.setText(DISPLAY_LIST);
 
         ObservableList<Node> children = displayLayout.getChildren();
 
         // remove ListView if exists
         if (children.get(children.size() - 1) instanceof ListView) {
             children.remove(children.size() - 1);
-
         }
 
-        // add GridPane
+        // add TilePane
         try {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingCardView.fxml"));
             children.add(root);
@@ -87,14 +88,9 @@ public class MasterController implements Initializable {
 
     @FXML
     public void onChangeDisplay(ActionEvent event) {
-        if (displayButton.getText().equals(DISPLAY_LIST)) {
-            displayButton.setText(DISPLAY_CARD);
-            useCardView();
-
-        } else {
-
-            displayButton.setText(DISPLAY_LIST);
+        if (displayButton.getText().equals(DISPLAY_LIST))
             useListView();
-        }
+        else
+            useCardView();
     }
 }

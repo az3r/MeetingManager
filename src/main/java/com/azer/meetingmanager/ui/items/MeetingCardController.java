@@ -26,7 +26,7 @@ public class MeetingCardController implements Initializable {
         for (Meeting meeting : values) {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getClassLoader().getResource("views/MeetingItemList.fxml"));
+                        getClass().getClassLoader().getResource("views/MeetingItemCard.fxml"));
                 loadModelData(loader.getController(), meeting);
                 Parent root = loader.load();
                 meetingTilePane.getChildren().add(root);

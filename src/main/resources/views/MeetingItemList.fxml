@@ -12,7 +12,7 @@
 
 <StackPane styleClass="mee" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
    <children>
-      <fx:include source="Overlay.fxml" />
+      <fx:include fx:id="overlay" source="Overlay.fxml" />
       <VBox>
          <children>
             <HBox alignment="CENTER" spacing="20.0">
