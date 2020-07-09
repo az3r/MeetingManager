@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.items.MeetingItemController;
-import com.azer.meetingmanager.ui.overlay.OverlayController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,8 +37,6 @@ public class MeetingContainerController implements Initializable {
      */
     public void changeContainerPane(boolean vbox) {
 
-        root.getChildrenUnmodifiable().clear();
-
         // HBox item for VBox container; VBox item for TilePane container
         Pane container = vbox ? createVBoxContainer() : createTilePaneContainer();
         String file = vbox ? "views/MeetingItemHBox" : "views/MeetingItemVBox";
@@ -56,6 +53,8 @@ public class MeetingContainerController implements Initializable {
                 throw new ExceptionInInitializerError(e);
             }
         }
+
+        root.setContent(container);
     }
 
     private VBox createVBoxContainer() {
