@@ -23,7 +23,7 @@ public class MeetingContainerController implements Initializable {
     @FXML
     private ScrollPane root;
 
-    private ObservableList<Meeting> items = FXCollections.emptyObservableList();
+    private ObservableList<Meeting> items = FXCollections.observableArrayList(new Meeting(),new Meeting(),new Meeting());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
