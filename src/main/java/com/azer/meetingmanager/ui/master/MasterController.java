@@ -4,150 +4,97 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.topbar.TopbarController;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 public class MasterController implements Initializable {
+
+    private static final String DISPLAY_LIST = "List view";
+    private static final String DISPLAY_CARD = "Card view";
 
     @FXML
     private TopbarController topbarController;
 
     @FXML
-    private ListView<Meeting> meetingListView;
+    private VBox displayLayout;
 
     @FXML
     private Button displayButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        meetingListView.setCellFactory(param -> new MeetingItemCell());
-        meetingListView.setSelectionModel(new NoSelectionModel());
-        meetingListView.setFocusTraversable(false);
-
-        ObservableList<Meeting> values = FXCollections.<Meeting>observableArrayList(new Meeting(),new Meeting());
-        meetingListView.setItems(values);
+        setupTopbar();
+        useListView();
     }
 
-    private static class MeetingItemCell extends ListCell<Meeting> {
+    private void setupTopbar() {
+        topbarController.setTitle("Meetings");
+        topbarController.useLoggedUserTopbar(false);
+    }
 
-        @Override
-        public void updateItem(Meeting item, boolean empty) {
-            super.updateItem(item, empty);
+    private void useListView() {
+        displayButton.setText(DISPLAY_LIST);
 
-            if (empty && item == null) {
-                setText(null);
-                setGraphic(null);
-            } else if (item != null) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingItemList.fxml"));
-                    this.setGraphic(root);
-                } catch (IOException e) {
-                    System.err.println("Unable to load MeetingItemList.fxml");
-                    throw new ExceptionInInitializerError(e);
-                }
-            }
+        ObservableList<Node> children = displayLayout.getChildren();
+
+        // remove GridPane if exists
+        if (children.get(children.size() - 1) instanceof GridPane) {
+            children.remove(children.size() - 1);
+
+        }
+
+        // add ListView
+        try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingListView.fxml"));
+            children.add(root);
+        } catch (IOException e) {
+            System.err.println("Unable to load MeetingListView.faml");
+            throw new ExceptionInInitializerError(e);
         }
     }
 
-    private static class NoSelectionModel extends MultipleSelectionModel<Meeting> {
+    private void useCardView() {
+        displayButton.setText(DISPLAY_CARD);
 
-        @Override
-        public ObservableList<Integer> getSelectedIndices() {
-            return FXCollections.emptyObservableList();
-        }
+        ObservableList<Node> children = displayLayout.getChildren();
 
-        @Override
-        public ObservableList<Meeting> getSelectedItems() {
-            return FXCollections.emptyObservableList();
-        }
-
-        @Override
-        public void selectIndices(int index, int... indices) {
-            // TODO Auto-generated method stub
+        // remove ListView if exists
+        if (children.get(children.size() - 1) instanceof ListView) {
+            children.remove(children.size() - 1);
 
         }
 
-        @Override
-        public void selectAll() {
-            // TODO Auto-generated method stub
-
+        // add GridPane
+        try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/MeetingCardView.fxml"));
+            children.add(root);
+        } catch (IOException e) {
+            System.err.println("Unable to load MeetingCardView.faml");
+            throw new ExceptionInInitializerError(e);
         }
+    }
 
-        @Override
-        public void selectFirst() {
-            // TODO Auto-generated method stub
+    @FXML
+    public void onChangeDisplay(ActionEvent event) {
+        if (displayButton.getText().equals(DISPLAY_LIST)) {
+            displayButton.setText(DISPLAY_CARD);
+            useCardView();
 
-        }
+        } else {
 
-        @Override
-        public void selectLast() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void clearAndSelect(int index) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void select(int index) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void select(Meeting obj) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void clearSelection(int index) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void clearSelection() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public boolean isSelected(int index) {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public void selectPrevious() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void selectNext() {
-            // TODO Auto-generated method stub
-
+            displayButton.setText(DISPLAY_LIST);
+            useListView();
         }
     }
 }

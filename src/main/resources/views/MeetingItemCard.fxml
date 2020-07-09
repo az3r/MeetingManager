@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefWidth="400.0" styleClass="mee" stylesheets="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
+   <children>
+      <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ffffff;" StackPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="photoImageView" fitHeight="160.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/background.jpg" />
+               </image>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </ImageView>
+            <Label styleClass="meeting-item-title" text="meeting title" textAlignment="CENTER" />
+            <VBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/time.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="timeLabel" text="when meeting is taken placed" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/location.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="locationLabel" text="location where meeting is hold" wrapText="true" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/capacity.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="capacityLabel" text="how many people can participate in meeting" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/pending.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="pendingLabel" text="number of pending requests" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+         <effect>
+            <DropShadow height="15.0" offsetY="4.0" radius="7.0" width="15.0" />
+         </effect>
+      </VBox>
+      <fx:include source="Overlay.fxml" />
+   </children>
+</StackPane>

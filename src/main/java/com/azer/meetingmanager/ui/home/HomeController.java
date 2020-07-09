@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
-
 public class HomeController implements Initializable {
 
     @FXML
@@ -28,23 +27,25 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //topbar
+        setupTopbar();
+        setupOverlay();
+
+    }
+
+    private void setupTopbar() {
         topbarController.setTitle("Home");
         topbarController.showBackButton(false);
         topbarController.useLoggedUserTopbar(false);
+    }
 
-        //overlay
+    private void setupOverlay() {
         overlayController.setLeftButtonText("more");
         overlayController.setLeftButtonOnAction(e -> {
-            // open master view
-            MasterView view =  new MasterView();
-            root.getScene().setRoot(view.getRoot());            
-
+            MasterView view = new MasterView();
+            root.getScene().setRoot(view.getRoot());
 
         });
         overlayController.setRightButtonText("detail");
     }
-
-
 
 }

@@ -16,6 +16,11 @@
     -fx-background-color: #f6f6f6;
 }
 
+.seperator {
+    -fx-pref-height: 2;
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
 .popular-meeting {
     -fx-background-image: url("../icons/background.jpg");
     -fx-background-size: stretch;
@@ -123,23 +128,22 @@
 }
 
 
-.meeting-item:hover {
-    -fx-background-color: red;
-}
-
 .meeting-item-title {
     -fx-font-size: 24;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }
 
 .meeting-item-detail {
     -fx-spacing: 10;
 }
 
-.meeting-item-detail Text {
-    -fx-fill: #767676;
+.meeting-item-detail .label {
+    -fx-wrap-text: true;
+    -fx-text-fill: #767676;
     -fx-font-size: 16;
 }
+
 
 .list-view {
     -fx-border-color: transparent;
