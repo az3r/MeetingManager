@@ -5,13 +5,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.items.MeetingItemController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
@@ -60,11 +60,15 @@ public class MeetingContainerController implements Initializable {
 
     private VBox createVBoxContainer() {
         VBox container = new VBox();
-        // container.setAlignment(Pos.CENTER);
         return container;
     }
 
     private TilePane createTilePaneContainer() {
-        return new TilePane();
+        TilePane tilePane = new TilePane();
+        tilePane.setAlignment(Pos.CENTER_LEFT);
+        tilePane.setHgap(30.0);
+        tilePane.setVgap(60.0);
+        tilePane.setPadding(new Insets(30));
+        return tilePane;
     }
 }

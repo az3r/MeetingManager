@@ -87,7 +87,7 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <effect>
-            <DropShadow height="15.0" offsetY="4.0" radius="7.0" width="15.0" />
+            <DropShadow height="5.0" offsetX="1.0" offsetY="4.0" radius="3.25" width="10.0" />
          </effect>
       </VBox>
       <fx:include fx:id="overlay" source="Overlay.fxml" />
