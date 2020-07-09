@@ -63,7 +63,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <StackPane onMouseEntered="#onOverlayFadeIn" prefHeight="150.0" prefWidth="200.0" styleClass="overlay-container" GridPane.rowIndex="1">
+            <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="overlay-container" GridPane.rowIndex="1">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="popular-meeting">
                      <effect>
@@ -84,7 +84,7 @@
             </StackPane>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="300.0" minWidth="100.0" prefWidth="300.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>

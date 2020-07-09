@@ -1,6 +1,6 @@
 .root {
     -fx-background-color: #FCFCFC;
-    -fx-font-size: 16;
+    -fx-font-size: 12;
 }
 .navbar {
     -fx-background-color: #3CB961;
@@ -22,12 +22,12 @@
 }
 
 .popular-meeting-title {
-    -fx-font-size: 40;
+    -fx-font-size: 32;
     -fx-fill: #ffffff;
 }
 
 .popular-meeting-desc {
-    -fx-font-size: 24;
+    -fx-font-size: 20;
     -fx-fill: #DBDBDB;
 }
 
@@ -64,10 +64,10 @@
 }
 
 .headline-4 {
-    -fx-font-size: 40;
+    -fx-font-size: 32;
 }
 .headline-6 {
-    -fx-font-size: 26;
+    -fx-font-size: 20;
 }
 
 .overlay {
