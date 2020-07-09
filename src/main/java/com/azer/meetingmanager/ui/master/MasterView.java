@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 
 public class MasterView implements IParent {
 
-    private Parent root;
+    private Parent root;    
 
     public MasterView() {
 
