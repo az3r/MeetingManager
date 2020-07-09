@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -23,7 +24,7 @@ public class MeetingContainerController implements Initializable {
     @FXML
     private ScrollPane root;
 
-    private ObservableList<Meeting> items = FXCollections.observableArrayList(new Meeting(),new Meeting(),new Meeting());
+    private ObservableList<Meeting> items = FXCollections.observableArrayList(new Meeting(),new Meeting(),new Meeting(),new Meeting(),new Meeting(),new Meeting());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,12 +40,12 @@ public class MeetingContainerController implements Initializable {
 
         // HBox item for VBox container; VBox item for TilePane container
         Pane container = vbox ? createVBoxContainer() : createTilePaneContainer();
-        String file = vbox ? "views/MeetingItemHBox" : "views/MeetingItemVBox";
+        String file = vbox ? "views/MeetingItemHBox.fxml" : "views/MeetingItemVBox.fxml";
 
         for (Meeting meeting : items) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
-                loader.<MeetingItemController>getController().notifyDataChanged(meeting);
+                // loader.<MeetingItemController>getController().notifyDataChanged(meeting);
                 Parent itemRoot = loader.load();
                 container.getChildren().add(itemRoot);
 
@@ -58,7 +59,9 @@ public class MeetingContainerController implements Initializable {
     }
 
     private VBox createVBoxContainer() {
-        return new VBox();
+        VBox container = new VBox();
+        // container.setAlignment(Pos.CENTER);
+        return container;
     }
 
     private TilePane createTilePaneContainer() {

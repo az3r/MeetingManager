@@ -42,7 +42,7 @@ public class OverlayController {
         FadeTransition fadein = new FadeTransition(new Duration(100), overlay);
         fadein.setInterpolator(Interpolator.EASE_OUT);
         fadein.setFromValue(0);
-        fadein.setToValue(0.8);
+        fadein.setToValue(0.9);
         fadein.play();
     }
 
@@ -50,7 +50,7 @@ public class OverlayController {
     void onOverlayFadeOut(MouseEvent event) {
         FadeTransition fadeout = new FadeTransition(new Duration(200), overlay);
         fadeout.setInterpolator(Interpolator.EASE_OUT);
-        fadeout.setFromValue(0.8);
+        fadeout.setFromValue(0.9);
         fadeout.setToValue(0);
         fadeout.play();
     }
