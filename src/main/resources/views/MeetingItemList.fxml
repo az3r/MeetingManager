@@ -1,88 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <StackPane styleClass="mee" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="meeting-item">
+      <VBox spacing="15.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@../icons/background.jpg" />
-               </image>
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </ImageView>
-            <VBox alignment="CENTER_LEFT" spacing="20.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="meeting-item">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="meeting-item-title" text="Meeting title" />
-                  <VBox spacing="10.0">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                     <image>
+                        <Image url="@../icons/background.jpg" />
+                     </image>
+                     <effect>
+                        <ColorAdjust />
+                     </effect>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="meeting-item-title" text="Meeting title" />
+                        <VBox spacing="10.0">
                            <children>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/time.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="0.6" />
-                                 </effect>
-                              </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
+                              <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/time.png" />
+                                       </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.6" />
+                                       </effect>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/location.png" />
+                                       </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.6" />
+                                       </effect>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/capacity.png" />
+                                       </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.6" />
+                                       </effect>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                                 <children>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/pending.png" />
+                                       </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.6" />
+                                       </effect>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/location.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="0.6" />
-                                 </effect>
-                              </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/capacity.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="0.6" />
-                                 </effect>
-                              </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/pending.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="0.6" />
-                                 </effect>
-                              </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="when meeting is taken placed" />
-                           </children>
-                        </HBox>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
-            </VBox>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </HBox>
+            <Pane prefHeight="2.0" style="-fx-background-color: #00000003;;" />
          </children>
-      </HBox>
+      </VBox>
       <fx:include source="Overlay.fxml" />
    </children>
 </StackPane>
