@@ -59,4 +59,13 @@ public class TopbarController implements Initializable {
         titleText.setText(title);
     }
 
+        /**
+     * true = display logged in user topbar,
+     * false = display guess topbar
+     */
+    public void useLoggedUserTopbar(boolean loggedUserTopbar) {
+        showAccountButton(loggedUserTopbar);
+        showSignUpButton(!loggedUserTopbar);
+        showLoginButton(!loggedUserTopbar);
+    }
 }

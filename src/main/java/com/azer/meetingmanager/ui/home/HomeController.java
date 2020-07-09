@@ -30,8 +30,8 @@ public class HomeController implements Initializable {
 
         //topbar
         topbarController.setTitle("Home");
-        topbarController.showAccountButton(false);
         topbarController.showBackButton(false);
+        topbarController.useLoggedUserTopbar(false);
 
         //overlay
         overlayController.setLeftButtonText("more");
@@ -43,7 +43,6 @@ public class HomeController implements Initializable {
 
         });
         overlayController.setRightButtonText("detail");
-
     }
 
 

@@ -8,7 +8,7 @@
 
 .navbar-title {
     -fx-fill: #ffffff;
-    -fx-font-size: 30;
+    -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 
@@ -73,7 +73,7 @@
 .overlay {
     -fx-alignment: CENTER;
     -fx-background-color: #000000;
-    visibility: true;
+    -fx-opacity: 0;
 }
 
 .icon-button {
