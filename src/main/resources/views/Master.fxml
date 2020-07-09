@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.master.MasterController">
    <children>
       <fx:include fx:id="topbar" source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Button fx:id="switchButton" layoutX="663.0" layoutY="517.0" mnemonicParsing="false" onAction="#onSwitchTopbar" styleClass="primary-button" text="switch topbar" />
+      <VBox layoutX="350.0" layoutY="255.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <BorderPane prefHeight="60.0" VBox.vgrow="NEVER">
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+               <left>
+                  <Button fx:id="displayButton" contentDisplay="RIGHT" mnemonicParsing="false" styleClass="text-button-on-surface" text="List view" BorderPane.alignment="CENTER" />
+               </left>
+               <bottom>
+                  <fx:include source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/MeetingItemList.fxml" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

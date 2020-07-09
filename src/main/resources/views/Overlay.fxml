@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+
+
+<fx:root fx:id="overlay" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="overlay" stylesheets="@../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.overlay.OverlayController">
+   <children>
+      <Button fx:id="leftButton" mnemonicParsing="false" styleClass="text-button" text="LeftAction" />
+      <Button fx:id="rightButton" mnemonicParsing="false" text="RightAction" />
+   </children>
+</fx:root>
