@@ -43,12 +43,12 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
-            <Button fx:id="signUpButton" mnemonicParsing="false" text="Sign up" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" text="Login" />
+            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#onSignup" text="Sign up" />
             <MenuButton fx:id="accountButton" mnemonicParsing="false" styleClass="menu-button-account">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" onAction="#onOpenAccount" text="My account" />
+                  <MenuItem mnemonicParsing="false" onAction="#onLogOut" text="Log out" />
               </items>
             </MenuButton>
          </children>

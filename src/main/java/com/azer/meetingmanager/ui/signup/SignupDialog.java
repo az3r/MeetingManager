@@ -6,11 +6,11 @@ import com.azer.meetingmanager.ui.IParent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-public class SignupView implements IParent {
+public class SignupDialog implements IParent {
 
     private Parent root;    
 
-    public SignupView() {
+    public SignupDialog() {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Signup.fxml"));

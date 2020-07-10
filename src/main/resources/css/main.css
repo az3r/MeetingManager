@@ -105,6 +105,10 @@
     -fx-padding: 10;
 }
 
+.menu-item {
+    -fx-padding: 10;
+}
+
 .menu-button-account .arrow-button .arrow{
     -fx-pref-width: 40; 
     -fx-pref-height: 40;
