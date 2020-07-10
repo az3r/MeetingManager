@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.ui.items.MeetingItemController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,8 +46,9 @@ public class MeetingContainerController implements Initializable {
         for (Meeting meeting : items) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
-                // loader.<MeetingItemController>getController().notifyDataChanged(meeting);
                 Parent itemRoot = loader.load();
+                MeetingItemController controller = loader.getController();
+                controller.notifyDataChanged(meeting);
                 container.getChildren().add(itemRoot);
 
             } catch (IOException e) {

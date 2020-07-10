@@ -46,7 +46,7 @@ public class MeetingItemController implements Initializable {
     }
 
     private void inflate(Meeting data) {
-        boolean hasPhoto = data.getPhoto().equals(null);
+        boolean hasPhoto = data.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
     }
