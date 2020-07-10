@@ -1,12 +1,9 @@
 package com.azer.meetingmanager.ui.topbar;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.ui.login.LoginController;
-import com.azer.meetingmanager.ui.login.LoginDialog;
 import com.azer.meetingmanager.ui.signup.SignupController;
 
 import javafx.event.ActionEvent;
