@@ -15,7 +15,7 @@
 
 <AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.detail.MeetingDetailController">
    <children>
-      <fx:include prefHeight="80.0" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <fx:include fx:id="topbar" prefHeight="80.0" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ScrollPane fitToWidth="true" hvalue="0.5" pannable="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <content>
             <VBox alignment="CENTER" prefWidth="1000.0" spacing="30.0" style="-fx-background-color: #ffffff;">
@@ -45,7 +45,7 @@
                   </VBox>
                   <VBox fillWidth="false" spacing="15.0" style="-fx-background-color: #ffffff;">
                      <children>
-                        <HBox fx:id="timeLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
                            <children>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -58,7 +58,7 @@
                               <Label fx:id="timeLabel" text="when meeting is taken placed" />
                            </children>
                         </HBox>
-                        <HBox fx:id="locationLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
                            <children>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -71,7 +71,7 @@
                               <Label fx:id="locationLabel" text="location where meeting is hold" wrapText="true" />
                            </children>
                         </HBox>
-                        <HBox fx:id="capacityLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
                            <children>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -84,7 +84,7 @@
                               <Label fx:id="capacityLabel" text="how many people can participate in meeting" />
                            </children>
                         </HBox>
-                        <HBox fx:id="pendingLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                        <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
                            <children>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

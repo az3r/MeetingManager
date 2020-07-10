@@ -54,7 +54,7 @@ public class MeetingItemController implements Initializable {
         overlayController.setLeftButtonText("Detail");
         overlayController.setRightButtonText("Register");
         overlayController.setLeftButtonOnAction(e -> {
-            MeetingDetailView view = new MeetingDetailView(data);
+            MeetingDetailView view = new MeetingDetailView(data, timeLabel.getScene().getRoot());
             timeLabel.getScene().setRoot(view.getRoot());
         });
         overlayController.setRightButtonOnAction(e -> {

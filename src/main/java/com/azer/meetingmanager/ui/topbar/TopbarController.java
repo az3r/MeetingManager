@@ -3,6 +3,8 @@ package com.azer.meetingmanager.ui.topbar;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +16,9 @@ public class TopbarController implements Initializable {
 
     @FXML
     private Button backButton;
+
+    @FXML
+    private Button searchButton;
 
     @FXML
     private Text titleText;
@@ -36,7 +41,8 @@ public class TopbarController implements Initializable {
         loginButton.managedProperty().bind(loginButton.visibleProperty());
         signUpButton.managedProperty().bind(signUpButton.visibleProperty());
         accountButton.managedProperty().bind(accountButton.visibleProperty());
-
+        searchButton.managedProperty().bind(searchButton.visibleProperty());
+        searchView.visibleProperty().bind(searchButton.visibleProperty());
     }
 
     public void showBackButton(boolean visible) {
@@ -55,13 +61,20 @@ public class TopbarController implements Initializable {
         accountButton.setVisible(visible);
     }
 
+    public void showSearchOption(boolean visible) {
+        searchButton.setVisible(visible);
+    }
+
     public void setTitle(String title) {
         titleText.setText(title);
     }
 
-        /**
-     * true = display logged in user topbar,
-     * false = display guess topbar
+    public void setOnBackAction(EventHandler<ActionEvent> handler) {
+        backButton.setOnAction(handler);
+    }
+
+    /**
+     * true = display logged in user topbar, false = display guess topbar
      */
     public void useLoggedUserTopbar(boolean loggedUserTopbar) {
         showAccountButton(loggedUserTopbar);

@@ -12,12 +12,13 @@ public class MeetingDetailView implements IParent {
 
     private Parent root;
 
-    public MeetingDetailView(Meeting meeting) {
+    public MeetingDetailView(Meeting meeting, Parent previousRoot) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/MeetingDetail.fxml"));
             root = loader.load();
             MeetingDetailController controller = loader.getController();
             controller.notifyDataChanged(meeting);
+            controller.setPreviousNode(previousRoot);
         } catch (IOException e) {
             System.err.println(e);
             throw new ExceptionInInitializerError(e);
