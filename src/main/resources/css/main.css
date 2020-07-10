@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #FCFCFC;
+    -fx-background-color: #FAFAFA;
     -fx-font-size: 12;
 }
 .navbar {
@@ -154,6 +154,12 @@
     -fx-background-color: transparent
 }
 
-.list-cell:selected {
-    
+.photo-empty-pane {
+    -fx-background-color: #ddd;
+}
+
+.photo-empty-pane > .label {
+    -fx-wrap: true;
+    -fx-text-fill: rgba(0, 0, 0, 0.2);
+    -fx-font-size: 48;
 }

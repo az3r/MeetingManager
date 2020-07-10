@@ -1,10 +1,9 @@
-package com.azer.meetingmanager.ui.items;
+package com.azer.meetingmanager.ui.detail;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.overlay.OverlayController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,13 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-public class MeetingItemController implements Initializable {
-
-    @FXML
-    private OverlayController overlayController;
+public class MeetingDetailController implements Initializable {
 
     @FXML
     private ImageView photoImageView;
+
+    @FXML
+    private Label titleLabel;
 
     @FXML
     private Label timeLabel;
@@ -33,13 +32,10 @@ public class MeetingItemController implements Initializable {
     private Label pendingLabel;
 
     @FXML
-    private StackPane photoEmptyPane;
+    private Label detailLabel;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        photoEmptyPane.prefWidthProperty().bind(photoImageView.fitWidthProperty());
-        photoEmptyPane.prefHeightProperty().bind(photoImageView.fitHeightProperty());
-    }
+    @FXML
+    private StackPane photoEmptyPane;
 
     public void notifyDataChanged(Meeting data) {
         inflate(data);
@@ -51,4 +47,9 @@ public class MeetingItemController implements Initializable {
         photoImageView.setVisible(hasPhoto);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        photoEmptyPane.prefWidthProperty().bind(photoImageView.fitWidthProperty());
+        photoEmptyPane.prefHeightProperty().bind(photoImageView.fitHeightProperty());
+    }
 }

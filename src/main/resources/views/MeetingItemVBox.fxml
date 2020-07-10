@@ -10,18 +10,27 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefWidth="400.0" styleClass="mee" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
+<StackPane prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.items.MeetingItemController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ffffff;" StackPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="photoImageView" fitHeight="160.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/background.jpg" />
-               </image>
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </ImageView>
+            <StackPane>
+               <children>
+                  <StackPane fx:id="photoEmptyPane" styleClass="photo-empty-pane">
+                     <children>
+                        <Label text="Empty photo" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <ImageView fx:id="photoImageView" fitHeight="160.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/background.jpg" />
+                     </image>
+                     <effect>
+                        <ColorAdjust />
+                     </effect>
+                  </ImageView>
+               </children>
+            </StackPane>
             <Label styleClass="meeting-item-title" text="meeting title" textAlignment="CENTER" />
             <VBox alignment="CENTER" spacing="10.0">
                <children>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.detail.MeetingDetailController">
+   <children>
+      <fx:include prefHeight="80.0" source="../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/views/Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ScrollPane fitToWidth="true" hvalue="0.5" pannable="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <content>
+            <VBox alignment="CENTER" prefWidth="1000.0" spacing="30.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <StackPane fx:id="photoEmptyPane" styleClass="photo-empty-pane">
+                                 <children>
+                                    <Label text="Empty photo" textAlignment="CENTER" />
+                                 </children>
+                              </StackPane>
+                              <ImageView fx:id="photoImageView" fitHeight="300.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/background.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </StackPane>
+                        <Label fx:id="titleLabel" styleClass="meeting-item-title" text="Meeting title">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fillWidth="false" spacing="15.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <HBox fx:id="timeLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/time.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.6" />
+                                 </effect>
+                              </ImageView>
+                              <Label fx:id="timeLabel" text="when meeting is taken placed" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="locationLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/location.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.6" />
+                                 </effect>
+                              </ImageView>
+                              <Label fx:id="locationLabel" text="location where meeting is hold" wrapText="true" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="capacityLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/capacity.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.6" />
+                                 </effect>
+                              </ImageView>
+                              <Label fx:id="capacityLabel" text="how many people can participate in meeting" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="pendingLabel" alignment="CENTER_LEFT" styleClass="meeting-item-detail">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/pending.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="0.6" />
+                                 </effect>
+                              </ImageView>
+                              <Label fx:id="pendingLabel" text="number of pending requests" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                  </VBox>
+                  <Label fx:id="detailLabel" alignment="CENTER" lineSpacing="5.0" text="In Harry’s world fate works not only through powers and objects such as prophecies, the Sorting Hat, wands, and the Goblet of Fire, but also through people. Repeatedly, other characters decide Harry’s future for him, depriving him of freedom and choice. For example, before his eleventh birthday, the Dursleys control Harry’s life, keeping from him knowledge of his past and understanding of his identity (Sorcerer’s 49). In Harry Potter and the Chamber of Secrets, Dobby repeatedly assumes control over events by intercepting Ron’s and Hermione’s letters during the summer; by sealing the barrier to Platform 93⁄4, causing Harry to miss the Hogwarts Express; and by sending a Bludger after Harry in a Quidditch match, breaking his wrist. Yet again, in Harry Potter and the Prisoner of Azkaban, many adults intercede while attempting to protect Harry from perceived danger, as Snape observes: “Everyone from the Minister of Magic downward has been trying to keep famous Harry Potter safe from Sirius Black” (284). All these characters, as enactors of fate, unknowingly drive Harry toward his destiny by attempting to control or to direct his life, while themselves controlled and directed by fate." wrapText="true" />
+               </children>
+            </VBox>
+         </content>
+         <padding>
+            <Insets bottom="30.0" left="60.0" right="60.0" top="30.0" />
+         </padding>
+      </ScrollPane>
+   </children>
+</AnchorPane>
