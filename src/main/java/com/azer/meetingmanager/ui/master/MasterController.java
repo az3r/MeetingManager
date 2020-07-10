@@ -33,7 +33,7 @@ public class MasterController implements Initializable {
 
     private void setupTopbar() {
         topbarController.setTitle("Meetings");
-        topbarController.useLoggedUserTopbar(false);
+        topbarController.useTopbarType(false);
         topbarController.showBackButton(false);
     }
 

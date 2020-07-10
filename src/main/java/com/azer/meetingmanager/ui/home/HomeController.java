@@ -35,7 +35,7 @@ public class HomeController implements Initializable {
     private void setupTopbar() {
         topbarController.setTitle("Home");
         topbarController.showBackButton(false);
-        topbarController.useLoggedUserTopbar(false);
+        topbarController.useTopbarType(false);
     }
 
     private void setupOverlay() {

@@ -1,5 +1,6 @@
 package com.azer.meetingmanager;
 
+import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.home.HomeView;
 import com.azer.meetingmanager.ui.master.MasterView;
 
@@ -25,7 +26,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Meetings Manager");
-        Scene scene = new Scene(new HomeView().getRoot(), 1000, 800);
+        Scene scene = new Scene(new HomeView().getRoot(), 1200, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

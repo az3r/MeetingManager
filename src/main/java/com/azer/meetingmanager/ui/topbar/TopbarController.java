@@ -1,19 +1,26 @@
 package com.azer.meetingmanager.ui.topbar;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.ui.login.LoginController;
 import com.azer.meetingmanager.ui.login.LoginDialog;
+import com.azer.meetingmanager.ui.signup.SignupController;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopbarController implements Initializable {
@@ -39,6 +46,12 @@ public class TopbarController implements Initializable {
     @FXML
     private TextField searchView;
 
+    private Parent loginRoot;
+    private LoginController loginController;
+
+    private Parent signupRoot;
+    private SignupController signupController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backButton.managedProperty().bind(backButton.visibleProperty());
@@ -57,6 +70,25 @@ public class TopbarController implements Initializable {
     @FXML
     void onLogin(ActionEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Login.fxml"));
+            loginRoot = loader.load();
+            this.loginController = loader.getController();
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+        if (loginController != null && loginRoot != null) {
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(loginRoot));
+            stage.initOwner(backButton.getScene().getWindow());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            useTopbarType(loginController.getUser() != null);
+        }
     }
 
     @FXML
@@ -76,10 +108,8 @@ public class TopbarController implements Initializable {
      */
     private void openDialog(boolean loginDialog) {
 
-        LoginDialog dialog = new LoginDialog((Stage) backButton.getScene().getWindow());
-
-
     }
+
     public void showBackButton(boolean visible) {
         backButton.setVisible(visible);
     }
@@ -111,9 +141,13 @@ public class TopbarController implements Initializable {
     /**
      * true = display logged in user topbar, false = display guess topbar
      */
-    public void useLoggedUserTopbar(boolean loggedUserTopbar) {
+    public void useTopbarType(boolean loggedUserTopbar) {
         showAccountButton(loggedUserTopbar);
         showSignUpButton(!loggedUserTopbar);
         showLoginButton(!loggedUserTopbar);
+    }
+
+    public void showLoginDialog() {
+
     }
 }
