@@ -18,7 +18,7 @@
       <VBox>
          <children>
             <Label text="Your username" />
-            <TextField fx:id="usernameTextField" />
+            <TextField fx:id="userNameTextField" />
          </children>
       </VBox>
       <VBox>

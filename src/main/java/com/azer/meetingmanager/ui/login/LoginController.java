@@ -47,7 +47,7 @@ public class LoginController {
      * <p>if {@link LoginController#onCancel()} is called before this function then null is returned</p>
      * <p>if {@link LoginController#onLogin()} is called before this function then an {@link User} instance is returned when all inputs are valid, otherwise null is returned</p>
      * 
-     * @return
+     * @return either null or an instance of {@link User}
      */
     public User getUser(){
         return user;
