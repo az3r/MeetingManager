@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.ui.detail.MeetingDetailView;
 import com.azer.meetingmanager.ui.overlay.OverlayController;
 
 import javafx.fxml.FXML;
@@ -35,17 +36,38 @@ public class MeetingItemController implements Initializable {
     @FXML
     private StackPane photoEmptyPane;
 
+    private Meeting data;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        setupPhoPane();
+        setupOverlay();
+    }
+
+    private void setupPhoPane() {
         photoEmptyPane.prefWidthProperty().bind(photoImageView.fitWidthProperty());
         photoEmptyPane.prefHeightProperty().bind(photoImageView.fitHeightProperty());
     }
 
-    public void notifyDataChanged(Meeting data) {
-        inflate(data);
+    private void setupOverlay() {
+        overlayController.setLeftButtonText("Detail");
+        overlayController.setRightButtonText("Register");
+        overlayController.setLeftButtonOnAction(e -> {
+            MeetingDetailView view = new MeetingDetailView(data);
+            timeLabel.getScene().setRoot(view.getRoot());
+        });
+        overlayController.setRightButtonOnAction(e -> {
+
+        });
     }
 
-    private void inflate(Meeting data) {
+    public void notifyDataChanged(Meeting data) {
+        this.data = data;
+        inflate();
+    }
+
+    private void inflate() {
         boolean hasPhoto = data.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
