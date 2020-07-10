@@ -21,6 +21,10 @@ public class SignupController {
     @FXML
     private TextField passwordTextField;
 
+    @FXML
+    private TextField confirmPasswordTextField;
+
+
     private User user;
 
     @FXML

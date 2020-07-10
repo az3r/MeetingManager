@@ -42,7 +42,7 @@
       <VBox>
          <children>
             <Label text="Confirm password" />
-            <TextField fx:id="passwordTextField" />
+            <TextField fx:id="confirmPasswordTextField" />
          </children>
       </VBox>
       <HBox alignment="CENTER_RIGHT">
