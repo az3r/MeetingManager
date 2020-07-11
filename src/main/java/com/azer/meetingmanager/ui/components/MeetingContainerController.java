@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
@@ -18,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -27,16 +29,19 @@ public class MeetingContainerController implements Initializable, ListChangeList
     @FXML
     private ScrollPane root;
 
-    private Pane container = createVBoxContainer();
+    private Pane container;
+    private VBox vboxLayout = createVBoxContainer();
+    private TilePane tilePaneLayout = createTilePaneContainer();
     private String file = "views/MeetingItemHBox.fxml";
     private ObservableList<Meeting> items = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        container = vboxLayout;
         items.addListener(this);
         items.setAll(Arrays.asList(new Meeting(), new Meeting(), new Meeting(), new Meeting(), new Meeting(),
                 new Meeting()));
-        items.addAll(Arrays.asList(new Meeting(), new Meeting()));
+        items.remove(2, 4);
     }
 
     /**
@@ -45,18 +50,19 @@ public class MeetingContainerController implements Initializable, ListChangeList
      * @param vbox true = use VBox, otherwise use TilePane
      */
     public void changeContainerPane(boolean vbox) {
-
         // HBox item for VBox container; VBox item for TilePane container
-        container = vbox ? createVBoxContainer() : createTilePaneContainer();
+        container = vbox ? vboxLayout : tilePaneLayout;
         file = vbox ? "views/MeetingItemHBox.fxml" : "views/MeetingItemVBox.fxml";
+        if (container.getChildren().isEmpty()) addToContainer(items);
+        root.setContent(container);
     }
 
-    private VBox createVBoxContainer() {
+    private static VBox createVBoxContainer() {
         VBox container = new VBox();
         return container;
     }
 
-    private TilePane createTilePaneContainer() {
+    private static TilePane createTilePaneContainer() {
         TilePane tilePane = new TilePane();
         tilePane.setAlignment(Pos.CENTER_LEFT);
         tilePane.setHgap(30.0);
@@ -69,7 +75,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
         this.items.setAll(collection);
     }
 
-    private void inflateContainer() {
+    private void addToContainer(List<? extends Meeting> collection) {
         for (Meeting meeting : items) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
@@ -78,17 +84,25 @@ public class MeetingContainerController implements Initializable, ListChangeList
                 controller.notifyDataChanged(meeting);
                 container.getChildren().add(itemRoot);
 
-            } catch (IOException e) {
-                System.err.println("Unable to load MeetingItem.fxml");
+            } catch (Exception e) {
+                System.err.println(e);
                 throw new ExceptionInInitializerError(e);
             }
         }
     }
 
+    private void removeFromContainer(int fromInclusive, int size) {
+    }
+
     @Override
     public void onChanged(Change<? extends Meeting> c) {
         c.next();
-        System.out.println(String.format("from %d to %d", c.getFrom(), c.getTo()));
+
+        if (c.wasAdded()) {
+            addToContainer(c.getAddedSubList());
+        } else if (c.wasRemoved()) {
+            removeFromContainer(c.getFrom(), c.getRemovedSize());
+        }
         // update list in UI
         // inflateContainer();
     }

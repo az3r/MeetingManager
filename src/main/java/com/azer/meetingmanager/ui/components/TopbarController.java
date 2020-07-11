@@ -126,6 +126,15 @@ public class TopbarController implements Initializable {
         backButton.setOnAction(handler);
     }
 
+    public void setOnSearchAction(EventHandler<ActionEvent> handler) {
+        searchButton.setOnAction(handler);
+    }
+
+    public String getSearchQuery() {
+        return searchView.getText();
+    }
+
+
     public Stage getStage(){
         return (Stage) getScene().getWindow();
     }
