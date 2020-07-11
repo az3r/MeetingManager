@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.data.MeetingFilterOption;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
@@ -59,13 +60,13 @@ public class TopbarController implements Initializable {
         Optional<ButtonType> result = new Alert(AlertType.CONFIRMATION, "Are you sure you want to log out?",
                 ButtonType.YES, ButtonType.NO).showAndWait();
         if (result.get() == ButtonType.YES) {
-            // TODO logout
+            useTopbarType(false);
         }
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-        DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) backButton.getScene().getWindow());
+        DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", getStage());
         loader.showAndWait(loginCallback);
     }
 
@@ -76,7 +77,7 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onSignup(ActionEvent event) {
-        DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", (Stage) backButton.getScene().getWindow());
+        DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", getStage());
         loader.showAndWait(signUpCallback);
     }
 
@@ -117,16 +118,15 @@ public class TopbarController implements Initializable {
         showLoginButton(!loggedUserTopbar);
     }
 
-    public void showLoginDialog() {
-
+    public Stage getStage(){
+        return (Stage) backButton.getScene().getWindow();
     }
 
     private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
 
         @Override
         public void onCompleted(User result) {
-            // TODO Auto-generated method stub
-
+            useTopbarType(true);
         }
 
         @Override
