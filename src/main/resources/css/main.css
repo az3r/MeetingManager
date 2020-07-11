@@ -83,7 +83,7 @@
 
 .icon-button {
     -fx-background-color: transparent;
-    -fx-fill: transparent;
+    -fx-text-fill: #000000;
 }
 
 
@@ -166,4 +166,8 @@
     -fx-wrap: true;
     -fx-text-fill: rgba(0, 0, 0, 0.2);
     -fx-font-size: 48;
+}
+
+.user-input-layout .label {
+    -fx-font-weight: bold;
 }

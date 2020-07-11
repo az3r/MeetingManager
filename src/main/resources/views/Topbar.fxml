@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -56,6 +57,7 @@
             <MenuButton fx:id="accountButton" mnemonicParsing="false" styleClass="menu-button-account">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onOpenAccount" text="My account" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#onLogOut" text="Log out" />
               </items>
             </MenuButton>

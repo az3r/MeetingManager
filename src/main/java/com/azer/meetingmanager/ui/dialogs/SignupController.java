@@ -1,4 +1,4 @@
-package com.azer.meetingmanager.ui.signup;
+package com.azer.meetingmanager.ui.dialogs;
 
 import com.azer.meetingmanager.data.models.User;
 

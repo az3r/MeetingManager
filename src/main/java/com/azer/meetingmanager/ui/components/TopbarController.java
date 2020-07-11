@@ -1,10 +1,10 @@
-package com.azer.meetingmanager.ui.topbar;
+package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.ui.login.LoginController;
-import com.azer.meetingmanager.ui.signup.SignupController;
+import com.azer.meetingmanager.ui.dialogs.LoginController;
+import com.azer.meetingmanager.ui.dialogs.SignupController;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -2,8 +2,11 @@ package com.azer.meetingmanager.ui.account;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class AccountController {
@@ -43,7 +46,22 @@ public class AccountController {
     }
 
     @FXML
+    void onOpenFilter(MouseEvent event) {
+
+    }
+
+    @FXML
     void onSave(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSortByLatest(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSortbyAlphabet(ActionEvent event) {
 
     }
 

@@ -1,4 +1,4 @@
-package com.azer.meetingmanager.ui.overlay;
+package com.azer.meetingmanager.ui.components;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
