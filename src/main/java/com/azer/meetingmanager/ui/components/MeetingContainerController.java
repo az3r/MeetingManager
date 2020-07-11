@@ -40,6 +40,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
         items.setAll(Arrays.asList(new Meeting(), new Meeting(), new Meeting(), new Meeting(), new Meeting(),
                 new Meeting()));
         items.remove(2, 4);
+        changeContainerPane(true);
     }
 
     /**
