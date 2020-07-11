@@ -29,11 +29,11 @@ public class OverlayController {
         rightButton.setText(value.toUpperCase());
     }
 
-    public void setLeftButtonOnAction(EventHandler<ActionEvent> handler) {
+    public void setLeftButtonAction(EventHandler<ActionEvent> handler) {
         leftButton.setOnAction(handler);
     }
 
-    public void setRightButtonOnAction(EventHandler<ActionEvent> handler) {
+    public void setRightButtonAction(EventHandler<ActionEvent> handler) {
         rightButton.setOnAction(handler);
     }
 

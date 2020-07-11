@@ -20,6 +20,19 @@ public class AdminMeetingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
+        setupMeetingItem();
+    }
+
+    private void setupMeetingItem() {
+        meetingContainerController.setLeftButtonText("Edit");
+        meetingContainerController.setLeftButtonListener(value -> {
+
+        });
+
+        meetingContainerController.setRightButtonText("Accept all");
+        meetingContainerController.setRightButtonListener(value -> {
+
+        });
 
     }
 

@@ -67,6 +67,7 @@ public class MeetingDetailController implements Initializable {
 
     private void setupTopbar() {
         topbarController.showSearchOption(false);
+        topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
             timeLabel.getScene().setRoot(previousParent);
         });

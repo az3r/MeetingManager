@@ -4,9 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.ui.OnItemActionListener;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -64,12 +63,12 @@ public class MeetingItemController implements Initializable {
         overlayController.setRightButtonText(text);
     }
 
-    public void setLeftButtonAction(EventHandler<ActionEvent> handler) {
-        overlayController.setLeftButtonOnAction(handler);
+    public void setLeftButtonAction(OnItemActionListener<Meeting> listener, Meeting value) {
+        overlayController.setLeftButtonAction(e -> listener.onAction(value));
     }
 
-    public void setRightButtonAction(EventHandler<ActionEvent> handler) {
-        overlayController.setRightButtonOnAction(handler);
+    public void setRightButtonAction(OnItemActionListener<Meeting> listener, Meeting value) {
+        overlayController.setRightButtonAction(e -> listener.onAction(value));
     }
 
 

@@ -7,14 +7,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.ui.OnItemActionListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.detail.MeetingDetailController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,8 +33,8 @@ public class MeetingContainerController implements Initializable, ListChangeList
     // propperties for each meeting item
     private String leftButtonText;
     private String rightButtonText;
-    private EventHandler<ActionEvent> leftButtonAction;
-    private EventHandler<ActionEvent> rightButtonAction;
+    private OnItemActionListener<Meeting> leftButtonListener;
+    private OnItemActionListener<Meeting> rightButtonListener;
 
     // container propperties
     private Pane container;
@@ -61,24 +60,24 @@ public class MeetingContainerController implements Initializable, ListChangeList
      * Default behavior of each meeting item
      */
     private void setupItemDefault() {
-        setItemLeftButtonText("Detail");
-        setItemRightButtonText("Register");
-        setItemLeftButtonAction(e -> {
+        setLeftButtonText("Detail");
+        setRightButtonText("Register");
+        setLeftButtonListener(e -> {
             ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
                     root.getScene().getRoot());
             loader.getController().setPreviousParent(loader.getPreviousParent());
             root.getScene().setRoot(loader.getRoot());
         });
-        setItemRightButtonAction(e -> {
+        setRightButtonListener(e -> {
 
         });
     }
 
-    private void bindItemBehavior(MeetingItemController controller) {
+    private void bindItemBehavior(MeetingItemController controller, Meeting value) {
         controller.setLeftButtonText(leftButtonText);
         controller.setRightButtonText(rightButtonText);
-        controller.setLeftButtonAction(leftButtonAction);
-        controller.setRightButtonAction(rightButtonAction);
+        controller.setLeftButtonAction(leftButtonListener, value);
+        controller.setRightButtonAction(rightButtonListener, value);
     }
 
     private Parent createMeetingItemNode(Meeting meeting) {
@@ -87,7 +86,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
             node = loader.load();
             MeetingItemController controller = loader.getController();
-            bindItemBehavior(controller);
+            bindItemBehavior(controller, meeting);
             controller.notifyDataChanged(meeting);
 
         } catch (Exception e) {
@@ -124,20 +123,20 @@ public class MeetingContainerController implements Initializable, ListChangeList
         this.items.setAll(collection);
     }
 
-    public void setItemLeftButtonText(String text) {
+    public void setLeftButtonText(String text) {
         this.leftButtonText = text;
     }
 
-    public void setItemRightButtonText(String text) {
+    public void setRightButtonText(String text) {
         this.rightButtonText = text;
     }
 
-    public void setItemLeftButtonAction(EventHandler<ActionEvent> handler) {
-        this.leftButtonAction = handler;
+    public void setLeftButtonListener(OnItemActionListener<Meeting> listener) {
+        this.leftButtonListener = listener;
     }
 
-    public void setItemRightButtonAction(EventHandler<ActionEvent> handler) {
-        this.rightButtonAction = handler;
+    public void setRightButtonListener(OnItemActionListener<Meeting> listener) {
+        this.rightButtonListener = listener;
     }
 
     private void addToContainer(List<? extends Meeting> collection) {
