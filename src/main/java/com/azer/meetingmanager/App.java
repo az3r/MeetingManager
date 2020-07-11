@@ -15,14 +15,20 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static SessionFactory sessionFactory;
+    private static Application app = null;
 
     public static void main(String[] args) {
 
         launch(args);
     }
 
+    public static Application getInstance(){
+        return app;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        app = this;
 
         primaryStage.setTitle("Meetings Manager");
         ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
