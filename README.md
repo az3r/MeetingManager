@@ -14,8 +14,11 @@ Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](http
   
 
 ## Project's info
-![use cases](https://github.com/Az3r/MeetingManager/blob/master/document/use-case.png "Use case diagram")
-
+### Requirement
 [requirement](https://github.com/Az3r/MeetingManager/blob/master/document/requirement.pdf)
 
+### Use case diagram
+![use cases](https://github.com/Az3r/MeetingManager/blob/master/document/use-case.png "Use case diagram")
+
+### Prototype
 [figma prototype](https://www.figma.com/file/uHQH9yLd98ozFIYeMp0gET/Javafx?node-id=0%3A1)
