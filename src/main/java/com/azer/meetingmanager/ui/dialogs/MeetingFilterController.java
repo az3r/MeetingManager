@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.MeetingFilterOption;
-import com.azer.meetingmanager.ui.components.MeetingContainerController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

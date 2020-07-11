@@ -9,6 +9,7 @@ import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.account.AccountController;
+import com.azer.meetingmanager.ui.home.HomeController;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -78,8 +79,15 @@ public class TopbarController implements Initializable {
     }
 
     @FXML
+    void onOpenHome(ActionEvent event) {
+        ViewLoader<HomeController> loader = new  ViewLoader<>("views/Home.fxml", getParentRoot());
+        getScene().setRoot(loader.getRoot());
+    }
+
+    @FXML
     void onOpenAccount(ActionEvent event) {
-        ViewLoader<AccountController> loader = new  ViewLoader<>("views/Account.fxml", getRoot());
+        ViewLoader<AccountController> loader = new  ViewLoader<>("views/Account.fxml", getParentRoot());
+        loader.getController().setPreviousNode(getParentRoot());
         getScene().setRoot(loader.getRoot());
     }
 
@@ -123,11 +131,11 @@ public class TopbarController implements Initializable {
     }
 
     public Scene getScene(){
-        return getRoot().getScene();
+        return root.getScene();
     }
 
-    private Parent getRoot() {
-        return root;
+    private Parent getParentRoot() {
+        return getScene().getRoot();
     }
 
 
