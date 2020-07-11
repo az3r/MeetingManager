@@ -55,7 +55,7 @@ public class MeetingItemController implements Initializable {
         overlayController.setRightButtonText("Register");
         overlayController.setLeftButtonOnAction(e -> {
             ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
-            loader.getController().setPreviousNode(loader.getPreviousParent());
+            loader.getController().setPreviousParent(loader.getPreviousParent());
             timeLabel.getScene().setRoot(loader.getRoot());
         });
         overlayController.setRightButtonOnAction(e -> {

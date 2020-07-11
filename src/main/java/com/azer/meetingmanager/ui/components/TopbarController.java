@@ -4,25 +4,32 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.data.MeetingFilterOption;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
+import com.azer.meetingmanager.ui.ViewLoader;
+import com.azer.meetingmanager.ui.account.AccountController;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TopbarController implements Initializable {
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Button backButton;
@@ -72,8 +79,10 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onOpenAccount(ActionEvent event) {
-
+        ViewLoader<AccountController> loader = new  ViewLoader<>("views/Account.fxml", getRoot());
+        getScene().setRoot(loader.getRoot());
     }
+
 
     @FXML
     void onSignup(ActionEvent event) {
@@ -109,6 +118,19 @@ public class TopbarController implements Initializable {
         backButton.setOnAction(handler);
     }
 
+    public Stage getStage(){
+        return (Stage) getScene().getWindow();
+    }
+
+    public Scene getScene(){
+        return getRoot().getScene();
+    }
+
+    private Parent getRoot() {
+        return root;
+    }
+
+
     /**
      * true = display logged in user topbar, false = display guess topbar
      */
@@ -118,9 +140,6 @@ public class TopbarController implements Initializable {
         showLoginButton(!loggedUserTopbar);
     }
 
-    public Stage getStage(){
-        return (Stage) backButton.getScene().getWindow();
-    }
 
     private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
 

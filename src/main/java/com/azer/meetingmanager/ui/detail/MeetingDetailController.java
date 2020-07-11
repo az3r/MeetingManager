@@ -75,7 +75,11 @@ public class MeetingDetailController implements Initializable {
     /**
      * set the Preivous root node that navigates to this view
      */
-    public void setPreviousNode(Parent previousNode) {
+    public void setPreviousParent(Parent previousNode) {
         this.previousParent = previousNode;
+    }
+
+    public Parent getPreviousParent() {
+        return this.previousParent;
     }
 }

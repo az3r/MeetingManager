@@ -1,18 +1,32 @@
 package com.azer.meetingmanager.ui.account;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.azer.meetingmanager.data.MeetingFilterOption;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
+import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AccountController {
+public class AccountController implements Initializable {
+
+    @FXML
+    private TopbarController topbarController;
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private VBox infoVBox;
@@ -38,16 +52,22 @@ public class AccountController {
     @FXML
     private TextField confirmPasswordTextField;
 
+    private Parent previousParent;
+
     @FXML
     void onCancel(ActionEvent event) {
-
+        showEditPane(false);
     }
 
     @FXML
     void onEdit(ActionEvent event) {
-
+        showEditPane(true);
     }
 
+    private void showEditPane(boolean visible) {
+        editVBox.setVisible(visible);
+        infoVBox.setVisible(!visible);
+    }
     @FXML
     void onOpenFilter(MouseEvent event) {
         DialogLoader<MeetingFilterOption> loader = new DialogLoader<>("views/MeetingFilter.fxml", getStage());
@@ -60,7 +80,11 @@ public class AccountController {
 
     @FXML
     void onSave(ActionEvent event) {
+        // TODO update in database
 
+        // update in UI
+        fullNameLabel.setText(fullNameTextField.getText());
+        emailLabel.setText(emailTextField.getText());
     }
 
     @FXML
@@ -91,4 +115,35 @@ public class AccountController {
         }
 
     };
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setupTopbar();
+    };
+
+
+    /**
+     * set the Preivous root node that navigates to this view
+     */
+    public void setPreviousNode(Parent previousNode) {
+        this.previousParent = previousNode;
+    }
+
+    public Parent getPreviousParent() {
+        return this.previousParent;
+    }
+
+    private void setupTopbar() {
+        topbarController.setTitle("Account");
+        topbarController.showSearchOption(true);
+        topbarController.showBackButton(true);
+        topbarController.setOnBackAction(e -> {
+            getScene().setRoot(getPreviousParent());
+        });
+    }
+
+    private Scene getScene() {
+        return root.getScene();
+    }
 }
