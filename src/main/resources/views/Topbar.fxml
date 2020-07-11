@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="80.0" styleClass="navbar" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.topbar.TopbarController">
+<BorderPane prefHeight="80.0" styleClass="navbar" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.TopbarController">
    <left>
       <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER_LEFT">
          <children>

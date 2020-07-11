@@ -1,11 +1,10 @@
-package com.azer.meetingmanager.ui.containers;
+package com.azer.meetingmanager.ui.components;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.items.MeetingItemController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

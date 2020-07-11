@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.topbar.TopbarController;
+import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

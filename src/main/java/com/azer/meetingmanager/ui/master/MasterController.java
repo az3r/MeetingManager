@@ -3,8 +3,8 @@ package com.azer.meetingmanager.ui.master;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.ui.containers.MeetingContainerController;
-import com.azer.meetingmanager.ui.topbar.TopbarController;
+import com.azer.meetingmanager.ui.components.MeetingContainerController;
+import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

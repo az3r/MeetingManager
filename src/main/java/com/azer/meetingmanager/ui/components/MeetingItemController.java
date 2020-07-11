@@ -1,11 +1,10 @@
-package com.azer.meetingmanager.ui.items;
+package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.detail.MeetingDetailView;
-import com.azer.meetingmanager.ui.overlay.OverlayController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

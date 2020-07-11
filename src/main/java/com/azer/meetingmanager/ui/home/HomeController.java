@@ -3,13 +3,9 @@ package com.azer.meetingmanager.ui.home;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.data.repositories.MeetingRepository;
-import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.ui.components.OverlayController;
+import com.azer.meetingmanager.ui.components.TopbarController;
 import com.azer.meetingmanager.ui.master.MasterView;
-import com.azer.meetingmanager.ui.overlay.OverlayController;
-import com.azer.meetingmanager.ui.topbar.TopbarController;
-
-import org.hibernate.SessionFactory;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
