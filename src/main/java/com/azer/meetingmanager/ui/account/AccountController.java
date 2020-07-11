@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.azer.meetingmanager.data.MeetingFilterOption;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
+import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
@@ -52,7 +53,11 @@ public class AccountController implements Initializable {
     @FXML
     private TextField confirmPasswordTextField;
 
+    @FXML 
+    private MeetingContainerController meetingContainerController;
+
     private Parent previousParent;
+    
 
     @FXML
     void onCancel(ActionEvent event) {
@@ -68,6 +73,7 @@ public class AccountController implements Initializable {
         editVBox.setVisible(visible);
         infoVBox.setVisible(!visible);
     }
+
     @FXML
     void onOpenFilter(MouseEvent event) {
         DialogLoader<MeetingFilterOption> loader = new DialogLoader<>("views/MeetingFilter.fxml", getStage());
@@ -117,12 +123,11 @@ public class AccountController implements Initializable {
 
     };
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
+        setupMeetingContainer();
     };
-
 
     /**
      * set the Preivous root node that navigates to this view
@@ -142,6 +147,10 @@ public class AccountController implements Initializable {
         topbarController.setOnBackAction(e -> {
             getScene().setRoot(getPreviousParent());
         });
+    }
+
+    private void setupMeetingContainer() {
+        
     }
 
     private Scene getScene() {

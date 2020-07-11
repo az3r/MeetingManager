@@ -24,9 +24,6 @@ public class MeetingFilterController extends DialogController<MeetingFilterOptio
 
     @FXML
     private TextField endTimeTextField;
-
-    @FXML 
-    private MeetingContainerController meetingContainerController;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
