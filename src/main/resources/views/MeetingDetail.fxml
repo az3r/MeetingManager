@@ -15,7 +15,7 @@
 
 <AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.detail.MeetingDetailController">
    <children>
-      <fx:include fx:id="topbar" prefHeight="80.0" source="views/Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <fx:include fx:id="topbar" prefHeight="80.0" source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ScrollPane fitToWidth="true" hvalue="0.5" pannable="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <content>
             <VBox alignment="CENTER" prefWidth="1000.0" spacing="30.0" style="-fx-background-color: #ffffff;">
