@@ -2,6 +2,7 @@ package com.azer.meetingmanager.ui.components;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -28,13 +29,14 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
     private Pane container = createVBoxContainer();
     private String file = "views/MeetingItemHBox.fxml";
-    private ObservableList<Meeting> items = FXCollections.emptyObservableList();
+    private ObservableList<Meeting> items = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         items.addListener(this);
-        items.setAll(FXCollections.observableArrayList(new Meeting(), new Meeting(), new Meeting(), new Meeting(),
-                new Meeting(), new Meeting()));
+        items.setAll(Arrays.asList(new Meeting(), new Meeting(), new Meeting(), new Meeting(), new Meeting(),
+                new Meeting()));
+        items.addAll(Arrays.asList(new Meeting(), new Meeting()));
     }
 
     /**
@@ -85,6 +87,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
     @Override
     public void onChanged(Change<? extends Meeting> c) {
+        c.next();
         System.out.println(String.format("from %d to %d", c.getFrom(), c.getTo()));
         // update list in UI
         // inflateContainer();
