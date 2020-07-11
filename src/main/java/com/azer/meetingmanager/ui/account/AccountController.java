@@ -147,10 +147,14 @@ public class AccountController implements Initializable {
         topbarController.setOnBackAction(e -> {
             getScene().setRoot(getPreviousParent());
         });
+        topbarController.setOnSearchAction(e -> {
+            String query = topbarController.getSearchQuery();
+            // TODO handle query
+        });
     }
 
     private void setupMeetingContainer() {
-        
+
     }
 
     private Scene getScene() {
