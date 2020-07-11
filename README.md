@@ -22,4 +22,5 @@ Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](http
 
 ### Prototype
 > the prototype is only for drafting, content in application maybe different from prototype
+
 [figma prototype](https://www.figma.com/file/uHQH9yLd98ozFIYeMp0gET/Javafx?node-id=0%3A1)
