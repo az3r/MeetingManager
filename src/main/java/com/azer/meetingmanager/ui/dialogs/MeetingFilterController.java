@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.MeetingFilterOption;
+import com.azer.meetingmanager.ui.components.MeetingContainerController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,9 @@ public class MeetingFilterController extends DialogController<MeetingFilterOptio
     @FXML
     private TextField endTimeTextField;
 
+    @FXML 
+    private MeetingContainerController meetingContainerController;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> dateOptions = FXCollections.observableArrayList(MeetingFilterOption.TODAY,

@@ -28,8 +28,10 @@ public class LoginController extends DialogController<User> {
 
     @FXML
     void onLogin(ActionEvent event) {
+        
         User user = new User();
         user.setName(userNameTextField.getText());
+
         setResult(user);
         setState(STATE_COMPLETED);
         

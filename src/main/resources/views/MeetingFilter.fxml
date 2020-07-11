@@ -35,8 +35,8 @@
       </VBox>
       <HBox alignment="CENTER_RIGHT">
          <children>
-            <Button mnemonicParsing="false" prefWidth="85.0" style="-fx-font-size: 16;" styleClass="text-button" text="Cancel" />
-            <Button mnemonicParsing="false" prefWidth="85.0" style="-fx-font-size: 16;" text="Filter" />
+            <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="85.0" style="-fx-font-size: 16;" styleClass="text-button" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#onFilter" prefWidth="85.0" style="-fx-font-size: 16;" text="Filter" />
          </children>
       </HBox>
    </children>

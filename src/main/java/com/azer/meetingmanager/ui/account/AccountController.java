@@ -85,6 +85,7 @@ public class AccountController implements Initializable {
         // update in UI
         fullNameLabel.setText(fullNameTextField.getText());
         emailLabel.setText(emailTextField.getText());
+        showEditPane(false);
     }
 
     @FXML
