@@ -1,15 +1,15 @@
 package com.azer.meetingmanager.ui.dialogs;
 
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.ui.DialogController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class LoginController {
+public class LoginController extends DialogController<User> {
 
     @FXML
     private VBox root;
@@ -20,32 +20,20 @@ public class LoginController {
     @FXML
     private PasswordField passwordTextField;
 
-
-    private User user;
-
     @FXML
     void onCancel(ActionEvent event) {
-        this.user = null;
-        Stage stage = (Stage) userNameTextField.getScene().getWindow();
-        stage.close();
+        setState(STATE_CANCELLED);
+
+        getContainer().close();
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-        user = new User();
+        User user = new User();
         user.setName(userNameTextField.getText());
-        Stage stage = (Stage) userNameTextField.getScene().getWindow();
-        stage.close();
-    }
-
-    /**
-     * call this function after closing LoginDialog to get dialog's result 
-     * <p>if {@link LoginController#onCancel()} is called before this function then null is returned</p>
-     * <p>if {@link LoginController#onLogin()} is called before this function then an {@link User} instance is returned when all inputs are valid, otherwise null is returned</p>
-     * 
-     * @return either null or an instance of {@link User}
-     */
-    public User getUser(){
-        return user;
+        setResult(user);
+        setState(STATE_COMPLETED);
+        
+        getContainer().close();
     }
 }
