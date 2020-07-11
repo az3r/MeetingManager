@@ -41,19 +41,18 @@ public class HomeController implements Initializable {
 
     private void setupTopbar() {
         topbarController.setTitle("Home");
-        topbarController.showBackButton(false);
     }
 
     private void setupOverlay() {
 
-        overlayController.setLeftButtonText("more");
+        overlayController.setLeftButtonText("See more");
         overlayController.setLeftButtonOnAction(e -> {
             ViewLoader<MasterController> loader = new ViewLoader<>("views/Master.fxml");
             root.getScene().setRoot(loader.getRoot());
 
         });
 
-        overlayController.setRightButtonText("detail");
+        overlayController.setRightButtonText("Detail");
         overlayController.setRightButtonOnAction(e -> {
 
         });

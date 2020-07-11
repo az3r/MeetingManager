@@ -7,12 +7,31 @@ import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.detail.MeetingDetailController;
 
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Represent a meeting item, provide 2 options to interact with the following default setting:<p/>
+ * <pre>
+ * {@code
+setLeftButtonText("Detail");
+setRightButtonText("Register");
+setLeftButtonAction(e -> {
+    ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
+    loader.getController().setPreviousParent(loader.getPreviousParent());
+    timeLabel.getScene().setRoot(loader.getRoot());
+});
+setRightButtonAction(e -> {
+
+});
+ * }
+ * </pre>
+ */
 public class MeetingItemController implements Initializable {
 
     @FXML
@@ -51,22 +70,43 @@ public class MeetingItemController implements Initializable {
     }
 
     private void setupOverlay() {
-        overlayController.setLeftButtonText("Detail");
-        overlayController.setRightButtonText("Register");
-        overlayController.setLeftButtonOnAction(e -> {
+        setLeftButtonText("Detail");
+        setRightButtonText("Register");
+        setLeftButtonAction(e -> {
             ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
             loader.getController().setPreviousParent(loader.getPreviousParent());
             timeLabel.getScene().setRoot(loader.getRoot());
         });
-        overlayController.setRightButtonOnAction(e -> {
+        setRightButtonAction(e -> {
 
         });
     }
 
+    /**
+     * notify that compoent should update its visual to new data
+     * @param data the new data 
+     */
     public void notifyDataChanged(Meeting data) {
         this.data = data;
         inflate();
     }
+
+    public void setLeftButtonText(String text) {
+        overlayController.setLeftButtonText(text);
+    }
+
+    public void setRightButtonText(String text) {
+        overlayController.setRightButtonText(text);
+    }
+
+    public void setLeftButtonAction(EventHandler<ActionEvent> handler) {
+        overlayController.setLeftButtonOnAction(handler);
+    }
+
+    public void setRightButtonAction(EventHandler<ActionEvent> handler) {
+        overlayController.setRightButtonOnAction(handler);
+    }
+
 
     private void inflate() {
         boolean hasPhoto = data.getPhoto() != null;

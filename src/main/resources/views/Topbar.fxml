@@ -14,7 +14,7 @@
 
 <BorderPane fx:id="root" prefHeight="80.0" styleClass="navbar" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.TopbarController">
    <left>
-      <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER_LEFT">
+      <HBox fx:id="homeLayout" alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" styleClass="icon-button">
                <graphic>
@@ -33,7 +33,7 @@
       </HBox>
    </left>
    <right>
-      <HBox alignment="CENTER_RIGHT" spacing="30.0" BorderPane.alignment="CENTER_RIGHT">
+      <HBox fx:id="menuLayout" alignment="CENTER_RIGHT" spacing="30.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
             <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" HBox.hgrow="NEVER">
                <graphic>
@@ -43,6 +43,15 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button fx:id="addButton" mnemonicParsing="false" styleClass="icon-button">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button mnemonicParsing="false" onAction="#onOpenHome" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">

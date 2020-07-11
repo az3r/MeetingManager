@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -24,6 +25,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -37,6 +39,9 @@ public class TopbarController implements Initializable {
 
     @FXML
     private Button searchButton;
+
+    @FXML
+    private Button addButton;
 
     @FXML
     private Text titleText;
@@ -53,14 +58,26 @@ public class TopbarController implements Initializable {
     @FXML
     private TextField searchView;
 
+    @FXML
+    private HBox menuLayout;
+
+    @FXML
+    private HBox homeLayout;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        backButton.managedProperty().bind(backButton.visibleProperty());
-        loginButton.managedProperty().bind(loginButton.visibleProperty());
-        signUpButton.managedProperty().bind(signUpButton.visibleProperty());
-        accountButton.managedProperty().bind(accountButton.visibleProperty());
-        searchButton.managedProperty().bind(searchButton.visibleProperty());
+
+        // manage all children in action menu and title layout
+        for (Node childreNode : menuLayout.getChildren()) {
+            childreNode.managedProperty().bind(childreNode.visibleProperty());
+        }
+        for (Node childreNode : homeLayout.getChildren()) {
+            childreNode.managedProperty().bind(childreNode.visibleProperty());
+        }
+
         searchView.visibleProperty().bind(searchButton.visibleProperty());
+        showAddButton(false);
+        showBackButton(false);
     }
 
     @FXML
@@ -80,17 +97,16 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onOpenHome(ActionEvent event) {
-        ViewLoader<HomeController> loader = new  ViewLoader<>("views/Home.fxml", getParentRoot());
+        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml", getParentRoot());
         getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onOpenAccount(ActionEvent event) {
-        ViewLoader<AccountController> loader = new  ViewLoader<>("views/Account.fxml", getParentRoot());
+        ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml", getParentRoot());
         loader.getController().setPreviousNode(getParentRoot());
         getScene().setRoot(loader.getRoot());
     }
-
 
     @FXML
     void onSignup(ActionEvent event) {
@@ -100,6 +116,14 @@ public class TopbarController implements Initializable {
 
     public void showBackButton(boolean visible) {
         backButton.setVisible(visible);
+    }
+
+    public void showAddButton(boolean visible) {
+        addButton.setVisible(visible);
+    }
+
+    public void setAddButtonAction(EventHandler<ActionEvent> handler) {
+        addButton.setOnAction(handler);
     }
 
     public void showLoginButton(boolean visible) {
@@ -134,19 +158,17 @@ public class TopbarController implements Initializable {
         return searchView.getText();
     }
 
-
-    public Stage getStage(){
+    public Stage getStage() {
         return (Stage) getScene().getWindow();
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return root.getScene();
     }
 
     private Parent getParentRoot() {
         return getScene().getRoot();
     }
-
 
     /**
      * true = display logged in user topbar, false = display guess topbar
@@ -156,7 +178,6 @@ public class TopbarController implements Initializable {
         showSignUpButton(!loggedUserTopbar);
         showLoginButton(!loggedUserTopbar);
     }
-
 
     private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
 

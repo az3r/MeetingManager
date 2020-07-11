@@ -32,7 +32,6 @@ public class MasterController implements Initializable {
 
     private void setupTopbar() {
         topbarController.setTitle("Meetings");
-        topbarController.showBackButton(false);
     }
 
     private void changeMeetingContainer(boolean vbox) {
