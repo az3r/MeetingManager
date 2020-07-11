@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.ui.ViewLoader;
+import com.azer.meetingmanager.ui.detail.MeetingDetailController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +31,13 @@ public class MeetingContainerController implements Initializable, ListChangeList
     @FXML
     private ScrollPane root;
 
+    // propperties for each meeting item
+    private String leftButtonText;
+    private String rightButtonText;
+    private EventHandler<ActionEvent> leftButtonAction;
+    private EventHandler<ActionEvent> rightButtonAction;
+
+    // container propperties
     private Pane container;
     private VBox vboxLayout = createVBoxContainer();
     private TilePane tilePaneLayout = createTilePaneContainer();
@@ -35,24 +46,63 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        container = vboxLayout;
+
+        setupItemDefault();
+        changeContainerPane(true);
+
+        // TODO remove code below when using populating data in database
         items.addListener(this);
         items.setAll(Arrays.asList(new Meeting(), new Meeting(), new Meeting(), new Meeting(), new Meeting(),
                 new Meeting()));
         items.remove(2, 4);
-        changeContainerPane(true);
     }
 
     /**
-     * switch between two display styles: VBox or TilePane
-     * 
-     * @param vbox true = use VBox, otherwise use TilePane
+     * Default behavior of each meeting item
      */
+    private void setupItemDefault() {
+        setItemLeftButtonText("Detail");
+        setItemRightButtonText("Register");
+        setItemLeftButtonAction(e -> {
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
+                    root.getScene().getRoot());
+            loader.getController().setPreviousParent(loader.getPreviousParent());
+            root.getScene().setRoot(loader.getRoot());
+        });
+        setItemRightButtonAction(e -> {
+
+        });
+    }
+
+    private void bindItemBehavior(MeetingItemController controller) {
+        controller.setLeftButtonText(leftButtonText);
+        controller.setRightButtonText(rightButtonText);
+        controller.setLeftButtonAction(leftButtonAction);
+        controller.setRightButtonAction(rightButtonAction);
+    }
+
+    private Parent createMeetingItemNode(Meeting meeting) {
+        Parent node = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
+            node = loader.load();
+            MeetingItemController controller = loader.getController();
+            bindItemBehavior(controller);
+            controller.notifyDataChanged(meeting);
+
+        } catch (Exception e) {
+            System.err.println(e);
+            throw new ExceptionInInitializerError(e);
+        }
+
+        return node;
+    }
+
     public void changeContainerPane(boolean vbox) {
-        // HBox item for VBox container; VBox item for TilePane container
         container = vbox ? vboxLayout : tilePaneLayout;
         file = vbox ? "views/MeetingItemHBox.fxml" : "views/MeetingItemVBox.fxml";
-        if (container.getChildren().isEmpty()) addToContainer(items);
+        if (container.getChildren().isEmpty())
+            addToContainer(items);
         root.setContent(container);
     }
 
@@ -74,19 +124,25 @@ public class MeetingContainerController implements Initializable, ListChangeList
         this.items.setAll(collection);
     }
 
+    public void setItemLeftButtonText(String text) {
+        this.leftButtonText = text;
+    }
+
+    public void setItemRightButtonText(String text) {
+        this.rightButtonText = text;
+    }
+
+    public void setItemLeftButtonAction(EventHandler<ActionEvent> handler) {
+        this.leftButtonAction = handler;
+    }
+
+    public void setItemRightButtonAction(EventHandler<ActionEvent> handler) {
+        this.rightButtonAction = handler;
+    }
+
     private void addToContainer(List<? extends Meeting> collection) {
         for (Meeting meeting : items) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
-                Parent itemRoot = loader.load();
-                MeetingItemController controller = loader.getController();
-                controller.notifyDataChanged(meeting);
-                container.getChildren().add(itemRoot);
-
-            } catch (Exception e) {
-                System.err.println(e);
-                throw new ExceptionInInitializerError(e);
-            }
+            container.getChildren().add(createMeetingItemNode(meeting));
         }
     }
 

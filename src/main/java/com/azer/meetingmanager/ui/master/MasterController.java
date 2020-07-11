@@ -28,6 +28,7 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
+        changeMeetingContainer(true);
     }
 
     private void setupTopbar() {

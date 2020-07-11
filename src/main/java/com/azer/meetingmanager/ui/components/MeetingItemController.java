@@ -4,11 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.ViewLoader;
-import com.azer.meetingmanager.ui.detail.MeetingDetailController;
 
-import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -16,21 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 /**
- * Represent a meeting item, provide 2 options to interact with the following default setting:<p/>
- * <pre>
- * {@code
-setLeftButtonText("Detail");
-setRightButtonText("Register");
-setLeftButtonAction(e -> {
-    ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
-    loader.getController().setPreviousParent(loader.getPreviousParent());
-    timeLabel.getScene().setRoot(loader.getRoot());
-});
-setRightButtonAction(e -> {
-
-});
- * }
- * </pre>
+ * Represent a meeting item, provide 2 options to interact with
  */
 public class MeetingItemController implements Initializable {
 
@@ -59,27 +43,8 @@ public class MeetingItemController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        setupPhoPane();
-        setupOverlay();
-    }
-
-    private void setupPhoPane() {
         photoEmptyPane.prefWidthProperty().bind(photoImageView.fitWidthProperty());
         photoEmptyPane.prefHeightProperty().bind(photoImageView.fitHeightProperty());
-    }
-
-    private void setupOverlay() {
-        setLeftButtonText("Detail");
-        setRightButtonText("Register");
-        setLeftButtonAction(e -> {
-            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
-            loader.getController().setPreviousParent(loader.getPreviousParent());
-            timeLabel.getScene().setRoot(loader.getRoot());
-        });
-        setRightButtonAction(e -> {
-
-        });
     }
 
     /**
