@@ -3,9 +3,10 @@ package com.azer.meetingmanager.ui.home;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.components.OverlayController;
 import com.azer.meetingmanager.ui.components.TopbarController;
-import com.azer.meetingmanager.ui.master.MasterView;
+import com.azer.meetingmanager.ui.master.MasterController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,8 +37,8 @@ public class HomeController implements Initializable {
     private void setupOverlay() {
         overlayController.setLeftButtonText("more");
         overlayController.setLeftButtonOnAction(e -> {
-            MasterView view = new MasterView();
-            root.getScene().setRoot(view.getRoot());
+            ViewLoader<MasterController> loader = new ViewLoader<>("views/Master.fxml");
+            root.getScene().setRoot(loader.getRoot());
 
         });
         overlayController.setRightButtonText("detail");

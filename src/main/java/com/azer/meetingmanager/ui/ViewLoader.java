@@ -13,19 +13,30 @@ public class ViewLoader<T> {
     private Stage owner;
     private T controller;
 
+    /**
+     * Preivous root node that navigates to this view
+     */
+    private Parent previousParent;
+
     public ViewLoader(String resource) {
-        this(resource, null);
-    }
-    public ViewLoader(String resource, Stage owner) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
             this.root = loader.load();
             this.controller = loader.getController();
-            this.owner = owner;
         } catch (Exception e) {
             System.err.println("ViewLoader(" + resource + "): " + e.toString());
             throw new ExceptionInInitializerError(e);
         }
+    }
+
+    public ViewLoader(String resource, Parent previousParent) {
+        this(resource);
+        this.previousParent = previousParent;
+    }
+
+    public ViewLoader(String resource, Stage owner) {
+        this(resource);
+        this.owner = owner;
     }
 
     public Parent getRoot() {
@@ -38,5 +49,9 @@ public class ViewLoader<T> {
 
     public T getController() {
         return controller;
+    }
+
+    public Parent getPreviousParent() {
+        return previousParent;
     }
 }

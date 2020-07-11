@@ -4,7 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.ui.detail.MeetingDetailView;
+import com.azer.meetingmanager.ui.ViewLoader;
+import com.azer.meetingmanager.ui.detail.MeetingDetailController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,8 +54,9 @@ public class MeetingItemController implements Initializable {
         overlayController.setLeftButtonText("Detail");
         overlayController.setRightButtonText("Register");
         overlayController.setLeftButtonOnAction(e -> {
-            MeetingDetailView view = new MeetingDetailView(data, timeLabel.getScene().getRoot());
-            timeLabel.getScene().setRoot(view.getRoot());
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", timeLabel.getScene().getRoot());
+            loader.getController().setPreviousNode(loader.getPreviousParent());
+            timeLabel.getScene().setRoot(loader.getRoot());
         });
         overlayController.setRightButtonOnAction(e -> {
 

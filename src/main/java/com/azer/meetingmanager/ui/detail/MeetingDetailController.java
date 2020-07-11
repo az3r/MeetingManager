@@ -42,7 +42,7 @@ public class MeetingDetailController implements Initializable {
     @FXML
     private StackPane photoEmptyPane;
 
-    private Parent previousNode;
+    private Parent previousParent;
 
     public void notifyDataChanged(Meeting data) {
         inflate(data);
@@ -68,14 +68,14 @@ public class MeetingDetailController implements Initializable {
     private void setupTopbar() {
         topbarController.showSearchOption(false);
         topbarController.setOnBackAction(e -> {
-            timeLabel.getScene().setRoot(previousNode);
+            timeLabel.getScene().setRoot(previousParent);
         });
     }
 
     /**
-     * set the previous view that performs navigating to this view
+     * set the Preivous root node that navigates to this view
      */
     public void setPreviousNode(Parent previousNode) {
-        this.previousNode = previousNode;
+        this.previousParent = previousNode;
     }
 }
