@@ -1,23 +1,24 @@
 package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.ui.dialogs.LoginController;
-import com.azer.meetingmanager.ui.dialogs.SignupController;
+import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.ui.DialogLoader;
+import com.azer.meetingmanager.ui.OnCompleteListener;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopbarController implements Initializable {
@@ -43,12 +44,6 @@ public class TopbarController implements Initializable {
     @FXML
     private TextField searchView;
 
-    private Parent loginRoot;
-    private LoginController loginController;
-
-    private Parent signupRoot;
-    private SignupController signupController;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backButton.managedProperty().bind(backButton.visibleProperty());
@@ -61,31 +56,17 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onLogOut(ActionEvent event) {
-
+        Optional<ButtonType> result = new Alert(AlertType.CONFIRMATION, "Are you sure you want to log out?",
+                ButtonType.YES, ButtonType.NO).showAndWait();
+        if (result.get() == ButtonType.YES) {
+            // TODO logout
+        }
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/Login.fxml"));
-            loginRoot = loader.load();
-            this.loginController = loader.getController();
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
-        if (loginController != null && loginRoot != null) {
-            Stage stage = new Stage();
-            stage.setTitle("Login");
-            stage.setScene(new Scene(loginRoot));
-            stage.initOwner(backButton.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-
-            useTopbarType(loginController.getUser() != null);
-        }
+        DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) backButton.getScene().getWindow());
+        loader.showAndWait(loginCallback);
     }
 
     @FXML
@@ -95,16 +76,8 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onSignup(ActionEvent event) {
-
-    }
-
-    /**
-     * open signup or login dialog
-     * 
-     * @param loginDialog true = open login dialog, false = open signup dialog
-     */
-    private void openDialog(boolean loginDialog) {
-
+        DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", (Stage) backButton.getScene().getWindow());
+        loader.showAndWait(signUpCallback);
     }
 
     public void showBackButton(boolean visible) {
@@ -147,4 +120,47 @@ public class TopbarController implements Initializable {
     public void showLoginDialog() {
 
     }
+
+    private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
+
+        @Override
+        public void onCompleted(User result) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onError(Exception e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onCancelled() {
+            // TODO Auto-generated method stub
+
+        }
+
+    };
+    private OnCompleteListener<User> signUpCallback = new OnCompleteListener<User>() {
+
+        @Override
+        public void onCompleted(User result) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onError(Exception e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onCancelled() {
+            // TODO Auto-generated method stub
+
+        }
+
+    };
 }

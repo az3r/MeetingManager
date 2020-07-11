@@ -2,6 +2,8 @@ package com.azer.meetingmanager.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -44,6 +46,13 @@ public class DialogLoader<T> {
     }
 
     public void showAndWait(OnCompleteListener<T> callback) {
+        
+        Stage container = new Stage();
+        container.setScene(new Scene(getRoot()));
+        container.initOwner(getOwner());
+        container.initModality(Modality.APPLICATION_MODAL);
+        getController().setContainer(container);
+
         getController().showAndWait(callback);
     }
 
