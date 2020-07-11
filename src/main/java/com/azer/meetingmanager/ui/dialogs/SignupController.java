@@ -1,7 +1,6 @@
 package com.azer.meetingmanager.ui.dialogs;
 
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.ui.DialogController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

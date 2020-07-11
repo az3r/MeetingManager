@@ -1,5 +1,7 @@
 package com.azer.meetingmanager.ui;
 
+import com.azer.meetingmanager.ui.dialogs.DialogController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

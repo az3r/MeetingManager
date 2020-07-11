@@ -1,4 +1,6 @@
-package com.azer.meetingmanager.ui;
+package com.azer.meetingmanager.ui.dialogs;
+
+import com.azer.meetingmanager.ui.OnCompleteListener;
 
 import javafx.stage.Stage;
 
