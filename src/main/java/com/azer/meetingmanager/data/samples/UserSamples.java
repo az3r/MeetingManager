@@ -68,9 +68,14 @@ public class UserSamples {
     public static User createUser() {
         int x = generator.nextInt(names.size());
         int y = generator.nextInt(passwords.size());
+        return createUser(x, y);
+    }
 
-        String fullname = names.get(x);
-        String password = passwords.get(y);
+    public static User createUser(int nameIndex, int passwordIndex) {
+        nameIndex = nameIndex > names.size() ? names.size() : nameIndex;
+        passwordIndex = passwordIndex > passwords.size() ? passwords.size() : passwordIndex;
+        String fullname = names.get(nameIndex);
+        String password = passwords.get(passwordIndex);
 
         String accountName = getAccountName(fullname);
         String email = getEmail(accountName);
