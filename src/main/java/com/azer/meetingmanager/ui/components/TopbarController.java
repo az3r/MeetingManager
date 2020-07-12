@@ -87,6 +87,7 @@ public class TopbarController implements Initializable {
         searchView.visibleProperty().bind(searchButton.visibleProperty());
         showAddButton(false);
         showBackButton(false);
+        showSearchOption(false);
 
         LoggedUserResource instance = LoggedUserResource.getInstance();
         if (instance.isGuess())
@@ -101,8 +102,10 @@ public class TopbarController implements Initializable {
     void onLogOut(ActionEvent event) {
         Optional<ButtonType> result = new Alert(AlertType.CONFIRMATION, "Are you sure you want to log out?",
                 ButtonType.YES, ButtonType.NO).showAndWait();
-        if (result.get() == ButtonType.YES)
+        if (result.get() == ButtonType.YES) {
+            LoggedUserResource.getInstance().logout();
             setTopbarType(TOPBAR_GUESS);
+        }
     }
 
     @FXML

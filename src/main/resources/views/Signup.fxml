@@ -17,8 +17,9 @@
       </StackPane>
       <VBox>
          <children>
-            <Label text="Your username" />
-            <TextField fx:id="userNameTextField" />
+            <Label text="Your account name" />
+            <TextField fx:id="accountNameTextField" />
+            <Label fx:id="accountErrorLabel" style="-fx-font-size: 10;" text="Label" textFill="RED" visible="false" />
          </children>
       </VBox>
       <VBox>
@@ -30,7 +31,7 @@
       <VBox>
          <children>
             <Label text="Your full name" />
-            <TextField fx:id="fullNameTextField" />
+            <TextField fx:id="userNameTextField" />
          </children>
       </VBox>
       <VBox>
@@ -43,6 +44,7 @@
          <children>
             <Label text="Confirm password" />
             <TextField fx:id="confirmPasswordTextField" />
+            <Label fx:id="errorLabel" style="-fx-font-size: 10;" text="Label" textFill="RED" visible="false" />
          </children>
       </VBox>
       <HBox alignment="CENTER_RIGHT">

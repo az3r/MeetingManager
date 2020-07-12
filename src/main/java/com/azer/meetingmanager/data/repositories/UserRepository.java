@@ -68,4 +68,9 @@ public class UserRepository extends Repository<User> {
 		return result;
 	}
 
+	public User findUser(String accountName) {
+		return session.createQuery("from User where accountName = :accountName", User.class)
+				.setParameter("accountName", accountName).uniqueResult();
+	}
+
 }

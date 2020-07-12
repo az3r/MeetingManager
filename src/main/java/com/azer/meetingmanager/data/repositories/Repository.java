@@ -1,5 +1,7 @@
 package com.azer.meetingmanager.data.repositories;
 
+import javax.persistence.RollbackException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -29,11 +31,18 @@ public abstract class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void insert(T entity) {
+    public boolean insert(T entity) {
         Transaction tx = session.beginTransaction();
         session.persist(entity);
-        tx.commit();
+        try {
+            tx.commit();
+            return true;
 
+        } catch (RollbackException e) {
+            System.err.println(e);
+            tx.rollback();
+            return false;
+        }
     }
 
     @Override

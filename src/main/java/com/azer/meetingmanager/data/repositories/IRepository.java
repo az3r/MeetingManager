@@ -1,7 +1,7 @@
 package com.azer.meetingmanager.data.repositories;
 
 public interface IRepository<T> {
-    void insert(T entity);
+    boolean insert(T entity);
     void update(T entity);
     void delete(T entity);
 }
