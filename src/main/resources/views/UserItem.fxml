@@ -7,92 +7,99 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.UserItemController">
-   <left>
-      <VBox spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.UserItemController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity">
+         <left>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/account.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="0.6" />
-                     </effect>
-                  </ImageView>
-                  <Text fx:id="userNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="user's name" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/account.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Text fx:id="userNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="user's name" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/email.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.6" />
+                           </effect>
+                        </ImageView>
+                        <Text fx:id="userNameEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="user's email" />
+                     </children>
+                  </HBox>
                </children>
+            </VBox>
+         </left>
+         <right>
+            <HBox spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" onMouseReleased="#onAcceptRequest" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/accept.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Accept" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" onMouseReleased="#onDenyRequest" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/deny.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Deny" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" onMouseReleased="#onBlockUser" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/block.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Block" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" onMouseReleased="#onUnBlockUser" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/unblock.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Unblock" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/email.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="0.6" />
-                     </effect>
-                  </ImageView>
-                  <Text fx:id="userNameEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="user's email" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </left>
-   <right>
-      <HBox spacing="30.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER" onMouseReleased="#onAcceptRequest" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/accept.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Accept" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" onMouseReleased="#onDenyRequest" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/deny.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Deny" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" onMouseReleased="#onBlockUser" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/block.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Block" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" onMouseReleased="#onUnBlockUser" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/unblock.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Unblock" />
-               </children>
-            </VBox>
-         </children>
+         </right>
          <padding>
-            <Insets left="30.0" right="30.0" />
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
-      </HBox>
-   </right>
-   <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-   </padding>
-</BorderPane>
+      </BorderPane>
+      <Pane prefHeight="2.0" />
+   </children>
+</VBox>
