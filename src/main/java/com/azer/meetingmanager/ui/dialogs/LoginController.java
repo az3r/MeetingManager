@@ -30,7 +30,6 @@ public class LoginController extends DialogController<User> {
     void onLogin(ActionEvent event) {
         
         User user = new User();
-        user.setName(userNameTextField.getText());
 
         setResult(user);
         setState(STATE_COMPLETED);

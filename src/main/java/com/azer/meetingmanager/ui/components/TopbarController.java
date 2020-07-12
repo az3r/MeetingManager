@@ -114,6 +114,11 @@ public class TopbarController implements Initializable {
         loader.showAndWait(signUpCallback);
     }
 
+    @FXML
+    void onOpenMeetingManager(ActionEvent event) {
+        
+    }
+
     public void showBackButton(boolean visible) {
         backButton.setVisible(visible);
     }

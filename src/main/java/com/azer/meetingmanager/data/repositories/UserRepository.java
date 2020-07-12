@@ -46,7 +46,7 @@ public class UserRepository extends Repository<User> {
 		if (users == null) {
 			users = getAll();
 		}
-		List<User> customers = users.stream().filter(user -> !user.getIsAdmin()).collect(Collectors.toList());
-		return customers;
+		// List<User> customers = users.stream().filter(user -> !user.getIsAdmin()).collect(Collectors.toList());
+		return null;
 	}
 }

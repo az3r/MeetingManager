@@ -33,8 +33,8 @@
             123
         </property>
 
-        <mapping resource="database/Meeting.hbm.xml"/>
-        <mapping resource="database/Location.hbm.xml"/>
-        <mapping resource="database/User.hbm.xml"/>
+        <mapping class="com.azer.meetingmanager.data.models.User"/>
+        <mapping class="com.azer.meetingmanager.data.models.Account"/>
+        <mapping class="com.azer.meetingmanager.data.models.Admin"/>
     </session-factory>
 </hibernate-configuration>

@@ -33,7 +33,6 @@ public class SignupController extends DialogController<User> {
     @FXML
     void onRegister(ActionEvent event) {
         User user = new User();
-        user.setName(userNameTextField.getText());
 
         setResult(user);
         setState(STATE_COMPLETED);
