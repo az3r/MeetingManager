@@ -89,7 +89,10 @@ public class App extends Application {
         System.out.println("initialize UserRepository");
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
 
+        System.out.println("Creating random admins...");
         List<Admin> admins = UserSamples.createAdmin(adminCount);
+
+        System.out.println("Creating random users...");
         List<User> users = UserSamples.createUser(userCount);
 
         System.out.println("add all users into database");
@@ -98,8 +101,12 @@ public class App extends Application {
         System.out.println("add all admins into database");
         repository.insertAdmin(admins);
 
+        System.out.println("create a static user to use each launch");
+        repository.insert(UserSamples.createUser("user", "123"));
 
-        
+        System.out.println("create a static admin to use each launch");
+        repository.insertAdmin(UserSamples.createAdmin("admin", "123"));
+
         System.out.println("Closing all repositories...");
         repository.close();
         System.out.println("DONE!");

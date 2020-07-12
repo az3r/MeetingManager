@@ -36,6 +36,12 @@ public class UserRepository extends Repository<User> {
 		tx.commit();
 	}
 
+	public void insertAdmin(Admin entity) {
+		Transaction tx = session.beginTransaction();
+		session.persist(entity);
+		tx.commit();
+	}
+
 	public Admin findAdmin(String accountName, String password) {
 		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
 		Admin result = session.createQuery("from Admin where accountName = :accountName", Admin.class)
@@ -48,4 +54,18 @@ public class UserRepository extends Repository<User> {
 
 		return result;
 	}
+
+	public User findUser(String accountName, String password) {
+		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
+		User result = session.createQuery("from User where accountName = :accountName", User.class)
+				.setParameter("accountName", accountName).uniqueResult();
+
+		if (result == null)
+			System.out.println("No admin was found");
+		else
+			System.out.println("admin found: " + result.toString());
+
+		return result;
+	}
+
 }

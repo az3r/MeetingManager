@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.ui.dialogs;
 
+import com.azer.meetingmanager.data.login.LoggedUserResource;
 import com.azer.meetingmanager.data.models.User;
 
 import javafx.event.ActionEvent;
@@ -22,18 +23,20 @@ public class LoginController extends DialogController<User> {
     @FXML
     void onCancel(ActionEvent event) {
         setState(STATE_CANCELLED);
-
         getContainer().close();
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-        
-        User user = new User();
+        LoggedUserResource resource = LoggedUserResource.getInstance();
+        if (resource.login(userNameTextField.getText(), passwordTextField.getText())) {
+            setState(STATE_COMPLETED);
+            setResult(resource.getUser());
+            getContainer().close();
 
-        setResult(user);
-        setState(STATE_COMPLETED);
-        
-        getContainer().close();
+        } else {
+            setState(STATE_ERROR);
+            setError(new Exception("invalid account or password is incorrect"));
+        }
     }
 }

@@ -4,11 +4,14 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.data.login.LoggedUserResource;
+import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.account.AccountController;
+import com.azer.meetingmanager.ui.admin.AdminMeetingController;
 import com.azer.meetingmanager.ui.home.HomeController;
 
 import javafx.event.ActionEvent;
@@ -16,13 +19,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,6 +32,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TopbarController implements Initializable {
+
+    private static final int TOPBAR_GUESS = 0;
+    private static final int TOPBAR_MEMBER = 1;
+    private static final int TOPBAR_ADMIN = 2;
 
     @FXML
     private BorderPane root;
@@ -56,6 +62,9 @@ public class TopbarController implements Initializable {
     private MenuButton accountButton;
 
     @FXML
+    private MenuItem adminMenuItem;
+
+    @FXML
     private TextField searchView;
 
     @FXML
@@ -78,45 +87,53 @@ public class TopbarController implements Initializable {
         searchView.visibleProperty().bind(searchButton.visibleProperty());
         showAddButton(false);
         showBackButton(false);
+
+        LoggedUserResource instance = LoggedUserResource.getInstance();
+        if (instance.isGuess())
+            setTopbarType(TOPBAR_GUESS);
+        else if (instance.isMember())
+            setTopbarType(TOPBAR_MEMBER);
+        else
+            setTopbarType(TOPBAR_ADMIN);
     }
 
     @FXML
     void onLogOut(ActionEvent event) {
         Optional<ButtonType> result = new Alert(AlertType.CONFIRMATION, "Are you sure you want to log out?",
                 ButtonType.YES, ButtonType.NO).showAndWait();
-        if (result.get() == ButtonType.YES) {
-            useTopbarType(false);
-        }
+        if (result.get() == ButtonType.YES)
+            setTopbarType(TOPBAR_GUESS);
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-        DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", getStage());
+        DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) root.getScene().getWindow());
         loader.showAndWait(loginCallback);
     }
 
     @FXML
     void onOpenHome(ActionEvent event) {
-        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml", getParentRoot());
-        getScene().setRoot(loader.getRoot());
+        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml", root.getScene().getRoot());
+        root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onOpenAccount(ActionEvent event) {
-        ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml", getParentRoot());
-        loader.getController().setPreviousNode(getParentRoot());
-        getScene().setRoot(loader.getRoot());
+        ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml", root.getScene().getRoot());
+        loader.getController().setPreviousNode(root.getScene().getRoot());
+        root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onSignup(ActionEvent event) {
-        DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", getStage());
+        DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", (Stage) root.getScene().getWindow());
         loader.showAndWait(signUpCallback);
     }
 
     @FXML
     void onOpenMeetingManager(ActionEvent event) {
-        
+        ViewLoader<AccountController> loader = new ViewLoader<>("views/AdminMeeting.fxml");
+        root.getScene().setRoot(loader.getRoot());
     }
 
     public void showBackButton(boolean visible) {
@@ -143,6 +160,10 @@ public class TopbarController implements Initializable {
         accountButton.setVisible(visible);
     }
 
+    public void showAdminMenuItem(boolean visible) {
+        adminMenuItem.setVisible(visible);
+    }
+
     public void showSearchOption(boolean visible) {
         searchButton.setVisible(visible);
     }
@@ -163,44 +184,35 @@ public class TopbarController implements Initializable {
         return searchView.getText();
     }
 
-    public Stage getStage() {
-        return (Stage) getScene().getWindow();
-    }
-
-    public Scene getScene() {
-        return root.getScene();
-    }
-
-    private Parent getParentRoot() {
-        return getScene().getRoot();
-    }
-
-    /**
-     * true = display logged in user topbar, false = display guess topbar
-     */
-    public void useTopbarType(boolean loggedUserTopbar) {
-        showAccountButton(loggedUserTopbar);
-        showSignUpButton(!loggedUserTopbar);
-        showLoginButton(!loggedUserTopbar);
+    public void setTopbarType(int type) {
+        showAccountButton(type != TOPBAR_GUESS);
+        showSignUpButton(type == TOPBAR_GUESS);
+        showLoginButton(type == TOPBAR_GUESS);
+        showAdminMenuItem(type == TOPBAR_ADMIN);
     }
 
     private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
 
         @Override
         public void onCompleted(User result) {
-            useTopbarType(true);
+            System.out.println("Logged in " + result);
+            if (result instanceof Admin) {
+                ViewLoader<AdminMeetingController> loader = new ViewLoader<>("views/AdminMeeting.fxml");
+                root.getScene().setRoot(loader.getRoot());
+            } else {
+                setTopbarType(TOPBAR_MEMBER);
+            }
         }
 
         @Override
         public void onError(Exception e) {
-            // TODO Auto-generated method stub
+            System.err.println(e);
 
         }
 
         @Override
         public void onCancelled() {
-            // TODO Auto-generated method stub
-
+            System.out.println("Cancelled login");
         }
 
     };
@@ -208,20 +220,18 @@ public class TopbarController implements Initializable {
 
         @Override
         public void onCompleted(User result) {
-            // TODO Auto-generated method stub
-
+            setTopbarType(TOPBAR_MEMBER);
         }
 
         @Override
         public void onError(Exception e) {
-            // TODO Auto-generated method stub
+            System.err.println(e);
 
         }
 
         @Override
         public void onCancelled() {
-            // TODO Auto-generated method stub
-
+            System.out.println("Cancelled sign up");
         }
 
     };

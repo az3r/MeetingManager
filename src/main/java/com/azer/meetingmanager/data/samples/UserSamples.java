@@ -44,8 +44,25 @@ public class UserSamples {
         Account account = new Account(accountName, salt, hashedPassword);
         Admin admin = new Admin(fullname, email, account);
 
+        System.out.println("Created " + admin);
         return admin;
 
+    }
+
+    public static Admin createAdmin(String accountName, String password) {
+        int x = generator.nextInt(names.size());
+
+        String fullname = names.get(x);
+
+        String email = getEmail(accountName);
+        byte[] salt = getSalt();
+        byte[] hashedPassword = hashPassword(salt, password);
+
+        Account account = new Account(accountName, salt, hashedPassword);
+        Admin admin = new Admin(fullname, email, account);
+
+        System.out.println("Created " + admin);
+        return admin;
     }
 
     public static User createUser() {
@@ -63,6 +80,23 @@ public class UserSamples {
         Account account = new Account(accountName, salt, hashedPassword);
         User user = new User(fullname, email, account);
 
+        System.out.println("Created " + user);
+        return user;
+    }
+
+    public static User createUser(String accountName, String password) {
+        int x = generator.nextInt(names.size());
+
+        String fullname = names.get(x);
+
+        String email = getEmail(accountName);
+        byte[] salt = getSalt();
+        byte[] hashedPassword = hashPassword(salt, password);
+
+        Account account = new Account(accountName, salt, hashedPassword);
+        User user = new User(fullname, email, account);
+
+        System.out.println("Created " + user);
         return user;
     }
 
@@ -110,6 +144,6 @@ public class UserSamples {
 
     private static String getAccountName(String fullname, boolean admin) {
         String firstName = fullname.split(" ")[0];
-        return admin ? "admin-" : "member-" + firstName;
+        return admin ? "admin-" + firstName : "member-" + firstName;
     }
 }

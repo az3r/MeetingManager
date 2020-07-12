@@ -59,7 +59,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", userName=" + userName + "]";
+        return "User [userId=" + userId + ", userName=" + userName + ", accountName=" + account.getAccountName() + "]";
     }
 
     public User(String userName, String userEmail, Account account) {
