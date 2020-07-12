@@ -52,4 +52,10 @@ public class Location {
         this.address = address;
     }
 
+    public Location(String name, String address, int capacity) {
+        this.name = name;
+        this.address = address;
+        this.capacity = capacity;
+    }
+
 }

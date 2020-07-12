@@ -21,6 +21,8 @@ public class Meeting {
     @Column
     private Date holdTime;
 
+    @Column
+    private int duration;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "locationId", referencedColumnName = "locationId")
@@ -75,4 +77,14 @@ public class Meeting {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
+
+    public Meeting(String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration, Location location) {
+        this.shortDesc = shortDesc;
+        this.detailDesc = detailDesc;
+        this.photo = photo;
+        this.holdTime = holdTime;
+        this.duration = duration;
+        this.location = location;
+    }
+
 }
