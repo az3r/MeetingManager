@@ -2,12 +2,28 @@ package com.azer.meetingmanager.data.models;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
 public class Meeting {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int meetingId;
+
+    @Column(length = 100)
     private String shortDesc;
+
+    @Column(length = 1000)
     private String detailDesc;
-    private String photo;
+
+    @Column
+    private byte[] photo;
+
+    @Column
     private Date holdTime;
+
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "locationId", referencedColumnName = "locationId")
     private Location location;
 
 
@@ -35,13 +51,6 @@ public class Meeting {
         this.detailDesc = detailDesc;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public Date getHoldTime() {
         return holdTime;
@@ -59,4 +68,11 @@ public class Meeting {
         this.location = location;
     }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
 }

@@ -14,6 +14,13 @@ Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](http
   
 
 ## Project's info
+
+* Database engine: MySql
+
+* Hibernate ORM for mapping domain model to relational database
+
+* use FXML with [SceneBuilder](https://gluonhq.com/products/scene-builder/) support to create views
+
 ### Requirement
 [requirement](https://github.com/Az3r/MeetingManager/blob/master/document/requirement.pdf)
 
@@ -24,3 +31,12 @@ Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](http
 > the prototype is only for drafting, content in application maybe different from prototype
 
 [figma prototype](https://www.figma.com/file/uHQH9yLd98ozFIYeMp0gET/Javafx?node-id=0%3A1)
+
+
+
+## References
+* [Hibernate: save, persist, update, merge, saveOrUpdate](https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate)
+
+* [Hibernate 5 Bootstrapping API](https://www.baeldung.com/hibernate-5-bootstrapping-api)
+
+* Various Indian tutorials

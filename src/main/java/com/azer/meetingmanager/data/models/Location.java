@@ -1,10 +1,24 @@
 package com.azer.meetingmanager.data.models;
 
+import javax.persistence.*;
+
+@Entity
 public class Location {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int locationId;
+
+    @Column(length = 100)
     private String name;
+
+    @Column(length = 100)
     private String address;
+
+    @Column
     private int capacity;
+
+    @OneToOne()
+    private Meeting meeting;
 
     public int getLocationId() {
         return locationId;

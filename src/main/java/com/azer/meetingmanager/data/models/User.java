@@ -8,7 +8,6 @@ import javax.persistence.*;
 @DiscriminatorValue("member")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private int userId;
 
     @Column(length = 50)

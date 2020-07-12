@@ -36,5 +36,7 @@
         <mapping class="com.azer.meetingmanager.data.models.User"/>
         <mapping class="com.azer.meetingmanager.data.models.Account"/>
         <mapping class="com.azer.meetingmanager.data.models.Admin"/>
+        <mapping class="com.azer.meetingmanager.data.models.Meeting"/>
+        <mapping class="com.azer.meetingmanager.data.models.Location"/>
     </session-factory>
 </hibernate-configuration>
