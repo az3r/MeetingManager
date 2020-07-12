@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.azer.meetingmanager.data.login.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Admin;
+import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.data.samples.MeetingSamples;
 import com.azer.meetingmanager.data.samples.UserSamples;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.home.HomeController;
@@ -38,7 +41,6 @@ public class App extends Application {
         app = this;
 
         LoggedUserResource resource = new LoggedUserResource();
-
 
         primaryStage.setTitle("Meetings Manager");
         ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
@@ -87,7 +89,7 @@ public class App extends Application {
         System.out.println("number of admins: " + adminCount);
 
         System.out.println("initialize UserRepository");
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
 
         System.out.println("Creating random admins...");
         List<Admin> admins = UserSamples.createAdmin(adminCount);
@@ -96,19 +98,29 @@ public class App extends Application {
         List<User> users = UserSamples.createUser(userCount);
 
         System.out.println("add all users into database");
-        repository.insertUser(users);
+        userRepository.insertUser(users);
 
         System.out.println("add all admins into database");
-        repository.insertAdmin(admins);
+        userRepository.insertAdmin(admins);
+
+        System.out.println("initialize MeetingRepository");
+        MeetingRepository meetingRepository = new MeetingRepository(App.getSessionFactory().openSession());
+
+        System.out.println("creating random meetings...");
+        List<Meeting> meetings = MeetingSamples.createMeeting(10);
+
+        System.out.println("add all meetings into database");
+        meetingRepository.insert(meetings);
 
         System.out.println("create a static user to use each launch");
-        repository.insert(UserSamples.createUser("user", "123"));
+        userRepository.insert(UserSamples.createUser("user", "123"));
 
         System.out.println("create a static admin to use each launch");
-        repository.insertAdmin(UserSamples.createAdmin("admin", "123"));
+        userRepository.insertAdmin(UserSamples.createAdmin("admin", "123"));
 
         System.out.println("Closing all repositories...");
-        repository.close();
+        userRepository.close();
+        meetingRepository.close();
         System.out.println("DONE!");
     }
 }

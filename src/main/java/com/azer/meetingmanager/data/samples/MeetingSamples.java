@@ -12,7 +12,7 @@ import java.util.Random;
 import com.azer.meetingmanager.data.models.Location;
 import com.azer.meetingmanager.data.models.Meeting;
 
-public class LocationSamples {
+public class MeetingSamples {
     private static Random random = new Random();
 
     private static List<String> addresses = Arrays.asList(
@@ -32,7 +32,9 @@ public class LocationSamples {
     public static Location createLocation() {
         int x = random.nextInt(addresses.size());
         int y = random.nextInt(locationNames.size());
-        return new Location(locationNames.get(y), addresses.get(x), random.nextInt(201) + 100);
+        Location location = new Location(locationNames.get(y), addresses.get(x), random.nextInt(201) + 100);
+        System.out.println("created " + location.toString());
+        return location;
     }
 
     public static List<Location> createLocation(int size) {
@@ -48,7 +50,7 @@ public class LocationSamples {
 
         String shortDesc = repeat("short description", 50);
         String detailDesc = repeat("detail description", 100);
-        InputStream istream = LocationSamples.class.getClassLoader()
+        InputStream istream = MeetingSamples.class.getClassLoader()
                 .getResourceAsStream("images/" + random.nextInt(10));
         byte[] photo = new byte[0];
 
@@ -63,6 +65,7 @@ public class LocationSamples {
         int duration = random.nextInt(3600) + 7200;
 
         Meeting meeting = new Meeting(shortDesc, detailDesc, photo, holdTime, duration, location);
+        System.out.println("created " + meeting.toString());
         return meeting;
     }
 

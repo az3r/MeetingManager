@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 public class Location {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int locationId;
 
     @Column(length = 100)
@@ -56,6 +57,11 @@ public class Location {
         this.name = name;
         this.address = address;
         this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Location [address=" + address + ", capacity=" + capacity + ", name=" + name + "]";
     }
 
 }

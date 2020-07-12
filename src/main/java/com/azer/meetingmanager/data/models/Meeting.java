@@ -87,4 +87,10 @@ public class Meeting {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "Meeting [duration=" + duration + ", holdTime=" + holdTime + ", " + location + ", meetingId="
+                + meetingId + "]";
+    }
+
 }
