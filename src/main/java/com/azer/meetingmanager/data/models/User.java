@@ -7,8 +7,9 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "userType", length = 50)
 @DiscriminatorValue("member")
 public class User {
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
     @Column(length = 50)
@@ -19,6 +20,10 @@ public class User {
 
     @Embedded
     private Account account;
+
+    public User() {
+
+    }
 
     public int getUserId() {
         return userId;

@@ -15,6 +15,9 @@ public class Account {
     @Column
     private byte[] password;
 
+    public Account() {
+
+    }
 
     public byte[] getSalt() {
         return salt;

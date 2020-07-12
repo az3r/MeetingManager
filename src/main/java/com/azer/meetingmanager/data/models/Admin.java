@@ -6,6 +6,10 @@ import javax.persistence.*;
 @DiscriminatorValue("admin")
 public class Admin extends User {
 
+    public Admin(){
+
+    }
+    
     public Admin(String userName, String userEmail, Account account) {
         super(userName, userEmail, account);
     }
