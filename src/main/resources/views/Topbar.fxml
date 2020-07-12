@@ -66,6 +66,7 @@
             <MenuButton fx:id="accountButton" mnemonicParsing="false" styleClass="menu-button-account">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onOpenAccount" text="My account" />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenMeetingManager" text="My meeting" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#onLogOut" text="Log out" />
               </items>
