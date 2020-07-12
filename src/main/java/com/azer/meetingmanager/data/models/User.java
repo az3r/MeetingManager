@@ -7,6 +7,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "userType", length = 50)
 @DiscriminatorValue("member")
 public class User {
+    
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
@@ -54,5 +55,11 @@ public class User {
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + userName + "]";
+    }
+
+    public User(String userName, String userEmail, Account account) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.account = account;
     }
 }

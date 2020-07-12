@@ -39,4 +39,10 @@ public class Account {
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
+
+    public Account(String accountName, byte[] salt, byte[] hashedPassword) {
+        this.accountName = accountName;
+        this.salt = salt;
+        this.password = hashedPassword;
+    }
 }
