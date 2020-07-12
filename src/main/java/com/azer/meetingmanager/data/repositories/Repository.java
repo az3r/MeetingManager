@@ -1,7 +1,6 @@
 package com.azer.meetingmanager.data.repositories;
 
 import org.hibernate.Session;
-import org.hibernate.engine.spi.SessionOwner;
 
 public abstract class Repository<T> implements IRepository<T> {
 
@@ -38,7 +37,7 @@ public abstract class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void save() {
+    public void flush() {
         session.flush();
     }
 }

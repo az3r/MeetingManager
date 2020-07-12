@@ -7,21 +7,29 @@ import com.azer.meetingmanager.data.repositories.UserRepository;
 
 public class LoggedUserResource {
     private User loggedUser;
-    private UserRepository repository = new UserRepository(App.getSessionFactory());
+    private UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
 
     public boolean isMember() {
         return !(loggedUser instanceof Admin);
     }
+
     public boolean isAdmin() {
         return !isMember();
     }
+
+    public boolean isGuess() {
+        return loggedUser == null;
+    }
+
     public User getUser() {
         return loggedUser;
     }
+
     public Admin getAdmin() {
         return (Admin) loggedUser;
     }
+
     public void login(String accountName, String password) {
-        repository.get
+        repository.findAdmin(accountName, password);
     }
 }

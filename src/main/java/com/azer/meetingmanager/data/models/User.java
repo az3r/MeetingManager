@@ -50,4 +50,9 @@ public class User {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "User [userId=" + userId + ", userName=" + userName + "]";
+    }
 }

@@ -1,5 +1,6 @@
 package com.azer.meetingmanager;
 
+import com.azer.meetingmanager.data.login.LoggedUserResource;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.home.HomeController;
 
@@ -20,6 +21,8 @@ public class App extends Application {
     public static void main(String[] args) {
 
         initialize();
+        LoggedUserResource userResource = new LoggedUserResource();
+        userResource.login("admin", "123");
         // launch(args);
     }
 
