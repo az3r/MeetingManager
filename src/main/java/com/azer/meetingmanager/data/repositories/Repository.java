@@ -1,10 +1,12 @@
 package com.azer.meetingmanager.data.repositories;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public abstract class Repository<T> implements IRepository<T> {
 
     protected Session session;
+    protected Transaction transaction;
 
     public Repository(Session session) {
         if (session == null) {
@@ -21,23 +23,23 @@ public abstract class Repository<T> implements IRepository<T> {
 
     @Override
     public void delete(T entity) {
+        Transaction tx = session.beginTransaction();
         session.remove(entity);
-
+        tx.commit();
     }
 
     @Override
     public void insert(T entity) {
+        Transaction tx = session.beginTransaction();
         session.persist(entity);
+        tx.commit();
 
     }
 
     @Override
     public void update(T entity) {
+        Transaction tx = session.beginTransaction();
         session.merge(entity);
-    }
-
-    @Override
-    public void flush() {
-        session.flush();
+        tx.commit();
     }
 }

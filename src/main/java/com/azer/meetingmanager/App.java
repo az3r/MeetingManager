@@ -37,6 +37,9 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         app = this;
 
+        LoggedUserResource resource = new LoggedUserResource();
+
+
         primaryStage.setTitle("Meetings Manager");
         ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
         Scene scene = new Scene(loader.getRoot(), 1200, 800);
@@ -90,16 +93,15 @@ public class App extends Application {
         List<User> users = UserSamples.createUser(userCount);
 
         System.out.println("add all users into database");
-        for (User user : users) {
-            repository.insert(user);
-        }
+        repository.insertUser(users);
 
         System.out.println("add all admins into database");
-        for (Admin admin : admins) {
-            repository.insert(admin);
-        }
+        repository.insertAdmin(admins);
 
-        System.out.println("DONE! closing repositories");
+
+        
+        System.out.println("Closing all repositories...");
         repository.close();
+        System.out.println("DONE!");
     }
 }

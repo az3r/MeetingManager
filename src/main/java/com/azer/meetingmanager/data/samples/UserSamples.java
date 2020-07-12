@@ -36,7 +36,7 @@ public class UserSamples {
         String fullname = names.get(x);
         String password = passwords.get(y);
 
-        String accountName = getAccountName(fullname);
+        String accountName = getAccountName(fullname, true);
         String email = getEmail(accountName);
         byte[] salt = getSalt();
         byte[] hashedPassword = hashPassword(salt, password);
