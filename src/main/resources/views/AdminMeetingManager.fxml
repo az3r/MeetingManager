@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <fx:include source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="60.0" tabMaxWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+        <tabs>
+          <Tab fx:id="pendingRequestTab" text="Pending requests">
+               <content>
+                  <fx:include source="PendingRequest.fxml" />
+               </content>
+          </Tab>
+          <Tab fx:id="meetingEditTab" text="Meeting detail">
+               <content>
+                  <fx:include source="MeetingEditor.fxml" />
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

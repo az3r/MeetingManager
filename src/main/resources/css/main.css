@@ -171,3 +171,24 @@
 .user-input-layout .label {
     -fx-font-weight: bold;
 }
+
+.tab {
+    -fx-font-size: 20;
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-header-background {
+    -fx-background-color: #3CB961;
+
+}
+.tab-label {
+    -fx-text-fill: #DBDBDB;
+}
+
+.tab:selected .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
