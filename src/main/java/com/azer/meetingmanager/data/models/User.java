@@ -94,6 +94,11 @@ public class User {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return this.getUserId();
+    }
+
     public Set<Meeting> getPendingMeetings() {
         return pendingMeetings;
     }

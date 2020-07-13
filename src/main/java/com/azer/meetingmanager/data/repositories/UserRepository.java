@@ -112,6 +112,7 @@ public class UserRepository extends Repository<User> {
 	public boolean isRequestPending(User entity, Meeting meeting) {
 		session.beginTransaction();
 		User user = session.find(User.class, entity.getUserId());
+		System.out.println(user.getPendingMeetings().size());
 		boolean registered = user.getPendingMeetings().contains(meeting);
 		session.getTransaction().commit();
 		return registered;

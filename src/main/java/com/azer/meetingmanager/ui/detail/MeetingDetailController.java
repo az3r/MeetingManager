@@ -132,6 +132,7 @@ public class MeetingDetailController implements Initializable {
             message = "successfully sent request to admin";
         }
         new Alert(AlertType.INFORMATION, message, ButtonType.OK).showAndWait();
+        repository.close();
     }
 
     @FXML
@@ -149,12 +150,15 @@ public class MeetingDetailController implements Initializable {
 
         Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to unregister this meeting?", ButtonType.YES,
                 ButtonType.NO);
-
+        alert.showAndWait();
+        
         if (alert.getResult() == ButtonType.YES) {
             repository.removeFromAccepted(entity, meeting);
             repository.removeFromPending(entity, meeting);
             new Alert(AlertType.INFORMATION, "you have unregistered this meeting", ButtonType.OK).showAndWait();
         }
+
+        repository.close();
     }
 
     /**

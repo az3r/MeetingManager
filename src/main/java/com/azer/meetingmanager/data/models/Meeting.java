@@ -132,6 +132,11 @@ public class Meeting {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return this.getMeetingId();
+    }
+
     public Set<User> getPendingUsers() {
         return pendingUsers;
     }
