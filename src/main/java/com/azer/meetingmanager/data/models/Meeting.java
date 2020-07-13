@@ -1,7 +1,7 @@
 package com.azer.meetingmanager.data.models;
 
 import java.util.Date;
-
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +31,12 @@ public class Meeting {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "locationId", referencedColumnName = "locationId")
     private Location location;
+
+    @ManyToMany
+    private Set<User> registeredUsers;
+
+    @ManyToMany
+    private Set<User> pendingUsers;
 
     public Meeting() {
 
@@ -84,7 +90,8 @@ public class Meeting {
         this.photo = photo;
     }
 
-    public Meeting(String name, String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration, Location location) {
+    public Meeting(String name, String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration,
+            Location location) {
         this.name = name;
         this.shortDesc = shortDesc;
         this.detailDesc = detailDesc;
@@ -116,4 +123,12 @@ public class Meeting {
         this.duration = duration;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj instanceof Meeting)
+            return ((Meeting) obj).getMeetingId() == this.getMeetingId();
+        return false;
+    }
 }

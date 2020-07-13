@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.ui.detail;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
@@ -44,14 +46,17 @@ public class MeetingDetailController implements Initializable {
 
     private Parent previousParent;
 
-    public void notifyDataChanged(Meeting data) {
-        inflate(data);
-    }
+    public void notifyDataChanged(Meeting meeting) {
 
-    private void inflate(Meeting data) {
-        boolean hasPhoto = data.getPhoto() != null;
+        titleLabel.setText(meeting.getName());
+        detailLabel.setText(meeting.getDetailDesc());
+        // capacityLabel.setText(meeting.getLocation().getCapacity());
+
+        boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
+        if (hasPhoto)
+            photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
     }
 
     @Override

@@ -20,6 +20,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 public class HomeController implements Initializable {
@@ -39,6 +41,9 @@ public class HomeController implements Initializable {
     @FXML
     private Text meetingBriefDesc;
 
+    @FXML
+    private StackPane photoContainer;
+
     private Meeting lastestMeeting;
 
     @FXML
@@ -49,9 +54,14 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        meetingPhoto.fitWidthProperty().bind(photoContainer.widthProperty());
+        meetingPhoto.fitHeightProperty().bind(photoContainer.heightProperty());
+
         setupTopbar();
         setupOverlay();
         setupLatestMeeting();
+
     }
 
     @FXML
@@ -70,7 +80,13 @@ public class HomeController implements Initializable {
     public void notifiDataChanged(Meeting meeting) {
         meetingTitle.setText(meeting.getName());
         meetingBriefDesc.setText(meeting.getShortDesc());
-        meetingPhoto.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
+
+        if (meeting.getPhoto() != null)
+            meetingPhoto.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
+        else {
+            meetingTitle.setFill(Paint.valueOf("#000"));
+            meetingBriefDesc.setFill(Paint.valueOf("#000"));
+        }
         lastestMeeting = meeting;
     }
 

@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.data.models;
 
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +19,12 @@ public class User {
     @Column(length = 50)
     private String userEmail;
 
+    @ManyToMany
+    private Set<Meeting> registeredMeetings;
+
+    @ManyToMany
+    private Set<Meeting> pendingMeetings;
+    
     @Embedded
     private Account account;
 
@@ -66,5 +73,30 @@ public class User {
         this.userName = userName;
         this.userEmail = userEmail;
         this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj instanceof User)
+            return ((User) obj).getUserId() == this.getUserId();
+        return false;
+    }
+
+    public Set<Meeting> getRegisteredMeetings() {
+        return registeredMeetings;
+    }
+
+    public void setRegisteredMeetings(Set<Meeting> registeredMeetings) {
+        this.registeredMeetings = registeredMeetings;
+    }
+
+    public Set<Meeting> getPendingMeetings() {
+        return pendingMeetings;
+    }
+
+    public void setPendingMeetings(Set<Meeting> pendingMeetings) {
+        this.pendingMeetings = pendingMeetings;
     }
 }

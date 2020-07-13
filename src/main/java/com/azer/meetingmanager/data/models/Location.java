@@ -18,7 +18,7 @@ public class Location {
     @Column
     private int capacity;
 
-    @OneToOne()
+    @OneToOne(mappedBy = "location")
     private Meeting meeting;
 
     public Location() {

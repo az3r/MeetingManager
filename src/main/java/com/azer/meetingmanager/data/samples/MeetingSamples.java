@@ -2,12 +2,7 @@ package com.azer.meetingmanager.data.samples;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import com.azer.meetingmanager.data.models.Location;
 import com.azer.meetingmanager.data.models.Meeting;
