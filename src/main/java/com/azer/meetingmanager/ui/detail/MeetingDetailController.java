@@ -13,6 +13,7 @@ import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -57,7 +58,6 @@ public class MeetingDetailController implements Initializable {
     @FXML
     private StackPane photoEmptyPane;
 
-    private boolean registerState;
     private Meeting meeting;
     private Parent previousParent;
 
@@ -109,11 +109,8 @@ public class MeetingDetailController implements Initializable {
         });
     }
 
-    private static boolean isMeetingRegistered(User user, Meeting meeting) {
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        return repository.isMeetingRegistered(user, meeting);
-    }
-    private void onRegisterButtonAction() {
+    @FXML
+    private void onRegister(ActionEvent e) {
         LoggedUserResource resource = LoggedUserResource.getInstance();
 
         if (resource.isGuess()) {
@@ -125,18 +122,39 @@ public class MeetingDetailController implements Initializable {
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
         User entity = resource.getUser();
 
-        if (registerState && repository.addToPending(entity, meeting)) {
-            System.out.println("added " + entity + " to pending list of " + meeting);
-            registerButton.setText("Unregister");
+        String message = "";
+        if (repository.isRequestAccepted(entity, meeting))
+            message = "you have already registered this meeting";
+        else if (repository.isRequestPending(entity, meeting))
+            message = "your request have already been in pending list";
+        else {
+            repository.addToPending(entity, meeting);
+            message = "successfully sent request to admin";
+        }
+        new Alert(AlertType.INFORMATION, message, ButtonType.OK).showAndWait();
+    }
+
+    @FXML
+    private void onUnregister(ActionEvent e) {
+        LoggedUserResource resource = LoggedUserResource.getInstance();
+
+        if (resource.isGuess()) {
+            Alert dialog = new Alert(AlertType.ERROR, "you must login first!", ButtonType.OK);
+            dialog.showAndWait();
+            return;
         }
 
-        if (!registerState && repository.removeFromPending(entity, meeting)) {
-            System.out.println("removed " + entity + " from pending list of " + meeting);
-            registerButton.setText("Register");
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        User entity = resource.getUser();
 
+        Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to unregister this meeting?", ButtonType.YES,
+                ButtonType.NO);
+
+        if (alert.getResult() == ButtonType.YES) {
+            repository.removeFromAccepted(entity, meeting);
+            repository.removeFromPending(entity, meeting);
+            new Alert(AlertType.INFORMATION, "you have unregistered this meeting", ButtonType.OK).showAndWait();
         }
-
-        repository.close();
     }
 
     /**

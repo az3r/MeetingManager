@@ -59,9 +59,7 @@ public class UserRepository extends Repository<User> {
 	public User findUser(String accountName, String password) {
 		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
 		User result = session.createQuery("from User where accountName = :accountName", User.class)
-				.setParameter("accountName", accountName)
-				.setMaxResults(1)
-				.uniqueResult();
+				.setParameter("accountName", accountName).setMaxResults(1).uniqueResult();
 
 		if (result == null)
 			System.out.println("No admin was found");
@@ -78,7 +76,7 @@ public class UserRepository extends Repository<User> {
 
 	public boolean addToPending(User entity, Meeting meeting) {
 		try {
-			Transaction tx =  session.beginTransaction();
+			Transaction tx = session.beginTransaction();
 			User user = session.find(User.class, entity.getUserId());
 			user.getPendingMeetings().add(meeting);
 			tx.commit();
@@ -89,29 +87,34 @@ public class UserRepository extends Repository<User> {
 		}
 	}
 
-	public boolean removeFromPending(User entity, Meeting meeting) {
-		try {
-			Transaction tx =  session.beginTransaction();
-			User user = session.find(User.class, entity.getUserId());
-			user.getPendingMeetings().remove(meeting);
-			tx.commit();
-			return true;
-		} catch (Exception e) {
-			System.err.println(e);
-			return false;
-		}
+	public void removeFromPending(User entity, Meeting meeting) {
+		Transaction tx = session.beginTransaction();
+		User user = session.find(User.class, entity.getUserId());
+		user.getPendingMeetings().remove(meeting);
+		tx.commit();
 	}
 
-	public boolean isMeetingRegistered(User entity, Meeting meeting) {
-		try {
-			session.beginTransaction();
-			User user = session.find(User.class, entity.getUserId());
-			boolean registered = user.getAcceptedMeetings().contains(meeting);
-			session.getTransaction().commit();
-			return registered;
-		} catch (Exception e) {
-			System.err.println(e);
-			return false;
-		}
+	public void removeFromAccepted(User entity, Meeting meeting) {
+		Transaction tx = session.beginTransaction();
+		User user = session.find(User.class, entity.getUserId());
+		user.getAcceptedMeetings().remove(meeting);
+		tx.commit();
 	}
+
+	public boolean isRequestAccepted(User entity, Meeting meeting) {
+		session.beginTransaction();
+		User user = session.find(User.class, entity.getUserId());
+		boolean registered = user.getAcceptedMeetings().contains(meeting);
+		session.getTransaction().commit();
+		return registered;
+	}
+
+	public boolean isRequestPending(User entity, Meeting meeting) {
+		session.beginTransaction();
+		User user = session.find(User.class, entity.getUserId());
+		boolean registered = user.getPendingMeetings().contains(meeting);
+		session.getTransaction().commit();
+		return registered;
+	}
+
 }
