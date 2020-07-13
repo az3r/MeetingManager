@@ -1,10 +1,12 @@
 package com.azer.meetingmanager.data.repositories;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.RollbackException;
 
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.data.models.User;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -40,5 +42,15 @@ public class MeetingRepository extends Repository<Meeting> {
         else
             System.out.println("no meeting record in database!");
         return meeting;
+    }
+
+    public Set<User> getAcceptedUsers(Meeting entity) {
+        Meeting meeting = session.find(Meeting.class, entity.getMeetingId());
+        return meeting.getAcceptedUsers();
+    }
+
+    public Set<User> getPendingUsers(Meeting entity) {
+        Meeting meeting = session.find(Meeting.class, entity.getMeetingId());
+        return meeting.getPendingUsers();
     }
 }

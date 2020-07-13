@@ -3,6 +3,7 @@ package com.azer.meetingmanager.data.repositories;
 import java.util.List;
 
 import com.azer.meetingmanager.data.models.Admin;
+import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 
 import org.hibernate.Session;
@@ -58,7 +59,9 @@ public class UserRepository extends Repository<User> {
 	public User findUser(String accountName, String password) {
 		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
 		User result = session.createQuery("from User where accountName = :accountName", User.class)
-				.setParameter("accountName", accountName).uniqueResult();
+				.setParameter("accountName", accountName)
+				.setMaxResults(1)
+				.uniqueResult();
 
 		if (result == null)
 			System.out.println("No admin was found");
@@ -73,4 +76,42 @@ public class UserRepository extends Repository<User> {
 				.setParameter("accountName", accountName).uniqueResult();
 	}
 
+	public boolean addToPending(User entity, Meeting meeting) {
+		try {
+			Transaction tx =  session.beginTransaction();
+			User user = session.find(User.class, entity.getUserId());
+			user.getPendingMeetings().add(meeting);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			System.err.println(e);
+			return false;
+		}
+	}
+
+	public boolean removeFromPending(User entity, Meeting meeting) {
+		try {
+			Transaction tx =  session.beginTransaction();
+			User user = session.find(User.class, entity.getUserId());
+			user.getPendingMeetings().remove(meeting);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			System.err.println(e);
+			return false;
+		}
+	}
+
+	public boolean isMeetingRegistered(User entity, Meeting meeting) {
+		try {
+			session.beginTransaction();
+			User user = session.find(User.class, entity.getUserId());
+			boolean registered = user.getAcceptedMeetings().contains(meeting);
+			session.getTransaction().commit();
+			return registered;
+		} catch (Exception e) {
+			System.err.println(e);
+			return false;
+		}
+	}
 }

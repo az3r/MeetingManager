@@ -20,11 +20,21 @@ public class User {
     private String userEmail;
 
     @ManyToMany
-    private Set<Meeting> registeredMeetings;
+    @JoinTable(
+        name = "User_Meeting_Pending",
+        joinColumns = { @JoinColumn(referencedColumnName = "userId") },
+        inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
+    )
+    private Set<Meeting> pendingMeetings;
 
     @ManyToMany
-    private Set<Meeting> pendingMeetings;
-    
+    @JoinTable(
+        name = "User_Meeting_Accepted",
+        joinColumns = { @JoinColumn(referencedColumnName = "userId") },
+        inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
+    )
+    private Set<Meeting> acceptedMeetings;
+
     @Embedded
     private Account account;
 
@@ -84,14 +94,6 @@ public class User {
         return false;
     }
 
-    public Set<Meeting> getRegisteredMeetings() {
-        return registeredMeetings;
-    }
-
-    public void setRegisteredMeetings(Set<Meeting> registeredMeetings) {
-        this.registeredMeetings = registeredMeetings;
-    }
-
     public Set<Meeting> getPendingMeetings() {
         return pendingMeetings;
     }
@@ -99,4 +101,13 @@ public class User {
     public void setPendingMeetings(Set<Meeting> pendingMeetings) {
         this.pendingMeetings = pendingMeetings;
     }
+
+    public Set<Meeting> getAcceptedMeetings() {
+        return acceptedMeetings;
+    }
+
+    public void setAcceptedMeetings(Set<Meeting> acceptedMeetings) {
+        this.acceptedMeetings = acceptedMeetings;
+    }
+
 }

@@ -28,15 +28,15 @@ public class Meeting {
     @Column
     private int duration;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "locationId", referencedColumnName = "locationId")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "locationId")
     private Location location;
 
     @ManyToMany
-    private Set<User> registeredUsers;
+    private Set<User> pendingUsers;
 
     @ManyToMany
-    private Set<User> pendingUsers;
+    private Set<User> acceptedUsers;
 
     public Meeting() {
 
@@ -132,19 +132,19 @@ public class Meeting {
         return false;
     }
 
-    public Set<User> getRegisteredUsers() {
-        return registeredUsers;
-    }
-
-    public void setRegisteredUsers(Set<User> registeredUsers) {
-        this.registeredUsers = registeredUsers;
-    }
-
     public Set<User> getPendingUsers() {
         return pendingUsers;
     }
 
     public void setPendingUsers(Set<User> pendingUsers) {
         this.pendingUsers = pendingUsers;
+    }
+
+    public Set<User> getAcceptedUsers() {
+        return acceptedUsers;
+    }
+
+    public void setAcceptedUsers(Set<User> acceptedUsers) {
+        this.acceptedUsers = acceptedUsers;
     }
 }
