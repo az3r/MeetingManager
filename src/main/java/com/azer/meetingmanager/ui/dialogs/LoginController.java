@@ -5,6 +5,7 @@ import com.azer.meetingmanager.data.models.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -21,8 +22,11 @@ public class LoginController extends DialogController<User> {
     private PasswordField passwordTextField;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     void onCancel(ActionEvent event) {
-        setState(STATE_CANCELLED);
+        cancelled();
         getContainer().close();
     }
 
@@ -30,13 +34,11 @@ public class LoginController extends DialogController<User> {
     void onLogin(ActionEvent event) {
         LoggedUserResource resource = LoggedUserResource.getInstance();
         if (resource.login(userNameTextField.getText(), passwordTextField.getText())) {
-            setState(STATE_COMPLETED);
-            setResult(resource.getUser());
+            success(resource.getUser());
             getContainer().close();
 
         } else {
-            setState(STATE_ERROR);
-            setError(new Exception("invalid account or password is incorrect"));
+            errorLabel.setText("*account or password is incorrect");
         }
     }
 }

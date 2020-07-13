@@ -33,7 +33,7 @@ public class SignupController extends DialogController<User> {
 
     @FXML
     void onCancel(ActionEvent event) {
-        setState(STATE_CANCELLED);
+        cancelled();
         getContainer().close();
     }
 
@@ -43,8 +43,7 @@ public class SignupController extends DialogController<User> {
             LoggedUserResource resource = LoggedUserResource.getInstance();
             if (resource.register(userNameTextField.getText(), emailTextField.getText(), accountNameTextField.getText(),
                     passwordTextField.getText())) {
-                setState(STATE_COMPLETED);
-                setResult(resource.getUser());
+                success(resource.getUser());
                 getContainer().close();
             } else {
                 accountErrorLabel.setText("*this name already existed");

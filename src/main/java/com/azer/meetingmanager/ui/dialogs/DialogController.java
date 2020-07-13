@@ -22,15 +22,18 @@ public abstract class DialogController<T> {
     private Exception error;
     private byte state = STATE_CANCELLED;
 
-    protected void setError(Exception error) {
+    protected void error(Exception error) {
+        this.state = STATE_ERROR;
         this.error = error;
     }
 
-    protected void setState(byte state) {
-        this.state = state;
+    protected void cancelled() {
+        this.state = STATE_CANCELLED;
+
     }
 
-    protected void setResult(T result) {
+    protected void success(T result) {
+        this.state = STATE_COMPLETED;
         this.result = result;
     }
 

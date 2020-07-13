@@ -23,7 +23,7 @@ public class MeetingFilterController extends DialogController<MeetingFilterOptio
 
     @FXML
     private TextField endTimeTextField;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> dateOptions = FXCollections.observableArrayList(MeetingFilterOption.TODAY,
@@ -36,16 +36,15 @@ public class MeetingFilterController extends DialogController<MeetingFilterOptio
 
     @FXML
     void onCancel(ActionEvent event) {
-        setState(STATE_CANCELLED);
+        cancelled();
         getContainer().close();
     }
 
     @FXML
     void onFilter(ActionEvent event) {
         MeetingFilterOption result = new MeetingFilterOption();
-        
-        setState(STATE_COMPLETED);
-        setResult(result);
+
+        success(result);
 
         getContainer().close();
     }
