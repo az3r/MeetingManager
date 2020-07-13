@@ -2,7 +2,9 @@ package com.azer.meetingmanager.data;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
+import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 
 public class UnitOfWork {
@@ -32,10 +34,22 @@ public class UnitOfWork {
     }
 
     public User login(String accountName, String password) {
+        Log.i(TAG, String.format("finding user with accountName=%s, password=%s", accountName, password));
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        if (repository.ifExist(accountName, password))
-            return repository.find(accountName);
-        return null;
+        User user = repository.ifExist(accountName, password) ? repository.find(accountName) : null;
+        if (user != null)
+            Log.i(TAG, "found " + user);
+        else
+            Log.i(TAG, "no user found");
+        repository.close();
+        return user;
     }
 
+    public Meeting getLatestMeeting() {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        Meeting meeting = repository.getLatestMeeting();
+        Log.i(TAG, "latest " + meeting);
+        repository.close();
+        return meeting;
+    }
 }

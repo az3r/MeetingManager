@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.components.OverlayController;
 import com.azer.meetingmanager.ui.components.TopbarController;
@@ -70,11 +69,8 @@ public class HomeController implements Initializable {
     }
 
     private void setupLatestMeeting() {
-        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
-        Meeting meeting = repository.getLatestMeeting();
-        repository.close();
+        Meeting meeting = App.getUnitOfWork().getLatestMeeting();
         notifiDataChanged(meeting);
-
     }
 
     public void notifiDataChanged(Meeting meeting) {

@@ -33,15 +33,7 @@ public class MeetingRepository extends Repository<Meeting> {
     }
 
     public Meeting getLatestMeeting() {
-        System.out.println("retrieving latest meeting...");
-        Meeting meeting = session.createQuery("from Meeting order by holdTime DESC", Meeting.class).setMaxResults(1)
-                .uniqueResult();
-                
-        if (meeting != null)
-            System.out.println(meeting);
-        else
-            System.out.println("no meeting record in database!");
-        return meeting;
+        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).setMaxResults(1).uniqueResult();
     }
 
     public Set<User> getAcceptedUsers(Meeting entity) {
