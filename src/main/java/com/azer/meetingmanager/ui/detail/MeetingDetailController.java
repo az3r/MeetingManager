@@ -2,6 +2,9 @@ package com.azer.meetingmanager.ui.detail;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.data.models.Meeting;
@@ -50,7 +53,18 @@ public class MeetingDetailController implements Initializable {
 
         titleLabel.setText(meeting.getName());
         detailLabel.setText(meeting.getDetailDesc());
-        // capacityLabel.setText(meeting.getLocation().getCapacity());
+
+        String capacity = String.format("%d / %d", meeting.getRegisteredUsers().size(), meeting.getLocation().getCapacity());
+        capacityLabel.setText(capacity);
+        
+        String date = DateFormat.getDateTimeInstance().format(meeting.getHoldTime());
+        timeLabel.setText(date);
+
+        String location = String.format("%s - %s", meeting.getLocation().getName(),meeting.getLocation().getAddress());
+        locationLabel.setText(location);
+
+        String pending = String.valueOf(meeting.getPendingUsers().size());
+        pendingLabel.setText(pending);
 
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);

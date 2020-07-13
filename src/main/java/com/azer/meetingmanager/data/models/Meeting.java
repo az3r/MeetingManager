@@ -131,4 +131,20 @@ public class Meeting {
             return ((Meeting) obj).getMeetingId() == this.getMeetingId();
         return false;
     }
+
+    public Set<User> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void setRegisteredUsers(Set<User> registeredUsers) {
+        this.registeredUsers = registeredUsers;
+    }
+
+    public Set<User> getPendingUsers() {
+        return pendingUsers;
+    }
+
+    public void setPendingUsers(Set<User> pendingUsers) {
+        this.pendingUsers = pendingUsers;
+    }
 }
