@@ -5,6 +5,7 @@ import java.util.List;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.helpers.AccountHelper;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,25 +23,26 @@ public class UserRepository extends Repository<User> {
 	}
 
 	public void insertUser(List<User> users) {
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		for (User user : users) {
 			session.persist(user);
 		}
-		tx.commit();
+	}
+
+	public boolean ifExist(int userId) {
+		return session.find(User.class, userId) != null;
 	}
 
 	public void insertAdmin(List<Admin> admins) {
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		for (Admin admin : admins) {
 			session.persist(admin);
 		}
-		tx.commit();
 	}
 
 	public void insertAdmin(Admin entity) {
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		session.persist(entity);
-		tx.commit();
 	}
 
 	public Admin findAdmin(String accountName, String password) {
@@ -69,22 +71,15 @@ public class UserRepository extends Repository<User> {
 		return result;
 	}
 
-	public User findUser(String accountName) {
+	public User find(String accountName) {
 		return session.createQuery("from User where accountName = :accountName", User.class)
 				.setParameter("accountName", accountName).uniqueResult();
 	}
 
 	public boolean addToPending(User entity, Meeting meeting) {
-		try {
-			Transaction tx = session.beginTransaction();
-			User user = session.find(User.class, entity.getUserId());
-			user.getPendingMeetings().add(meeting);
-			tx.commit();
-			return true;
-		} catch (Exception e) {
-			System.err.println(e);
-			return false;
-		}
+		User user = session.find(User.class, entity.getUserId());
+		user.getPendingMeetings().add(meeting);
+		return true;
 	}
 
 	public void removeFromPending(User entity, Meeting meeting) {
@@ -116,6 +111,14 @@ public class UserRepository extends Repository<User> {
 		boolean registered = user.getPendingMeetings().contains(meeting);
 		session.getTransaction().commit();
 		return registered;
+	}
+
+	public boolean ifExist(String accountName, String password) {
+		User user = session.createQuery("from User where accountName = :accountName", User.class).setParameter("accountName", accountName)
+		.uniqueResult();
+		byte[] salt = user.getAccount().getSalt();
+		byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+		return hashedPassword == user.getAccount().getPassword();
 	}
 
 }

@@ -48,4 +48,11 @@ public class Account {
         this.salt = salt;
         this.password = hashedPassword;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        Account account = (Account) obj;
+        return account != null ? this.getAccountName().equals(account.getAccountName()) : false;
+    }
 }

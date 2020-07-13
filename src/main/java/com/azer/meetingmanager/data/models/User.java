@@ -87,11 +87,9 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (obj instanceof User)
-            return ((User) obj).getUserId() == this.getUserId();
-        return false;
+        if (obj == null) return false;
+        User user = (User) obj;
+        return this.getUserId() == user.getUserId() && this.getAccount().equals(user.getAccount());
     }
 
     @Override

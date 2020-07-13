@@ -2,7 +2,8 @@ package com.azer.meetingmanager;
 
 import java.util.List;
 
-import com.azer.meetingmanager.data.login.LoggedUserResource;
+import com.azer.meetingmanager.data.LoggedUserResource;
+import com.azer.meetingmanager.data.UnitOfWork;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
@@ -26,6 +27,7 @@ public class App extends Application {
 
     private static SessionFactory sessionFactory;
     private static Application app = null;
+    private static UnitOfWork unitOfWork = new UnitOfWork();
 
     public static void main(String[] args) {
 
@@ -39,8 +41,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         app = this;
-
-        LoggedUserResource resource = new LoggedUserResource();
 
         primaryStage.setTitle("Meetings Manager");
         ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
@@ -65,6 +65,10 @@ public class App extends Application {
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+
+    public static UnitOfWork getUnitOfWork() {
+        return unitOfWork;
     }
 
     private static void initialize() throws ExceptionInInitializerError {
