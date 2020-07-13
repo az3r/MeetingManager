@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.data.login.LoggedUserResource;
+import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.DialogLoader;

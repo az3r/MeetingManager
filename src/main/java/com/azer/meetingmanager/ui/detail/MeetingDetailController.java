@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
-import com.azer.meetingmanager.data.login.LoggedUserResource;
+import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.data.repositories.MeetingRepository;
