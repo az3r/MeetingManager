@@ -6,8 +6,12 @@ import javax.persistence.*;
 
 @Entity
 public class Meeting {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int meetingId;
+
+    @Column(length = 100)
+    private String name;
 
     @Column(length = 100)
     private String shortDesc;
@@ -15,7 +19,7 @@ public class Meeting {
     @Column(length = 1000)
     private String detailDesc;
 
-    @Column
+    @Column(length = 100000)
     private byte[] photo;
 
     @Column
@@ -28,6 +32,9 @@ public class Meeting {
     @JoinColumn(name = "locationId", referencedColumnName = "locationId")
     private Location location;
 
+    public Meeting() {
+
+    }
 
     public int getMeetingId() {
         return meetingId;
@@ -53,7 +60,6 @@ public class Meeting {
         this.detailDesc = detailDesc;
     }
 
-
     public Date getHoldTime() {
         return holdTime;
     }
@@ -78,7 +84,8 @@ public class Meeting {
         this.photo = photo;
     }
 
-    public Meeting(String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration, Location location) {
+    public Meeting(String name, String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration, Location location) {
+        this.name = name;
         this.shortDesc = shortDesc;
         this.detailDesc = detailDesc;
         this.photo = photo;
@@ -89,8 +96,8 @@ public class Meeting {
 
     @Override
     public String toString() {
-        return "Meeting [duration=" + duration + ", holdTime=" + holdTime + ", " + location + ", meetingId="
-                + meetingId + "]";
+        return "Meeting [duration=" + duration + ", holdTime=" + holdTime + ", " + location + ", meetingId=" + meetingId
+                + "]";
     }
 
 }

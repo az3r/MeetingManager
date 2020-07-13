@@ -29,6 +29,18 @@ public class MeetingSamples {
             "Gala Royale - Tiệc Cưới & Hội Nghị", "The Adora - Tiệc Cưới & Hội Nghị", "Callary - Nhà hàng Tiệc Cưới",
             "Vườn Cau - Nhà Hàng Tiệc Cưới");
 
+    private static List<String> meetingNames = Arrays.asList(
+      "Hội nghị Bộ trưởng GTVT các nước ASEAN lần thứ 25",
+      "Hội nghị Ban Thường vụ Tổng hội Y học Việt Nam lần thứ 3 nhiệm kỳ XVI",
+      "Hội nghị đại biểu cán bộ công chức Bộ Công Thương năm 2019",
+      "Hội nghị tập huấn chuyên đề hướng dẫn các quy định về chương trình Giáo dục",
+      "Hội nghị người lao động năm 2018",
+      "Hội nghị Khách hàng VIP 2018 tiếp nối thành công",
+      "Họp mặt kỷ niệm Ngày Dân số Việt Nam",
+      "Họp mặt ban cán sự lớp",
+      "Họp mặt ban cán sự hội sinh viên"
+    );
+
     public static Location createLocation() {
         int x = random.nextInt(addresses.size());
         int y = random.nextInt(locationNames.size());
@@ -46,12 +58,16 @@ public class MeetingSamples {
     }
 
     public static Meeting createMeeting() {
+        String name = meetingNames.get(random.nextInt(meetingNames.size()));
         Location location = createLocation();
 
-        String shortDesc = repeat("short description", 50);
-        String detailDesc = repeat("detail description", 100);
-        InputStream istream = MeetingSamples.class.getClassLoader()
-                .getResourceAsStream("images/" + random.nextInt(10));
+        String shortDesc = "short description";
+        shortDesc = repeat(shortDesc, 100 / shortDesc.length());
+        String detailDesc = "detail description";
+        detailDesc = repeat(detailDesc, 1000 / detailDesc.length());
+
+        int i = random.nextInt(10) + 1;
+        InputStream istream = MeetingSamples.class.getClassLoader().getResourceAsStream("images/" + i + ".jpg");
         byte[] photo = new byte[0];
 
         try {
@@ -64,7 +80,7 @@ public class MeetingSamples {
                 random.nextInt(60)).getTime();
         int duration = random.nextInt(3600) + 7200;
 
-        Meeting meeting = new Meeting(shortDesc, detailDesc, photo, holdTime, duration, location);
+        Meeting meeting = new Meeting(name, shortDesc, detailDesc, photo, holdTime, duration, location);
         System.out.println("created " + meeting.toString());
         return meeting;
     }

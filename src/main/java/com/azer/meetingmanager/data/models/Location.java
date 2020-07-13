@@ -21,6 +21,10 @@ public class Location {
     @OneToOne()
     private Meeting meeting;
 
+    public Location() {
+
+    }
+
     public int getLocationId() {
         return locationId;
     }

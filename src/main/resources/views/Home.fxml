@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -62,15 +61,11 @@
          <children>
             <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="overlay-container" GridPane.rowIndex="1">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="popular-meeting">
-                     <effect>
-                        <ColorAdjust brightness="-0.6" />
-                     </effect>
-                  </AnchorPane>
+                  <ImageView fx:id="meetingPhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox alignment="BOTTOM_LEFT" fillWidth="false" spacing="20.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-title" text="Meeting Title" />
-                        <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-desc" text="Trường dại học Khoa học Tự nhiên, định kỳ hai năm một lần, tổ chức Hội nghị Khoa học toàn trường cho tất cả các ngành khoa học, các lĩnh vực nghiên cứu, đào tạo của trường." wrappingWidth="800.0" />
+                        <Text fx:id="meetingTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-title" text="Meeting Title" />
+                        <Text fx:id="meetingBriefDesc" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="popular-meeting-desc" text="Trường dại học Khoa học Tự nhiên, định kỳ hai năm một lần, tổ chức Hội nghị Khoa học toàn trường cho tất cả các ngành khoa học, các lĩnh vực nghiên cứu, đào tạo của trường." wrappingWidth="800.0" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="60.0" right="60.0" top="60.0" />
