@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.ui.home;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,12 +17,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class HomeController implements Initializable {
-
 
     @FXML
     private AnchorPane root;
@@ -67,7 +68,9 @@ public class HomeController implements Initializable {
     }
 
     public void notifiDataChanged(Meeting meeting) {
-        meetingTitle.setText(meeting.get);
+        meetingTitle.setText(meeting.getName());
+        meetingBriefDesc.setText(meeting.getShortDesc());
+        meetingPhoto.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
         lastestMeeting = meeting;
     }
 
@@ -86,7 +89,8 @@ public class HomeController implements Initializable {
 
         overlayController.setRightButtonText("Detail");
         overlayController.setRightButtonAction(e -> {
-            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml", root.getScene().getRoot());
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
+                    root.getScene().getRoot());
             loader.getController().setPreviousParent(loader.getPreviousParent());
             loader.getController().notifyDataChanged(lastestMeeting);
             root.getScene().setRoot(loader.getRoot());
