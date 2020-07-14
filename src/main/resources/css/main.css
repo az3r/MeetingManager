@@ -192,3 +192,9 @@
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
+
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 10;
+    visibility: false;;
+}

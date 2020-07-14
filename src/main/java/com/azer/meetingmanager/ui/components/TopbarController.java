@@ -104,7 +104,8 @@ public class TopbarController implements Initializable {
                 ButtonType.YES, ButtonType.NO).showAndWait();
         if (result.get() == ButtonType.YES) {
             LoggedUserResource.getInstance().logout();
-            setTopbarType(TOPBAR_GUESS);
+            ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
+            root.getScene().setRoot(loader.getRoot());
         }
     }
 
@@ -238,4 +239,5 @@ public class TopbarController implements Initializable {
         }
 
     };
+
 }

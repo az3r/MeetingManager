@@ -54,7 +54,9 @@ public class LoggedUserResource {
         byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
         User user = new User(userName, userEmail, account);
-        return App.getUnitOfWork().registerUser(user);
+        boolean result = App.getUnitOfWork().registerUser(user);
+        if (result) this.loggedUser = user;
+        return result;
     }
 
     public void logout() {

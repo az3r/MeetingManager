@@ -24,17 +24,12 @@ public class MeetingSamples {
             "Gala Royale - Tiệc Cưới & Hội Nghị", "The Adora - Tiệc Cưới & Hội Nghị", "Callary - Nhà hàng Tiệc Cưới",
             "Vườn Cau - Nhà Hàng Tiệc Cưới");
 
-    private static List<String> meetingNames = Arrays.asList(
-      "Hội nghị Bộ trưởng GTVT các nước ASEAN lần thứ 25",
-      "Hội nghị Ban Thường vụ Tổng hội Y học Việt Nam lần thứ 3 nhiệm kỳ XVI",
-      "Hội nghị đại biểu cán bộ công chức Bộ Công Thương năm 2019",
-      "Hội nghị tập huấn chuyên đề hướng dẫn các quy định về chương trình Giáo dục",
-      "Hội nghị người lao động năm 2018",
-      "Hội nghị Khách hàng VIP 2018 tiếp nối thành công",
-      "Họp mặt kỷ niệm Ngày Dân số Việt Nam",
-      "Họp mặt ban cán sự lớp",
-      "Họp mặt ban cán sự hội sinh viên"
-    );
+    private static List<String> meetingNames = Arrays.asList("Hội nghị Bộ trưởng GTVT các nước ASEAN lần thứ 25",
+            "Hội nghị Ban Thường vụ Tổng hội Y học Việt Nam lần thứ 3 nhiệm kỳ XVI",
+            "Hội nghị đại biểu cán bộ công chức Bộ Công Thương năm 2019",
+            "Hội nghị tập huấn chuyên đề hướng dẫn các quy định về chương trình Giáo dục",
+            "Hội nghị người lao động năm 2018", "Hội nghị Khách hàng VIP 2018 tiếp nối thành công",
+            "Họp mặt kỷ niệm Ngày Dân số Việt Nam", "Họp mặt ban cán sự lớp", "Họp mặt ban cán sự hội sinh viên");
 
     public static Location createLocation() {
         int x = random.nextInt(addresses.size());

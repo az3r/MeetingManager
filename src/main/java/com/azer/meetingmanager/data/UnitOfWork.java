@@ -1,6 +1,7 @@
 package com.azer.meetingmanager.data;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
@@ -46,6 +47,26 @@ public class UnitOfWork {
             Log.i(TAG, "no user found");
         repository.close();
         return user;
+    }
+
+    public boolean updateUser(User user) {
+        Log.i(TAG, "updating " + user.toString());
+
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        repository.update(user);
+
+        boolean result = false;
+        try {
+            repository.commit();
+            result = true;
+            Log.i(TAG, "update user successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        } finally {
+            repository.close();
+        }
+        return result;
     }
 
     public Meeting getLatestMeeting() {

@@ -4,12 +4,14 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.helpers.StringHelper;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.detail.MeetingDetailController;
@@ -18,10 +20,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -49,6 +51,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
     private TilePane tilePaneLayout = createTilePaneContainer();
     private String file = "views/MeetingItemHBox.fxml";
     private ObservableList<Meeting> items = FXCollections.observableArrayList();
+    private List<Node> originalChildren = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -157,11 +160,35 @@ public class MeetingContainerController implements Initializable, ListChangeList
         this.rightButtonListener = listener;
     }
 
+    public void sortByName() {
+        List<Node> sortedNodes = container.getChildren().sorted((left, right) -> {
+            Meeting leftData = (Meeting) left.getUserData();
+            Meeting rightData = (Meeting) right.getUserData();
+            return leftData.getName().compareTo(rightData.getName());
+        });
+        container.getChildren().setAll(sortedNodes);
+    }
+
+    public void sortByLatest() {
+        List<Node> sortedNodes = container.getChildren().sorted((left, right) -> {
+            Meeting leftData = (Meeting) left.getUserData();
+            Meeting rightData = (Meeting) right.getUserData();
+            int compareResult = leftData.getHoldTime().compareTo(rightData.getHoldTime());
+            if (compareResult > 0)
+                compareResult = -1;
+            else if (compareResult < 0)
+                compareResult = 1;
+            return compareResult;
+        });
+        container.getChildren().setAll(sortedNodes);
+    }
+
     private void addToContainer(List<? extends Meeting> collection) {
         Log.i(TAG, "adding new meetings to container");
         for (Meeting meeting : items) {
             Log.i(TAG, meeting.toString());
             Parent node = createMeetingItemNode(meeting);
+            node.setUserData(meeting);
             container.getChildren().add(node);
         }
     }
@@ -179,5 +206,38 @@ public class MeetingContainerController implements Initializable, ListChangeList
         } else if (c.wasRemoved()) {
             removeFromContainer(c.getFrom(), c.getRemovedSize());
         }
+    }
+
+    public void onFilter(String query) {
+        // store original collection
+        if (originalChildren == null)
+            originalChildren = container.getChildren().stream().collect(Collectors.toList());
+
+        if (StringHelper.nullOrEmpty(query)) {
+            container.getChildren().setAll(originalChildren);
+            return;
+        }
+
+        // copy to another collection and use this for filtering
+        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        copied.removeIf(node -> {
+            Meeting nodeData = (Meeting) node.getUserData();
+            return !nodeData.getName().toLowerCase().contains(query.toLowerCase());
+        });
+        if (copied.isEmpty()) {
+            copied = originalChildren.stream().collect(Collectors.toList());
+            copied.removeIf(node -> {
+                Meeting nodeData = (Meeting) node.getUserData();
+                return !nodeData.getLocation().getName().toLowerCase().contains(query.toLowerCase());
+            });
+        }
+        if (copied.isEmpty()) {
+            copied = originalChildren.stream().collect(Collectors.toList());
+            copied.removeIf(node -> {
+                Meeting nodeData = (Meeting) node.getUserData();
+                return !nodeData.getLocation().getAddress().toLowerCase().contains(query.toLowerCase());
+            });
+        }
+        container.getChildren().setAll(copied);
     }
 }

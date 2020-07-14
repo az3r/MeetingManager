@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
-import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.helpers.AccountHelper;
+import com.azer.meetingmanager.helpers.StringHelper;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
@@ -29,6 +30,7 @@ public class AccountController implements Initializable {
 
     private static final String TAG = "AccountController";
     @FXML
+
     private TopbarController topbarController;
 
     @FXML
@@ -50,13 +52,22 @@ public class AccountController implements Initializable {
     private TextField fullNameTextField;
 
     @FXML
+    private Label userNameErrorLabel;
+
+    @FXML
     private TextField emailTextField;
+
+    @FXML
+    private Label emailErrorLabel;
 
     @FXML
     private TextField passwordTextField;
 
     @FXML
     private TextField confirmPasswordTextField;
+
+    @FXML
+    private Label confirmErrorLabel;
 
     @FXML
     private MeetingContainerController meetingContainerController;
@@ -80,39 +91,62 @@ public class AccountController implements Initializable {
 
     @FXML
     void onSave(ActionEvent event) {
-        // TODO update in database
 
-        // update in UI
-        fullNameLabel.setText(fullNameTextField.getText());
-        emailLabel.setText(emailTextField.getText());
-        showEditPane(false);
+        userNameErrorLabel.setVisible(false);
+        emailErrorLabel.setVisible(false);
+        confirmErrorLabel.setVisible(false);
+
+        if (StringHelper.nullOrEmpty(fullNameTextField.getText())) {
+            userNameErrorLabel.setVisible(true);
+        } else if (StringHelper.nullOrEmpty(emailTextField.getText())) {
+            emailErrorLabel.setVisible(true);
+        } else if (!passwordTextField.getText().equals(confirmPasswordTextField.getText())) {
+            confirmErrorLabel.setVisible(true);
+        } else {
+
+            // update in database
+            User user = LoggedUserResource.getInstance().getUser();
+            user.setUserName(fullNameTextField.getText());
+            user.setUserEmail(emailTextField.getText());
+            user.getAccount().setPassword(
+                    AccountHelper.generatePassword(passwordTextField.getText(), user.getAccount().getSalt()));
+            boolean success = App.getUnitOfWork().updateUser(LoggedUserResource.getInstance().getUser());
+
+            // update in UI
+            if (success) {
+                fullNameLabel.setText(fullNameTextField.getText());
+                emailLabel.setText(emailTextField.getText());
+                showEditPane(false);
+            } else {
+                new Alert(AlertType.ERROR, "unable to update your account info", ButtonType.OK).showAndWait();
+            }
+        }
     }
 
     @FXML
     void onSortByLatest(ActionEvent event) {
-
+        meetingContainerController.sortByLatest();
     }
 
     @FXML
     void onSortbyAlphabet(ActionEvent event) {
-
+        meetingContainerController.sortByName();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
         setupMeetingContainer();
+        setupAccountInfo();
     };
 
-    /**
-     * set the Preivous root node that navigates to this view
-     */
-    public void setPreviousNode(Parent previousNode) {
-        this.previousParent = previousNode;
-    }
+    private void setupAccountInfo() {
+        User user = LoggedUserResource.getInstance().getUser();
+        fullNameLabel.setText(user.getUserName());
+        fullNameTextField.setText(user.getUserName());
 
-    public Parent getPreviousParent() {
-        return this.previousParent;
+        emailLabel.setText(user.getUserEmail());
+        emailTextField.setText(user.getUserEmail());
     }
 
     private void setupTopbar() {
@@ -120,11 +154,11 @@ public class AccountController implements Initializable {
         topbarController.showSearchOption(true);
         topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
-            getScene().setRoot(getPreviousParent());
+            getScene().setRoot(getPreviousNode());
         });
         topbarController.setOnSearchAction(e -> {
             String query = topbarController.getSearchQuery();
-            // TODO handle query
+            meetingContainerController.onFilter(query);
         });
     }
 
@@ -149,6 +183,17 @@ public class AccountController implements Initializable {
 
         meetingContainerController.notifyCollectionChanged(acceptedMeetings);
 
+    }
+
+    /**
+     * set the Preivous root node that navigates to this view
+     */
+    public void setPreviousNode(Parent previousNode) {
+        this.previousParent = previousNode;
+    }
+
+    public Parent getPreviousNode() {
+        return this.previousParent;
     }
 
     private Scene getScene() {

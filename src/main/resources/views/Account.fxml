@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
@@ -63,24 +64,27 @@
                            <children>
                               <Label text="Your full name" />
                               <TextField fx:id="fullNameTextField" />
+                              <Label fx:id="userNameErrorLabel" styleClass="error-label" text="*this field can not be empty" />
                            </children>
                         </VBox>
                         <VBox>
                            <children>
                               <Label text="Your email" />
                               <TextField fx:id="emailTextField" />
+                              <Label fx:id="emailErrorLabel" styleClass="error-label" text="*this field can not be empty" />
                            </children>
                         </VBox>
                         <VBox>
                            <children>
                               <Label text="Your new password" />
-                              <TextField fx:id="passwordTextField" />
+                              <PasswordField fx:id="passwordTextField" />
                            </children>
                         </VBox>
                         <VBox>
                            <children>
                               <Label text="Confirm new password" />
-                              <TextField fx:id="confirmPasswordTextField" />
+                              <PasswordField fx:id="confirmPasswordTextField" />
+                              <Label fx:id="confirmErrorLabel" styleClass="error-label" text="*confirm password does not match" />
                            </children>
                         </VBox>
                         <HBox alignment="CENTER_RIGHT">
@@ -106,7 +110,7 @@
                         <MenuButton mnemonicParsing="false" text="Sort" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#onSortByLatest" text="Latest" />
-                            <MenuItem mnemonicParsing="false" onAction="#onSortbyAlphabet" text="A-Z" />
+                            <MenuItem mnemonicParsing="false" onAction="#onSortbyAlphabet" text="Name A-Z" />
                           </items>
                         </MenuButton>
                      </children>
