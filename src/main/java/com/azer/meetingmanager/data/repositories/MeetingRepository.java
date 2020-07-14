@@ -37,4 +37,8 @@ public class MeetingRepository extends Repository<Meeting> {
         Meeting meeting = session.find(Meeting.class, entity.getMeetingId());
         return meeting.getPendingUsers();
     }
+
+	public List<Meeting> get() {
+		return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).list();
+	}
 }

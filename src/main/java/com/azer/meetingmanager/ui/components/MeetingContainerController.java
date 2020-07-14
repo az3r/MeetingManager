@@ -53,7 +53,15 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
         setupItemDefault();
         changeContainerPane(true);
+
         items.addListener(this);
+        settupMeetingItems();
+    }
+
+    /** retrieve all available meetings and display them */
+    private void settupMeetingItems() {
+        List<Meeting> meetings = App.getUnitOfWork().getAllMeetings();
+        items.addAll(meetings);
     }
 
     /**
