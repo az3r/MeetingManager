@@ -8,6 +8,7 @@ import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.helpers.RequestResult;
 
 public class UnitOfWork {
     private static final String TAG = "UnitOfWork";
@@ -55,35 +56,64 @@ public class UnitOfWork {
         return meeting;
     }
 
-    public boolean isAccepted(User user, Meeting meeting) {
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        boolean accepted = repository.isAccepted(user, meeting);
-        repository.close();
-        return accepted;
-    }
-
-    public boolean isPending(User user, Meeting meeting) {
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        boolean accepted = repository.isAccepted(user, meeting);
-        repository.close();
-        return accepted;
-    }
-
-    public boolean registerMeeting(User user, Meeting meeting) {
+    public RequestResult registerMeeting(User user, Meeting meeting) {
         Log.i(TAG, String.format("register %s to pending list of %s...", user, meeting));
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        repository.addToPending(user, meeting);
-        boolean accepted = repository.isAccepted(user, meeting);
+
+        RequestResult result = null;
+        if (repository.isAccepted(user.getUserId(), meeting))
+            result = RequestResult.ACCEPTED;
+        if (repository.isPending(user.getUserId(), meeting))
+            result = RequestResult.ALREADY_PENDING;
+        else {
+            try {
+                repository.addToPending(user.getUserId(), meeting);
+                repository.commit();
+                result = RequestResult.PENDING;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+                repository.rollback();
+            }
+        }
+
+        switch (result) {
+            case ACCEPTED:
+                Log.i(TAG, "request have already been accepted");
+                break;
+            case ALREADY_PENDING:
+                Log.i(TAG, "request have already been accepted");
+                break;
+            case PENDING:
+                Log.i(TAG, "request have already been accepted");
+                break;
+            default:
+                Log.e(TAG, "unable to register user to meeting");
+                break;
+        }
+
+        repository.close();
+        return result;
+    }
+
+    public boolean cancelMeeting(User user, Meeting meeting) {
+        Log.i(TAG, String.format("canceling request of %s to %s...", user, meeting));
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+
+        repository.removeFromAccepted(user.getUserId(), meeting);
+        repository.removeFromPending(user.getUserId(), meeting);
+
+        boolean result = false;
         try {
             repository.commit();
-            Log.i(TAG, "register successfully");
-
+            result = true;
+            Log.i(TAG, "remove successfully");
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             repository.rollback();
+        } finally {
+            repository.close();
         }
-        repository.close();
-        return accepted;
+        return result;
     }
 
     public List<Meeting> getAllMeetings() {
