@@ -62,7 +62,7 @@ public class MeetingDetailController implements Initializable {
 
     public void notifyDataChanged(Meeting meeting) {
         this.meeting = App.getUnitOfWork().fetchMeeting(meeting.getMeetingId());
-        
+
         titleLabel.setText(meeting.getName());
         detailLabel.setText(meeting.getDetailDesc());
 
@@ -115,20 +115,26 @@ public class MeetingDetailController implements Initializable {
             return;
         }
 
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        User entity = resource.getUser();
+        User user = resource.getUser();
 
         String message = "";
-        if (repository.isAccepted(entity, meeting))
-            message = "you have already registered this meeting";
-        else if (repository.isPending(entity, meeting))
-            message = "your request have already been in pending list";
-        else {
-            repository.addToPending(entity, meeting);
-            message = "successfully send request to admin";
+        AlertType alertType = AlertType.INFORMATION;
+        switch (App.getUnitOfWork().registerMeeting(user, meeting)) {
+            case ACCEPTED:
+                message = "you have already registered this meeting";
+                break;
+            case ALREADY_PENDING:
+                message = "your request have already been in pending list";
+                break;
+            case PENDING:
+                message = "successfully send request to admin";
+                break;
+            default:
+                alertType = AlertType.ERROR;
+                message = "internal error happened, check log";
+                break;
         }
-        new Alert(AlertType.INFORMATION, message, ButtonType.OK).showAndWait();
-        repository.close();
+        new Alert(alertType, message, ButtonType.OK).showAndWait();
     }
 
     @FXML
@@ -142,16 +148,18 @@ public class MeetingDetailController implements Initializable {
         }
 
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        User entity = resource.getUser();
+        User user = resource.getUser();
 
         Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to unregister this meeting?", ButtonType.YES,
                 ButtonType.NO);
         alert.showAndWait();
-        
+
         if (alert.getResult() == ButtonType.YES) {
-            repository.removeFromAccepted(entity, meeting);
-            repository.removeFromPending(entity, meeting);
-            new Alert(AlertType.INFORMATION, "you have unregistered this meeting", ButtonType.OK).showAndWait();
+            boolean result = App.getUnitOfWork().cancelMeeting(user, meeting);
+            String message = result ? "Unregistered successfully"
+                    : "An error happened and your request can not be unregistered";
+            AlertType alertType = result ? AlertType.CONFIRMATION : AlertType.ERROR;
+            new Alert(alertType, message, ButtonType.OK).showAndWait();
         }
 
         repository.close();

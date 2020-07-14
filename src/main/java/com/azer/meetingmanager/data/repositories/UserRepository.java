@@ -8,7 +8,6 @@ import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.helpers.AccountHelper;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class UserRepository extends Repository<User> {
 
@@ -73,32 +72,28 @@ public class UserRepository extends Repository<User> {
 				.setParameter("accountName", accountName).uniqueResult();
 	}
 
-	public void addToPending(User entity, Meeting meeting) {
-		User user = session.find(User.class, entity.getUserId());
+	public void addToPending(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
 		user.getPendingMeetings().add(meeting);
 	}
 
-	public void removeFromPending(User entity, Meeting meeting) {
-		Transaction tx = session.beginTransaction();
-		User user = session.find(User.class, entity.getUserId());
+	public void removeFromPending(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
 		user.getPendingMeetings().remove(meeting);
-		tx.commit();
 	}
 
-	public void removeFromAccepted(User entity, Meeting meeting) {
-		Transaction tx = session.beginTransaction();
-		User user = session.find(User.class, entity.getUserId());
+	public void removeFromAccepted(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
 		user.getAcceptedMeetings().remove(meeting);
-		tx.commit();
 	}
 
-	public boolean isAccepted(User entity, Meeting meeting) {
-		User user = session.find(User.class, entity.getUserId());
+	public boolean isAccepted(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
 		return user != null ? user.getAcceptedMeetings().contains(meeting) : false;
 	}
 
-	public boolean isPending(User entity, Meeting meeting) {
-		User user = session.find(User.class, entity.getUserId());
+	public boolean isPending(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
 		return user != null ? user.getPendingMeetings().contains(meeting) : false;
 	}
 
