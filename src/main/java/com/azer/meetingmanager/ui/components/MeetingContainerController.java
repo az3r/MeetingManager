@@ -1,11 +1,12 @@
 package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 import com.azer.meetingmanager.ui.ViewLoader;
@@ -20,6 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -48,12 +52,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
         setupItemDefault();
         changeContainerPane(true);
-
-        // TODO remove code below when using populating data in database
         items.addListener(this);
-        items.setAll(Arrays.asList(new Meeting(), new Meeting(), new Meeting(), new Meeting(), new Meeting(),
-                new Meeting()));
-        items.remove(2, 4);
     }
 
     /**
@@ -69,7 +68,12 @@ public class MeetingContainerController implements Initializable, ListChangeList
             root.getScene().setRoot(loader.getRoot());
         });
         setRightButtonListener(e -> {
-
+            LoggedUserResource resource = LoggedUserResource.getInstance();
+            if (resource.isGuess()) {
+                new Alert(AlertType.ERROR, "You must login first!", ButtonType.OK).showAndWait();
+            }
+            else {
+            }
         });
     }
 

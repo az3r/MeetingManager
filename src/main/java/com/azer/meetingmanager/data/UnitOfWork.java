@@ -52,4 +52,18 @@ public class UnitOfWork {
         repository.close();
         return meeting;
     }
+
+    public boolean isAccepted(User user, Meeting meeting) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        boolean accepted = repository.isAccepted(user, meeting);
+        repository.close();
+        return accepted;
+    }
+
+    public boolean isPending(User user, Meeting meeting) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        boolean accepted = repository.isAccepted(user, meeting);
+        repository.close();
+        return accepted;
+    }
 }

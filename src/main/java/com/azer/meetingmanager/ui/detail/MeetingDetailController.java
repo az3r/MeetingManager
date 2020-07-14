@@ -123,9 +123,9 @@ public class MeetingDetailController implements Initializable {
         User entity = resource.getUser();
 
         String message = "";
-        if (repository.isRequestAccepted(entity, meeting))
+        if (repository.isAccepted(entity, meeting))
             message = "you have already registered this meeting";
-        else if (repository.isRequestPending(entity, meeting))
+        else if (repository.isPending(entity, meeting))
             message = "your request have already been in pending list";
         else {
             repository.addToPending(entity, meeting);

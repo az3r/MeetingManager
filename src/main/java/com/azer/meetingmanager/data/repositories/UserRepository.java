@@ -93,26 +93,19 @@ public class UserRepository extends Repository<User> {
 		tx.commit();
 	}
 
-	public boolean isRequestAccepted(User entity, Meeting meeting) {
-		session.beginTransaction();
+	public boolean isAccepted(User entity, Meeting meeting) {
 		User user = session.find(User.class, entity.getUserId());
-		boolean registered = user.getAcceptedMeetings().contains(meeting);
-		session.getTransaction().commit();
-		return registered;
+		return user != null ? user.getAcceptedMeetings().contains(meeting) : false;
 	}
 
-	public boolean isRequestPending(User entity, Meeting meeting) {
-		session.beginTransaction();
+	public boolean isPending(User entity, Meeting meeting) {
 		User user = session.find(User.class, entity.getUserId());
-		System.out.println(user.getPendingMeetings().size());
-		boolean registered = user.getPendingMeetings().contains(meeting);
-		session.getTransaction().commit();
-		return registered;
+		return user != null ? user.getPendingMeetings().contains(meeting) : false;
 	}
 
 	public boolean ifExist(String accountName, String password) {
-		User user = session.createQuery("from User where accountName = :accountName", User.class).setParameter("accountName", accountName)
-		.uniqueResult();
+		User user = session.createQuery("from User where accountName = :accountName", User.class)
+				.setParameter("accountName", accountName).uniqueResult();
 		byte[] salt = user.getAccount().getSalt();
 		byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
 		return hashedPassword == user.getAccount().getPassword();
