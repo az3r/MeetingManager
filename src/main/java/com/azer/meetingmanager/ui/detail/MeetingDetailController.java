@@ -84,6 +84,7 @@ public class MeetingDetailController implements Initializable {
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
+        
         if (hasPhoto)
             photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
     }

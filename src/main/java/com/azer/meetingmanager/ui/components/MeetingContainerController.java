@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
@@ -32,6 +33,7 @@ import javafx.scene.layout.VBox;
 
 public class MeetingContainerController implements Initializable, ListChangeListener<Meeting> {
 
+    private static final String TAG = "MeetingContainerController";
     @FXML
     private ScrollPane root;
 
@@ -70,10 +72,11 @@ public class MeetingContainerController implements Initializable, ListChangeList
     private void setupItemDefault() {
         setLeftButtonText("Detail");
         setRightButtonText("Register");
-        setLeftButtonListener(e -> {
+        setLeftButtonListener(meeting -> {
             ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
                     root.getScene().getRoot());
             loader.getController().setPreviousParent(loader.getPreviousParent());
+            loader.getController().notifyDataChanged(meeting);
             root.getScene().setRoot(loader.getRoot());
         });
         setRightButtonListener(meeting -> {
@@ -172,12 +175,15 @@ public class MeetingContainerController implements Initializable, ListChangeList
     }
 
     private void addToContainer(List<? extends Meeting> collection) {
+        Log.i(TAG, "adding new meetings to container");
         for (Meeting meeting : items) {
+            Log.i(TAG, meeting.toString());
             container.getChildren().add(createMeetingItemNode(meeting));
         }
     }
 
     private void removeFromContainer(int fromInclusive, int size) {
+        Log.i(TAG, "removing meetings from container");
         container.getChildren().remove(fromInclusive, fromInclusive + size);
     }
 

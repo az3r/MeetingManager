@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Meeting;
-import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 
 import javafx.fxml.FXML;

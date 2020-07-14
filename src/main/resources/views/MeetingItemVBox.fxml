@@ -31,7 +31,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <Label styleClass="meeting-item-title" text="meeting title" textAlignment="CENTER" />
+            <Label fx:id="titleLabel" styleClass="meeting-item-title" text="meeting title" textAlignment="CENTER" />
             <VBox alignment="CENTER" spacing="10.0">
                <children>
                   <HBox alignment="CENTER_LEFT" styleClass="meeting-item-detail">
