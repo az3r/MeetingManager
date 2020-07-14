@@ -83,18 +83,25 @@ public class MeetingContainerController implements Initializable, ListChangeList
                 return;
             }
             User user = resource.getUser();
-            if (App.getUnitOfWork().isAccepted(user, meeting))
-                new Alert(AlertType.CONFIRMATION, "You have already joined this meeting", ButtonType.OK).showAndWait();
-            else if (App.getUnitOfWork().isPending(user, meeting))
-                new Alert(AlertType.CONFIRMATION, "Your request is currently in pending list", ButtonType.OK)
-                        .showAndWait();
-            else {
-                if (App.getUnitOfWork().registerMeeting(user, meeting))
-                    new Alert(AlertType.CONFIRMATION, "Successfully send request to admin ", ButtonType.OK)
-                            .showAndWait();
-                else
-                    new Alert(AlertType.ERROR, "Internal server error, please check log", ButtonType.OK).showAndWait();
+
+            String message = "";
+            AlertType alertType = AlertType.CONFIRMATION;
+            switch (App.getUnitOfWork().registerMeeting(user, meeting)) {
+                case ACCEPTED:
+                    message = "You have already joined this meeting";
+                    break;
+                case ALREADY_PENDING:
+                    message = "Your request is currently in pending list";
+                    break;
+                case PENDING:
+                    message = "Successfully send request to admin";
+                    break;
+                default:
+                    message = "Internal server error, please check log";
+                    alertType = AlertType.ERROR;
+                    break;
             }
+            new Alert(alertType, message, ButtonType.OK).showAndWait();
         });
     }
 
