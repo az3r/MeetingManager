@@ -39,7 +39,7 @@ public class UnitOfWork {
     public User login(String accountName, String password) {
         Log.i(TAG, String.format("finding user with accountName=%s, password=%s", accountName, password));
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        User user = repository.ifExist(accountName, password) ? repository.find(accountName) : null;
+        User user = repository.ifExistSelect(accountName, password);
         if (user != null)
             Log.i(TAG, "found " + user);
         else
@@ -81,10 +81,10 @@ public class UnitOfWork {
                 Log.i(TAG, "request have already been accepted");
                 break;
             case ALREADY_PENDING:
-                Log.i(TAG, "request have already been accepted");
+                Log.i(TAG, "request have already been in pending list");
                 break;
             case PENDING:
-                Log.i(TAG, "request have already been accepted");
+                Log.i(TAG, "request have been added to pending list");
                 break;
             default:
                 Log.e(TAG, "unable to register user to meeting");
@@ -123,10 +123,17 @@ public class UnitOfWork {
         return collection;
     }
 
-    public Meeting fetchMeeting(int meetingId) {
+    public int countPendingUsers(int meetingId) {
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
-        Meeting meeting = repository.fetch(meetingId);
+        int size = repository.countPendingUsers(meetingId);
         repository.close();
-        return meeting;
+        return size;
+    }
+
+    public int countAcceptedUsers(int meetingId) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        int size = repository.countPendingUsers(meetingId);
+        repository.close();
+        return size;
     }
 }

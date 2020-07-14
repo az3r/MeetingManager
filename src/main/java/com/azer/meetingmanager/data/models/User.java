@@ -1,7 +1,23 @@
 package com.azer.meetingmanager.data.models;
 
 import java.util.Set;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -19,6 +35,7 @@ public class User {
     @Column(length = 50)
     private String userEmail;
 
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ManyToMany
     @JoinTable(
         name = "User_Meeting_Pending",
@@ -27,6 +44,7 @@ public class User {
     )
     private Set<Meeting> pendingMeetings;
 
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @ManyToMany
     @JoinTable(
         name = "User_Meeting_Accepted",

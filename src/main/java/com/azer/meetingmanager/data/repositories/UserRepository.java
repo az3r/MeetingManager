@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.data.repositories;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.azer.meetingmanager.data.models.Admin;
@@ -41,37 +42,6 @@ public class UserRepository extends Repository<User> {
 		session.persist(entity);
 	}
 
-	public Admin findAdmin(String accountName, String password) {
-		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
-		Admin result = session.createQuery("from Admin where accountName = :accountName", Admin.class)
-				.setParameter("accountName", accountName).uniqueResult();
-
-		if (result == null)
-			System.out.println("No admin was found");
-		else
-			System.out.println("admin found: " + result.toString());
-
-		return result;
-	}
-
-	public User findUser(String accountName, String password) {
-		System.out.println(String.format("%s: finding admin with name=%s, password=%s", TAG, accountName, password));
-		User result = session.createQuery("from User where accountName = :accountName", User.class)
-				.setParameter("accountName", accountName).setMaxResults(1).uniqueResult();
-
-		if (result == null)
-			System.out.println("No admin was found");
-		else
-			System.out.println("admin found: " + result.toString());
-
-		return result;
-	}
-
-	public User find(String accountName) {
-		return session.createQuery("from User where accountName = :accountName", User.class)
-				.setParameter("accountName", accountName).uniqueResult();
-	}
-
 	public void addToPending(int userId, Meeting meeting) {
 		User user = session.find(User.class, userId);
 		user.getPendingMeetings().add(meeting);
@@ -97,12 +67,15 @@ public class UserRepository extends Repository<User> {
 		return user != null ? user.getPendingMeetings().contains(meeting) : false;
 	}
 
-	public boolean ifExist(String accountName, String password) {
+	public User ifExistSelect(String accountName, String password) {
 		User user = session.createQuery("from User where accountName = :accountName", User.class)
 				.setParameter("accountName", accountName).uniqueResult();
+		if (user == null) return null;
+
 		byte[] salt = user.getAccount().getSalt();
 		byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
-		return hashedPassword == user.getAccount().getPassword();
+
+		return Arrays.equals(hashedPassword, user.getAccount().getPassword()) ? user : null;
 	}
 
 }

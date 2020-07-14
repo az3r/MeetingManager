@@ -39,6 +39,7 @@ public class LoginController extends DialogController<User> {
 
         } else {
             errorLabel.setText("*account or password is incorrect");
+            errorLabel.setVisible(true);
         }
     }
 }

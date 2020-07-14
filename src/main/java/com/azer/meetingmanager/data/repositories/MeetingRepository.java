@@ -35,18 +35,20 @@ public class MeetingRepository extends Repository<Meeting> {
         return meeting.getPendingUsers();
     }
 
-	public List<Meeting> get() {
-		return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).list();
-	}
+    public List<Meeting> get() {
+        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).list();
+    }
 
-    /** load all lazy properties of a meeting */
-	public Meeting fetch(int meetingId) {
-        Meeting meeting = session.find(Meeting.class, meetingId);
-        if (meeting == null) return null;
+    public int countPendingUsers(int meetingId) {
+        return session.find(Meeting.class, meetingId).getPendingUsers().size();
+    }
 
-        // this will load the lazy properties
-        meeting.getAcceptedUsers().size();
-        meeting.getPendingUsers().size();
-        return meeting;
-	}
+    public int countAcceptedUsers(int meetingId) {
+        return session.find(Meeting.class, meetingId).getAcceptedUsers().size();
+    }
+
+	public Meeting find(int meetingId) {
+		return session.find(Meeting.class, meetingId);
+    }
+
 }

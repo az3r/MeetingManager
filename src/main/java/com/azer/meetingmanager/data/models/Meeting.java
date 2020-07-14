@@ -4,6 +4,11 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Meeting {
     @Id
@@ -33,9 +38,12 @@ public class Meeting {
     private Location location;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> pendingUsers;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Fetch(FetchMode.SELECT)
     private Set<User> acceptedUsers;
 
     public Meeting() {

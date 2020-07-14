@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 
 import javafx.fxml.FXML;
@@ -80,12 +81,13 @@ public class MeetingItemController implements Initializable {
     }
 
     private void inflate() {
-        this.meeting = App.getUnitOfWork().fetchMeeting(meeting.getMeetingId());
+
+        int acceptedCount = App.getUnitOfWork().countAcceptedUsers(meeting.getMeetingId());
+        int pendingCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
 
         titleLabel.setText(meeting.getName());
 
-        String capacity = String.format("%d / %d", meeting.getAcceptedUsers().size(),
-                meeting.getLocation().getCapacity());
+        String capacity = String.format("%d / %d", acceptedCount, meeting.getLocation().getCapacity());
         capacityLabel.setText(capacity);
 
         String date = DateFormat.getDateTimeInstance().format(meeting.getHoldTime());
@@ -94,12 +96,13 @@ public class MeetingItemController implements Initializable {
         String location = String.format("%s - %s", meeting.getLocation().getName(), meeting.getLocation().getAddress());
         locationLabel.setText(location);
 
-        String pending = String.valueOf(meeting.getPendingUsers().size());
+        String pending = String.valueOf(pendingCount);
         pendingLabel.setText(pending);
 
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
+        
         if (hasPhoto)
             photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
     }

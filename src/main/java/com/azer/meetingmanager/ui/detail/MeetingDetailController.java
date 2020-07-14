@@ -9,6 +9,7 @@ import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
@@ -61,13 +62,15 @@ public class MeetingDetailController implements Initializable {
     private Parent previousParent;
 
     public void notifyDataChanged(Meeting meeting) {
-        this.meeting = App.getUnitOfWork().fetchMeeting(meeting.getMeetingId());
+        this.meeting = meeting;
+        
+        int acceptedCount = App.getUnitOfWork().countAcceptedUsers(meeting.getMeetingId());
+        int pendingCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
 
         titleLabel.setText(meeting.getName());
         detailLabel.setText(meeting.getDetailDesc());
 
-        String capacity = String.format("%d / %d", meeting.getAcceptedUsers().size(),
-                meeting.getLocation().getCapacity());
+        String capacity = String.format("%d / %d", acceptedCount, meeting.getLocation().getCapacity());
         capacityLabel.setText(capacity);
 
         String date = DateFormat.getDateTimeInstance().format(meeting.getHoldTime());
@@ -76,8 +79,7 @@ public class MeetingDetailController implements Initializable {
         String location = String.format("%s - %s", meeting.getLocation().getName(), meeting.getLocation().getAddress());
         locationLabel.setText(location);
 
-        String pending = String.valueOf(meeting.getPendingUsers().size());
-        pendingLabel.setText(pending);
+        pendingLabel.setText(String.valueOf(pendingCount));
 
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
