@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.detail.MeetingDetailController;
@@ -67,12 +68,24 @@ public class MeetingContainerController implements Initializable, ListChangeList
             loader.getController().setPreviousParent(loader.getPreviousParent());
             root.getScene().setRoot(loader.getRoot());
         });
-        setRightButtonListener(e -> {
+        setRightButtonListener(meeting -> {
             LoggedUserResource resource = LoggedUserResource.getInstance();
             if (resource.isGuess()) {
                 new Alert(AlertType.ERROR, "You must login first!", ButtonType.OK).showAndWait();
+                return;
             }
+            User user = resource.getUser();
+            if (App.getUnitOfWork().isAccepted(user, meeting))
+                new Alert(AlertType.CONFIRMATION, "You have already joined this meeting", ButtonType.OK).showAndWait();
+            else if (App.getUnitOfWork().isPending(user, meeting))
+                new Alert(AlertType.CONFIRMATION, "Your request is currently in pending list", ButtonType.OK)
+                        .showAndWait();
             else {
+                if (App.getUnitOfWork().registerMeeting(user, meeting))
+                    new Alert(AlertType.CONFIRMATION, "Successfully send request to admin ", ButtonType.OK)
+                            .showAndWait();
+                else
+                    new Alert(AlertType.ERROR, "Internal server error, please check log", ButtonType.OK).showAndWait();
             }
         });
     }
@@ -150,18 +163,16 @@ public class MeetingContainerController implements Initializable, ListChangeList
     }
 
     private void removeFromContainer(int fromInclusive, int size) {
+        container.getChildren().remove(fromInclusive, fromInclusive + size);
     }
 
     @Override
     public void onChanged(Change<? extends Meeting> c) {
         c.next();
-
         if (c.wasAdded()) {
             addToContainer(c.getAddedSubList());
         } else if (c.wasRemoved()) {
             removeFromContainer(c.getFrom(), c.getRemovedSize());
         }
-        // update list in UI
-        // inflateContainer();
     }
 }

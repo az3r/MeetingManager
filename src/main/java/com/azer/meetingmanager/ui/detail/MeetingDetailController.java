@@ -129,7 +129,7 @@ public class MeetingDetailController implements Initializable {
             message = "your request have already been in pending list";
         else {
             repository.addToPending(entity, meeting);
-            message = "successfully sent request to admin";
+            message = "successfully send request to admin";
         }
         new Alert(AlertType.INFORMATION, message, ButtonType.OK).showAndWait();
         repository.close();

@@ -66,4 +66,21 @@ public class UnitOfWork {
         repository.close();
         return accepted;
     }
+
+    public boolean registerMeeting(User user, Meeting meeting) {
+        Log.i(TAG, String.format("register %s to pending list of %s...", user, meeting));
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        repository.addToPending(user, meeting);
+        boolean accepted = repository.isAccepted(user, meeting);
+        try {
+            repository.commit();
+            Log.i(TAG, "register successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            repository.rollback();
+        }
+        repository.close();
+        return accepted;
+    }
 }

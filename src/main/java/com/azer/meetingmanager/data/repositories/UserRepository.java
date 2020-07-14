@@ -73,10 +73,9 @@ public class UserRepository extends Repository<User> {
 				.setParameter("accountName", accountName).uniqueResult();
 	}
 
-	public boolean addToPending(User entity, Meeting meeting) {
+	public void addToPending(User entity, Meeting meeting) {
 		User user = session.find(User.class, entity.getUserId());
 		user.getPendingMeetings().add(meeting);
-		return true;
 	}
 
 	public void removeFromPending(User entity, Meeting meeting) {
