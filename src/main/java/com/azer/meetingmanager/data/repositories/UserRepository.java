@@ -1,7 +1,9 @@
 package com.azer.meetingmanager.data.repositories;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.Meeting;
@@ -70,12 +72,19 @@ public class UserRepository extends Repository<User> {
 	public User ifExistSelect(String accountName, String password) {
 		User user = session.createQuery("from User where accountName = :accountName", User.class)
 				.setParameter("accountName", accountName).uniqueResult();
-		if (user == null) return null;
+		if (user == null)
+			return null;
 
 		byte[] salt = user.getAccount().getSalt();
 		byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
 
 		return Arrays.equals(hashedPassword, user.getAccount().getPassword()) ? user : null;
+	}
+
+	public List<Meeting> getAcceptedMeeting(int userId) {
+		return session
+				.createQuery("select meetings from User u join u.acceptedMeetings meetings where u.userId = :userId")
+				.setParameter("userId", userId).list();
 	}
 
 }

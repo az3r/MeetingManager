@@ -15,10 +15,10 @@ import com.azer.meetingmanager.ui.master.MasterController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -26,7 +26,7 @@ import javafx.scene.text.Text;
 public class HomeController implements Initializable {
 
     @FXML
-    private AnchorPane root;
+    private Parent root;
 
     @FXML
     private Hyperlink githubHyperlink;

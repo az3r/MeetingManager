@@ -1,11 +1,13 @@
 package com.azer.meetingmanager.ui.account;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
-import com.azer.meetingmanager.data.MeetingFilterOption;
-import com.azer.meetingmanager.ui.DialogLoader;
-import com.azer.meetingmanager.ui.OnCompleteListener;
+import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.data.LoggedUserResource;
+import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
@@ -14,12 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class AccountController implements Initializable {
 
@@ -53,11 +56,10 @@ public class AccountController implements Initializable {
     @FXML
     private TextField confirmPasswordTextField;
 
-    @FXML 
+    @FXML
     private MeetingContainerController meetingContainerController;
 
     private Parent previousParent;
-    
 
     @FXML
     void onCancel(ActionEvent event) {
@@ -72,16 +74,6 @@ public class AccountController implements Initializable {
     private void showEditPane(boolean visible) {
         editVBox.setVisible(visible);
         infoVBox.setVisible(!visible);
-    }
-
-    @FXML
-    void onOpenFilter(MouseEvent event) {
-        DialogLoader<MeetingFilterOption> loader = new DialogLoader<>("views/MeetingFilter.fxml", getStage());
-        loader.showAndWait(filterCallback);
-    }
-
-    private Stage getStage() {
-        return (Stage) infoVBox.getScene().getWindow();
     }
 
     @FXML
@@ -103,25 +95,6 @@ public class AccountController implements Initializable {
     void onSortbyAlphabet(ActionEvent event) {
 
     }
-
-    private OnCompleteListener<MeetingFilterOption> filterCallback = new OnCompleteListener<>() {
-
-        @Override
-        public void onCompleted(MeetingFilterOption result) {
-
-        }
-
-        @Override
-        public void onError(Exception e) {
-
-        }
-
-        @Override
-        public void onCancelled() {
-
-        }
-
-    };
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -155,6 +128,23 @@ public class AccountController implements Initializable {
 
     private void setupMeetingContainer() {
 
+        User user = LoggedUserResource.getInstance().getUser();
+        Collection<Meeting> acceptedMeetings = App.getUnitOfWork().getAcceptedMeetings(user);
+        meetingContainerController.setCollection(acceptedMeetings);
+
+        meetingContainerController.setRightButtonText("Unregister");
+        meetingContainerController.setRightButtonListener(meeting -> {
+            Alert alert = new Alert(AlertType.WARNING,
+                    "Are you sure you want to unregister this meeting? If you want to register this meeting again, you will have to wait for admin to accept",
+                    ButtonType.YES, ButtonType.NO);
+            ButtonType result = alert.showAndWait().get();
+            if (result == ButtonType.YES) {
+                boolean success = App.getUnitOfWork().cancelMeeting(user, meeting);
+                String message = success ? "Successfully unregister meeting" : "Internal error happened, check log!";
+                AlertType alertType = success ? AlertType.INFORMATION : AlertType.ERROR;
+                new Alert(alertType, message, ButtonType.OK).showAndWait();
+            }
+        });
     }
 
     private Scene getScene() {
