@@ -86,10 +86,17 @@ public class UnitOfWork {
         return accepted;
     }
 
-	public List<Meeting> getAllMeetings() {
+    public List<Meeting> getAllMeetings() {
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
         List<Meeting> collection = repository.get();
         repository.close();
         return collection;
-	}
+    }
+
+    public Meeting fetchMeeting(int meetingId) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        Meeting meeting = repository.fetch(meetingId);
+        repository.close();
+        return meeting;
+    }
 }

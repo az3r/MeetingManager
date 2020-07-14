@@ -1,14 +1,18 @@
 package com.azer.meetingmanager.ui.components;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
@@ -18,13 +22,16 @@ import javafx.scene.layout.StackPane;
 public class MeetingItemController implements Initializable {
 
     @FXML
-    private OverlayController overlayController;
+    private StackPane photoEmptyPane;
 
     @FXML
     private ImageView photoImageView;
 
     @FXML
     private Label timeLabel;
+
+    @FXML
+    private Label titleLabel;
 
     @FXML
     private Label locationLabel;
@@ -36,9 +43,9 @@ public class MeetingItemController implements Initializable {
     private Label pendingLabel;
 
     @FXML
-    private StackPane photoEmptyPane;
+    private OverlayController overlayController;
 
-    private Meeting data;
+    private Meeting meeting;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +54,12 @@ public class MeetingItemController implements Initializable {
     }
 
     /**
-     * notify that compoent should update its visual to new data
-     * @param data the new data 
+     * notify that compoent should update its visual to reponse to data changed
+     * 
+     * @param meeting the new data
      */
-    public void notifyDataChanged(Meeting data) {
-        this.data = data;
+    public void notifyDataChanged(Meeting meeting) {
+        this.meeting = meeting;
         inflate();
     }
 
@@ -71,11 +79,29 @@ public class MeetingItemController implements Initializable {
         overlayController.setRightButtonAction(e -> listener.onAction(value));
     }
 
-
     private void inflate() {
-        boolean hasPhoto = data.getPhoto() != null;
+        this.meeting = App.getUnitOfWork().fetchMeeting(meeting.getMeetingId());
+
+        titleLabel.setText(meeting.getName());
+
+        String capacity = String.format("%d / %d", meeting.getAcceptedUsers().size(),
+                meeting.getLocation().getCapacity());
+        capacityLabel.setText(capacity);
+
+        String date = DateFormat.getDateTimeInstance().format(meeting.getHoldTime());
+        timeLabel.setText(date);
+
+        String location = String.format("%s - %s", meeting.getLocation().getName(), meeting.getLocation().getAddress());
+        locationLabel.setText(location);
+
+        String pending = String.valueOf(meeting.getPendingUsers().size());
+        pendingLabel.setText(pending);
+
+        boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
+        if (hasPhoto)
+            photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
     }
 
 }

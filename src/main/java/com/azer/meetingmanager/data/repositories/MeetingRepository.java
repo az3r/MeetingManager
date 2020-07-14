@@ -25,17 +25,28 @@ public class MeetingRepository extends Repository<Meeting> {
                 .uniqueResult();
     }
 
-    public Set<User> getAcceptedUsers(Meeting entity) {
-        Meeting meeting = session.find(Meeting.class, entity.getMeetingId());
+    public Set<User> getAcceptedUsers(int meetingId) {
+        Meeting meeting = session.find(Meeting.class, meetingId);
         return meeting.getAcceptedUsers();
     }
 
-    public Set<User> getPendingUsers(Meeting entity) {
-        Meeting meeting = session.find(Meeting.class, entity.getMeetingId());
+    public Set<User> getPendingUsers(int meetingId) {
+        Meeting meeting = session.find(Meeting.class, meetingId);
         return meeting.getPendingUsers();
     }
 
 	public List<Meeting> get() {
 		return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).list();
+	}
+
+    /** load all lazy properties of a meeting */
+	public Meeting fetch(int meetingId) {
+        Meeting meeting = session.find(Meeting.class, meetingId);
+        if (meeting == null) return null;
+
+        // this will load the lazy properties
+        meeting.getAcceptedUsers().size();
+        meeting.getPendingUsers().size();
+        return meeting;
 	}
 }
