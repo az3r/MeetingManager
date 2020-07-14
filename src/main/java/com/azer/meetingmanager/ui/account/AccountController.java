@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
@@ -26,6 +27,7 @@ import javafx.scene.layout.VBox;
 
 public class AccountController implements Initializable {
 
+    private static final String TAG = "AccountController";
     @FXML
     private TopbarController topbarController;
 
@@ -130,7 +132,6 @@ public class AccountController implements Initializable {
 
         User user = LoggedUserResource.getInstance().getUser();
         Collection<Meeting> acceptedMeetings = App.getUnitOfWork().getAcceptedMeetings(user);
-        meetingContainerController.setCollection(acceptedMeetings);
 
         meetingContainerController.setRightButtonText("Unregister");
         meetingContainerController.setRightButtonListener(meeting -> {
@@ -145,6 +146,9 @@ public class AccountController implements Initializable {
                 new Alert(alertType, message, ButtonType.OK).showAndWait();
             }
         });
+
+        meetingContainerController.notifyCollectionChanged(acceptedMeetings);
+
     }
 
     private Scene getScene() {

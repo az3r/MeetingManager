@@ -1,8 +1,11 @@
 package com.azer.meetingmanager.ui.master;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
@@ -28,9 +31,15 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
-        changeMeetingContainer(true);
+        settupMeetingContainer();
+        
     }
 
+    private void settupMeetingContainer() {
+        changeMeetingContainer(true);
+        List<Meeting> meetings = App.getUnitOfWork().getAllMeetings();
+        meetingContainerController.notifyCollectionChanged(meetings);
+    }
     private void setupTopbar() {
         topbarController.setTitle("Meetings");
     }

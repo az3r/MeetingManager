@@ -1,8 +1,6 @@
 package com.azer.meetingmanager.data;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
@@ -139,9 +137,9 @@ public class UnitOfWork {
         return size;
     }
 
-    public List<Meeting> getAcceptedMeetings(User user) {
+    public Collection<Meeting> getAcceptedMeetings(User user) {
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        List<Meeting> meetings = repository.getAcceptedMeeting(user.getUserId());
+        Collection<Meeting> meetings = repository.getAcceptedMeeting(user.getUserId());
         repository.close();
         return meetings;
     }

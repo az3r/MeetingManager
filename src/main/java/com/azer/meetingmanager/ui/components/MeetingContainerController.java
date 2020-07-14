@@ -55,15 +55,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
         setupItemDefault();
         changeContainerPane(true);
-
         items.addListener(this);
-        settupMeetingItems();
-    }
-
-    /** retrieve all available meetings and display them */
-    private void settupMeetingItems() {
-        List<Meeting> meetings = App.getUnitOfWork().getAllMeetings();
-        items.addAll(meetings);
     }
 
     /**
@@ -116,20 +108,11 @@ public class MeetingContainerController implements Initializable, ListChangeList
     }
 
     private Parent createMeetingItemNode(Meeting meeting) {
-        Parent node = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(file));
-            node = loader.load();
-            MeetingItemController controller = loader.getController();
-            bindItemBehavior(controller, meeting);
-            controller.notifyDataChanged(meeting);
-
-        } catch (Exception e) {
-            System.err.println(e);
-            throw new ExceptionInInitializerError(e);
-        }
-
-        return node;
+        ViewLoader<MeetingItemController> loader = new ViewLoader<>(file);
+        MeetingItemController controller = loader.getController();
+        bindItemBehavior(controller, meeting);
+        controller.notifyDataChanged(meeting);
+        return loader.getRoot();
     }
 
     public void changeContainerPane(boolean vbox) {
@@ -154,7 +137,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
         return tilePane;
     }
 
-    public void setCollection(Collection<Meeting> collection) {
+    public void notifyCollectionChanged(Collection<Meeting> collection) {
         this.items.setAll(collection);
     }
 
@@ -178,7 +161,8 @@ public class MeetingContainerController implements Initializable, ListChangeList
         Log.i(TAG, "adding new meetings to container");
         for (Meeting meeting : items) {
             Log.i(TAG, meeting.toString());
-            container.getChildren().add(createMeetingItemNode(meeting));
+            Parent node = createMeetingItemNode(meeting);
+            container.getChildren().add(node);
         }
     }
 

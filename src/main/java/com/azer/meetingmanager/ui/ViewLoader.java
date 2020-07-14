@@ -1,5 +1,7 @@
 package com.azer.meetingmanager.ui;
 
+import com.azer.meetingmanager.Log;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -9,6 +11,7 @@ import javafx.stage.Stage;
  */
 public class ViewLoader<T> {
 
+    private static final String TAG = "ViewLoader";
     private Parent root;
     private Stage owner;
     private T controller;
@@ -24,7 +27,7 @@ public class ViewLoader<T> {
             this.root = loader.load();
             this.controller = loader.getController();
         } catch (Exception e) {
-            System.err.println("ViewLoader(" + resource + "): " + e.toString());
+            Log.e(TAG, e.toString());
             throw new ExceptionInInitializerError(e);
         }
     }
