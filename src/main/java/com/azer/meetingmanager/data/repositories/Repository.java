@@ -40,7 +40,6 @@ public abstract class Repository<T> implements IRepository<T> {
     @Override
     public void commit() throws RollbackException {
         session.getTransaction().commit();
-        session.beginTransaction();
     }
 
     @Override

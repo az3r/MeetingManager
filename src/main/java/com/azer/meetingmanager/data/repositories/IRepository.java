@@ -8,7 +8,7 @@ public interface IRepository<T> {
     void delete(T entity);
 
     /**
-     * call this function before closing repository and after you have finished user
+     * if you have made change to database, call this function before closing repository and after you have finished user
      * request
      */
     void commit();
