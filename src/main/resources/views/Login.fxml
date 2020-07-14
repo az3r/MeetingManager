@@ -26,7 +26,7 @@
          <children>
             <Label text="Your password" />
             <PasswordField fx:id="passwordTextField" />
-            <VBox alignment="CENTER_RIGHT" />
+            <Label fx:id="errorLabel" style="-fx-font-size: 10; -fx-text-fill: red;" text="Label" visible="false" />
          </children>
       </VBox>
       <HBox alignment="CENTER_RIGHT">

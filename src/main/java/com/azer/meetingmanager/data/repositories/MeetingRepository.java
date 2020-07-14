@@ -17,23 +17,15 @@ public class MeetingRepository extends Repository<Meeting> {
         super(session);
     }
 
-    public boolean insert(List<Meeting> meetings) {
-        Transaction transaction = session.beginTransaction();
-        try {
-            for (Meeting meeting : meetings) {
-                session.persist(meeting);
-            }
-            transaction.commit();
-            return true;
-        } catch (RollbackException e) {
-            System.err.println(e);
-            transaction.rollback();
-            return false;
+    public void insert(List<Meeting> meetings) {
+        for (Meeting meeting : meetings) {
+            session.persist(meeting);
         }
     }
 
     public Meeting getLatestMeeting() {
-        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).setMaxResults(1).uniqueResult();
+        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).setMaxResults(1)
+                .uniqueResult();
     }
 
     public Set<User> getAcceptedUsers(Meeting entity) {

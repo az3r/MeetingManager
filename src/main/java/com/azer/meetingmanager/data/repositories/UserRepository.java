@@ -23,7 +23,6 @@ public class UserRepository extends Repository<User> {
 	}
 
 	public void insertUser(List<User> users) {
-		session.beginTransaction();
 		for (User user : users) {
 			session.persist(user);
 		}
@@ -34,14 +33,12 @@ public class UserRepository extends Repository<User> {
 	}
 
 	public void insertAdmin(List<Admin> admins) {
-		session.beginTransaction();
 		for (Admin admin : admins) {
 			session.persist(admin);
 		}
 	}
 
 	public void insertAdmin(Admin entity) {
-		session.beginTransaction();
 		session.persist(entity);
 	}
 

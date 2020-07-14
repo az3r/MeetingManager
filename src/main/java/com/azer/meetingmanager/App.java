@@ -2,7 +2,6 @@ package com.azer.meetingmanager;
 
 import java.util.List;
 
-import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.UnitOfWork;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.Meeting;
@@ -24,7 +23,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
+    private static final String TAG = "App";
     private static SessionFactory sessionFactory;
     private static Application app = null;
     private static UnitOfWork unitOfWork = new UnitOfWork();
@@ -59,8 +58,8 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        System.out.println("Closing application...");
-        System.out.println("DONE!");
+        Log.i(TAG, "Closing application...");
+        Log.i(TAG, "DONE!");
     }
 
     public static SessionFactory getSessionFactory() {
@@ -72,7 +71,7 @@ public class App extends Application {
     }
 
     private static void initialize() throws ExceptionInInitializerError {
-        System.out.println("bootstrap hibernate...");
+        Log.i(TAG, "bootstrap hibernate...");
         try {
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
@@ -81,50 +80,45 @@ public class App extends Application {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        System.out.println("DONE!");
+        Log.i(TAG, "DONE!");
     }
 
     private static void createSamples() {
-        int adminCount = 1;
         int userCount = 10;
 
-        System.out.println("Creating database samples...");
-        System.out.println("number of users: " + userCount);
-        System.out.println("number of admins: " + adminCount);
+        Log.i(TAG, "Creating database samples...");
+        Log.i(TAG, "number of users: " + userCount);
 
-        System.out.println("initialize UserRepository");
         UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
-
-        System.out.println("Creating random admins...");
-        List<Admin> admins = UserSamples.createAdmin(adminCount);
-
-        System.out.println("Creating random users...");
-        List<User> users = UserSamples.createUser(userCount);
-
-        System.out.println("add all users into database");
-        userRepository.insertUser(users);
-
-        System.out.println("add all admins into database");
-        userRepository.insertAdmin(admins);
-
-        System.out.println("initialize MeetingRepository");
         MeetingRepository meetingRepository = new MeetingRepository(App.getSessionFactory().openSession());
 
-        System.out.println("creating random meetings...");
+        Log.i(TAG, "Creating random users...");
+        List<User> users = UserSamples.createUser(userCount);
+
+        Log.i(TAG, "add all users into database");
+        userRepository.insertUser(users);
+
+        Log.i(TAG, "creating random meetings...");
         List<Meeting> meetings = MeetingSamples.createMeeting(10);
 
-        System.out.println("add all meetings into database");
+        Log.i(TAG, "add all meetings into database");
         meetingRepository.insert(meetings);
 
-        System.out.println("create a static user to use each launch");
-        userRepository.insert(UserSamples.createUser("user", "123"));
+        User staticUser = UserSamples.createUser("tuan nguyen", "tuan@gmail.com", "user", "123");
+        userRepository.insert(staticUser);
+        Log.i(TAG, "created a static " + staticUser);
 
-        System.out.println("create a static admin to use each launch");
-        userRepository.insertAdmin(UserSamples.createAdmin("admin", "123"));
+        Admin staticAdmin = UserSamples.createAdmin("tuan nguyen", "tuan@gmail.com", "admin", "123");
+        Log.i(TAG, "create a static " + staticAdmin);
+        userRepository.insertAdmin(staticAdmin);
 
-        System.out.println("Closing all repositories...");
+        Log.i(TAG, "commit all changed");
+        userRepository.commit();
+        meetingRepository.commit();
+
+        Log.i(TAG, "Closing all repositories...");
         userRepository.close();
         meetingRepository.close();
-        System.out.println("DONE!");
+        Log.i(TAG, "DONE!");
     }
 }

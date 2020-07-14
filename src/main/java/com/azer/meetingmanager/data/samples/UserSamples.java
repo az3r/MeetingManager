@@ -1,9 +1,5 @@
 package com.azer.meetingmanager.data.samples;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,11 +8,10 @@ import java.util.Random;
 import com.azer.meetingmanager.data.models.Account;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.helpers.AccountHelper;
 
 public class UserSamples {
     private static Random generator = new Random();
-    private static SecureRandom secureGenerator = new SecureRandom();
-    private static MessageDigest digester = null;
 
     private static List<String> names = Arrays.asList("Liam Emma", "Noah Olivia", "James Isabella", "Oliver Sophia",
             "Elijah Mia", "Lucas Amelia", "Mason Harper", "Logan Evelyn", "William Ava", "Benjamin Charlotte");
@@ -29,122 +24,63 @@ public class UserSamples {
             "password1", "password1", "Football", "password1", "000000", "trustno1", "starwars", "password1",
             "trustno1", "qwerty123", "123qwe");
 
-    public static Admin createAdmin() {
+    public static User createAccount(String userName, String email, String accountName, String password, boolean admin) {
+        byte[] salt = AccountHelper.generateSalt(16);
+        byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+        Account account = new Account(accountName, salt, hashedPassword);
+        User user = admin ? new Admin(userName, email, account) : new User(userName, email, account) ;
+        return user;
+    }
+
+    public static Admin createAdmin(String userName, String email, String accountName, String password) {
+        return (Admin) createAccount(userName, email, accountName, password, true);
+    }
+
+    public static User createUser(String userName, String email, String accountName, String password) {
+        return createAccount(userName, email, accountName, password, false);
+    }
+
+    public static User createRandomAccount(boolean admin) {
         int x = generator.nextInt(names.size());
         int y = generator.nextInt(passwords.size());
 
         String fullname = names.get(x);
         String password = passwords.get(y);
 
-        String accountName = getAccountName(fullname, true);
+        String accountName = getAccountName(fullname, admin);
         String email = getEmail(accountName);
-        byte[] salt = getSalt();
-        byte[] hashedPassword = hashPassword(salt, password);
+        byte[] salt = AccountHelper.generateSalt(16);
+        byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
 
         Account account = new Account(accountName, salt, hashedPassword);
-        Admin admin = new Admin(fullname, email, account);
-
-        System.out.println("Created " + admin);
-        return admin;
-
+        return new Admin(fullname, email, account);
     }
 
-    public static Admin createAdmin(String accountName, String password) {
-        int x = generator.nextInt(names.size());
-
-        String fullname = names.get(x);
-
-        String email = getEmail(accountName);
-        byte[] salt = getSalt();
-        byte[] hashedPassword = hashPassword(salt, password);
-
-        Account account = new Account(accountName, salt, hashedPassword);
-        Admin admin = new Admin(fullname, email, account);
-
-        System.out.println("Created " + admin);
-        return admin;
+    public static Admin createRandomAdmin() {
+        return (Admin) createRandomAccount(true);
     }
 
-    public static User createUser() {
-        int x = generator.nextInt(names.size());
-        int y = generator.nextInt(passwords.size());
-        return createUser(x, y);
-    }
-
-    public static User createUser(int nameIndex, int passwordIndex) {
-        nameIndex = nameIndex > names.size() ? names.size() : nameIndex;
-        passwordIndex = passwordIndex > passwords.size() ? passwords.size() : passwordIndex;
-        String fullname = names.get(nameIndex);
-        String password = passwords.get(passwordIndex);
-
-        String accountName = getAccountName(fullname);
-        String email = getEmail(accountName);
-        byte[] salt = getSalt();
-        byte[] hashedPassword = hashPassword(salt, password);
-
-        Account account = new Account(accountName, salt, hashedPassword);
-        User user = new User(fullname, email, account);
-
-        System.out.println("Created " + user);
-        return user;
-    }
-
-    public static User createUser(String accountName, String password) {
-        int x = generator.nextInt(names.size());
-
-        String fullname = names.get(x);
-
-        String email = getEmail(accountName);
-        byte[] salt = getSalt();
-        byte[] hashedPassword = hashPassword(salt, password);
-
-        Account account = new Account(accountName, salt, hashedPassword);
-        User user = new User(fullname, email, account);
-
-        System.out.println("Created " + user);
-        return user;
+    public static User createRandomUser() {
+        return createRandomAccount(false);
     }
 
     public static List<User> createUser(int size) {
         ArrayList<User> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(createUser());
-        }
-        return list;
-    }
+        List<Integer> smallest = Arrays.asList(size,names.size(),passwords.size());
+        smallest.sort(Integer::compare);
 
-    public static List<Admin> createAdmin(int size) {
-        ArrayList<Admin> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(createAdmin());
+        for (int i = 0; i < smallest.get(0); i++) {
+            String userName = names.get(i);
+            String password = passwords.get(i);
+            String accountName = getAccountName(userName, false);
+            String email = getEmail(accountName);
+            list.add(createUser(userName, email, accountName, password));
         }
         return list;
     }
 
     private static String getEmail(String value) {
         return value + "@gmail.com";
-    }
-
-    private static byte[] getSalt() {
-        byte[] salt = new byte[16];
-        secureGenerator.nextBytes(salt);
-        return salt;
-    }
-
-    private static byte[] hashPassword(byte[] salt, String password) {
-        if (digester == null) {
-            try {
-                digester = MessageDigest.getInstance("SHA-512");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        }
-        digester.update(salt);
-        return digester.digest(password.getBytes(StandardCharsets.UTF_8));
-    }
-
-    private static String getAccountName(String fullname) {
-        return getAccountName(fullname, false);
     }
 
     private static String getAccountName(String fullname, boolean admin) {
