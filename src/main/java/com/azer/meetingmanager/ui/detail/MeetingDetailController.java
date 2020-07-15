@@ -5,32 +5,40 @@ import java.text.DateFormat;
 import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.ui.BackableController;
+import com.azer.meetingmanager.ui.DialogLoader;
+import com.azer.meetingmanager.ui.OnCompleteListener;
 import com.azer.meetingmanager.ui.components.TopbarController;
+import com.azer.meetingmanager.ui.dialogs.MeetingEditorController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class MeetingDetailController extends BackableController implements Initializable {
 
-    @FXML
-    private TopbarController topbarController;
+    protected static final String TAG = "MeetingDetailController";
 
     @FXML
-    private Button registerButton;
+    private Parent root;
+
+    @FXML
+    private TopbarController topbarController;
 
     @FXML
     private ImageView photoImageView;
@@ -52,6 +60,9 @@ public class MeetingDetailController extends BackableController implements Initi
 
     @FXML
     private Label detailLabel;
+
+    @FXML
+    private HBox actionHBox;
 
     @FXML
     private StackPane photoEmptyPane;
@@ -90,6 +101,9 @@ public class MeetingDetailController extends BackableController implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();
         setupPhotoPane();
+
+        if (LoggedUserResource.getInstance().isAdmin())
+            showActionButton(false);
     }
 
     private void setupPhotoPane() {
@@ -103,16 +117,23 @@ public class MeetingDetailController extends BackableController implements Initi
 
     private void setupTopbar(boolean admin) {
         topbarController.setTitle("Detail");
-
-        topbarController.showEditButton(admin);
-        topbarController.setOnEdithAction(e -> {
-
-        });
-
         topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
             timeLabel.getScene().setRoot(getUpParent());
         });
+
+        topbarController.showEditButton(admin);
+        topbarController.setOnEdithAction(e -> {
+            DialogLoader<Meeting> loader = new DialogLoader<>("views/MeetingEditor.fxml",
+                    (Stage) root.getScene().getWindow());
+            MeetingEditorController controller = (MeetingEditorController) loader.getController();
+            controller.notifyDataChanged(this.meeting);
+            loader.showAndWait(meetingEditCallback);
+        });
+    }
+
+    public void showActionButton(boolean visible) {
+        actionHBox.setVisible(visible);
     }
 
     @FXML
@@ -171,7 +192,28 @@ public class MeetingDetailController extends BackableController implements Initi
             AlertType alertType = result ? AlertType.CONFIRMATION : AlertType.ERROR;
             new Alert(alertType, message, ButtonType.OK).showAndWait();
         }
-
         repository.close();
     }
+
+    private OnCompleteListener<Meeting> meetingEditCallback = new OnCompleteListener<Meeting>() {
+
+        @Override
+        public void onCompleted(Meeting result) {
+            boolean success = App.getUnitOfWork().updateMeeting(result);
+            String message = success ? "Update meeting successfully" : "Internal error, check log!";
+            AlertType alertType = success ? AlertType.INFORMATION : AlertType.ERROR;
+            new Alert(alertType, message, ButtonType.OK).showAndWait();
+        }
+
+        @Override
+        public void onError(Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onCancelled() {
+            Log.i(TAG, "canceled edit meeting");
+
+        }
+    };
 }

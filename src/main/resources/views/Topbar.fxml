@@ -61,7 +61,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onOpenHome" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button">
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onOpenHome" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>

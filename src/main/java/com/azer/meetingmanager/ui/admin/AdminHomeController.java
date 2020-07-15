@@ -9,6 +9,8 @@ import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
+import com.azer.meetingmanager.ui.detail.MeetingDetailController;
+import com.azer.meetingmanager.ui.dialogs.MeetingEditorController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,7 +36,11 @@ public class AdminHomeController implements Initializable {
     private void setupMeetingItem() {
         meetingContainerController.setLeftButtonText("Detail");
         meetingContainerController.setLeftButtonListener(value -> {
-
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml");
+            loader.getController().setUpParent(root.getScene().getRoot());
+            loader.getController().notifyDataChanged(value);
+            loader.getController().showActionButton(false);
+            root.getScene().setRoot(loader.getRoot());
         });
 
         meetingContainerController.setRightButtonText("Pending");
@@ -49,12 +55,6 @@ public class AdminHomeController implements Initializable {
 
     private void setupTopbar() {
         topbarController.setTitle("Manage meetings");
-        topbarController.showAddButton(true);
-        topbarController.setAddButtonAction(e -> {
-            ViewLoader<MeetingEditorController> loader = new ViewLoader<>("views/MeetingEditor.fxml");
-            loader.getController().setUpParent(root.getScene().getRoot());
-            root.getScene().setRoot(loader.getRoot());
-        });
     }
 
 }

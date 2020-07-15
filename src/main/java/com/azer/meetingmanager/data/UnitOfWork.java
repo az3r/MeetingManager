@@ -164,4 +164,32 @@ public class UnitOfWork {
         repository.close();
         return meetings;
     }
+
+    public boolean createMeeting(Meeting meeting) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        repository.insert(meeting);
+        boolean result = false;
+        try {
+            repository.commit();
+            result = true;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
+
+    public boolean updateMeeting(Meeting meeting) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        repository.update(meeting);
+        boolean result = false;
+        try {
+            repository.commit();
+            result = true;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
 }
