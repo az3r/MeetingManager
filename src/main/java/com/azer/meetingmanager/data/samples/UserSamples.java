@@ -8,7 +8,7 @@ import java.util.Random;
 import com.azer.meetingmanager.data.models.Account;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.helpers.AccountHelper;
+import com.azer.meetingmanager.helpers.Utility;
 
 public class UserSamples {
     private static Random generator = new Random();
@@ -25,8 +25,8 @@ public class UserSamples {
             "trustno1", "qwerty123", "123qwe");
 
     public static User createAccount(String userName, String email, String accountName, String password, boolean admin) {
-        byte[] salt = AccountHelper.generateSalt(16);
-        byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+        byte[] salt = Utility.generateSalt(16);
+        byte[] hashedPassword = Utility.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
         User user = admin ? new Admin(userName, email, account) : new User(userName, email, account) ;
         return user;
@@ -49,8 +49,8 @@ public class UserSamples {
 
         String accountName = getAccountName(fullname, admin);
         String email = getEmail(accountName);
-        byte[] salt = AccountHelper.generateSalt(16);
-        byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+        byte[] salt = Utility.generateSalt(16);
+        byte[] hashedPassword = Utility.generatePassword(password, salt);
 
         Account account = new Account(accountName, salt, hashedPassword);
         return new Admin(fullname, email, account);

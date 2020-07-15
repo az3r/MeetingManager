@@ -6,7 +6,7 @@ import java.util.List;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.helpers.AccountHelper;
+import com.azer.meetingmanager.helpers.Utility;
 
 import org.hibernate.Session;
 
@@ -74,7 +74,7 @@ public class UserRepository extends Repository<User> {
 			return null;
 
 		byte[] salt = user.getAccount().getSalt();
-		byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+		byte[] hashedPassword = Utility.generatePassword(password, salt);
 
 		return Arrays.equals(hashedPassword, user.getAccount().getPassword()) ? user : null;
 	}

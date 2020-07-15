@@ -4,7 +4,7 @@ import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Account;
 import com.azer.meetingmanager.data.models.Admin;
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.helpers.AccountHelper;
+import com.azer.meetingmanager.helpers.Utility;
 
 public class LoggedUserResource {
 
@@ -50,8 +50,8 @@ public class LoggedUserResource {
     }
 
     public boolean register(String userName, String userEmail, String accountName, String password) {
-        byte[] salt = AccountHelper.generateSalt(16);
-        byte[] hashedPassword = AccountHelper.generatePassword(password, salt);
+        byte[] salt = Utility.generateSalt(16);
+        byte[] hashedPassword = Utility.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
         User user = new User(userName, userEmail, account);
         boolean result = App.getUnitOfWork().registerUser(user);

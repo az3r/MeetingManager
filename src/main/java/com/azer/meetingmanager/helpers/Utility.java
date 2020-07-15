@@ -1,10 +1,13 @@
 package com.azer.meetingmanager.helpers;
 
+import java.io.ByteArrayInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class AccountHelper {
+import javafx.scene.image.Image;
+
+public class Utility {
     public static byte[] generateSalt(int size) {
         SecureRandom secureGenerator = new SecureRandom();
         byte[] salt = new byte[16];
@@ -26,5 +29,8 @@ public class AccountHelper {
             hashedPassword = digester.digest(password.getBytes());
         }
         return hashedPassword;
+    }
+    public static Image getImage(byte[] data) {
+        return new Image(new ByteArrayInputStream(data));
     }
 }

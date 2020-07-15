@@ -13,5 +13,4 @@ public abstract class BackableController {
     public void setUpParent(Parent upParent) {
         this.upParent = upParent;
     }
-
 }

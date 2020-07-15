@@ -54,7 +54,6 @@ public class DialogLoader<T> {
         container.initOwner(getOwner());
         container.initModality(Modality.APPLICATION_MODAL);
         getController().setContainer(container);
-
         getController().showAndWait(callback);
     }
 

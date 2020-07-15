@@ -8,7 +8,7 @@ import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.helpers.AccountHelper;
+import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.helpers.StringHelper;
 import com.azer.meetingmanager.ui.BackableController;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
@@ -106,7 +106,7 @@ public class AccountController extends BackableController implements Initializab
             user.setUserName(fullNameTextField.getText());
             user.setUserEmail(emailTextField.getText());
             user.getAccount().setPassword(
-                    AccountHelper.generatePassword(passwordTextField.getText(), user.getAccount().getSalt()));
+                    Utility.generatePassword(passwordTextField.getText(), user.getAccount().getSalt()));
             boolean success = App.getUnitOfWork().updateUser(LoggedUserResource.getInstance().getUser());
 
             // update in UI

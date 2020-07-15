@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.admin.MeetingEditorController">
+<ScrollPane fitToWidth="true" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.admin.MeetingEditorController">
    <content>
       <VBox alignment="CENTER" spacing="20.0" styleClass="user-input-layout">
          <children>
@@ -113,8 +113,8 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onRestore" prefWidth="120.0" styleClass="text-button" text="Restore" />
-                        <Button mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
+                        <Button fx:id="leftButton" mnemonicParsing="false" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+                        <Button fx:id="rightButton" mnemonicParsing="false" prefWidth="120.0" text="Save" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

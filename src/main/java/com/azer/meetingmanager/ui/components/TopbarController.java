@@ -46,6 +46,9 @@ public class TopbarController implements Initializable {
     private Button backButton;
 
     @FXML
+    private Button homeButton;
+
+    @FXML
     private Button searchButton;
 
     @FXML
@@ -136,7 +139,10 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onOpenHome(ActionEvent event) {
-        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
+        String view = "views/Home.fxml";
+        if (LoggedUserResource.getInstance().getAdmin() != null)
+            view = "views/AdminHome.fxml";
+        ViewLoader<HomeController> loader = new ViewLoader<>(view);
         root.getScene().setRoot(loader.getRoot());
     }
 
@@ -191,6 +197,10 @@ public class TopbarController implements Initializable {
         searchButton.setVisible(visible);
     }
 
+    public void showHomeButton(boolean visible) {
+        homeButton.setVisible(visible);
+    }
+
     public void showEditButton(boolean visible) {
         editButton.setVisible(visible);
     }
@@ -229,7 +239,7 @@ public class TopbarController implements Initializable {
         public void onCompleted(User result) {
             System.out.println("Logged in " + result);
             if (result instanceof Admin) {
-                ViewLoader<AdminHomeController> loader = new ViewLoader<>("views/AdminMeeting.fxml");
+                ViewLoader<AdminHomeController> loader = new ViewLoader<>("views/AdminHome.fxml");
                 root.getScene().setRoot(loader.getRoot());
             } else {
                 setTopbarType(TOPBAR_MEMBER);

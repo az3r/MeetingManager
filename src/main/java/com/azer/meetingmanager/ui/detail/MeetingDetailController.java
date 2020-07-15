@@ -1,6 +1,5 @@
 package com.azer.meetingmanager.ui.detail;
 
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ResourceBundle;
@@ -10,19 +9,18 @@ import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.ui.BackableController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
@@ -59,11 +57,10 @@ public class MeetingDetailController extends BackableController implements Initi
     private StackPane photoEmptyPane;
 
     private Meeting meeting;
-    private Parent previousParent;
 
     public void notifyDataChanged(Meeting meeting) {
         this.meeting = meeting;
-        
+
         int acceptedCount = App.getUnitOfWork().countAcceptedUsers(meeting.getMeetingId());
         int pendingCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
 
@@ -84,9 +81,9 @@ public class MeetingDetailController extends BackableController implements Initi
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
-        
+
         if (hasPhoto)
-            photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
+            photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
     }
 
     @Override
@@ -106,7 +103,7 @@ public class MeetingDetailController extends BackableController implements Initi
 
     private void setupTopbar(boolean admin) {
         topbarController.setTitle("Detail");
-        
+
         topbarController.showEditButton(admin);
         topbarController.setOnEdithAction(e -> {
 
@@ -114,7 +111,7 @@ public class MeetingDetailController extends BackableController implements Initi
 
         topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
-            timeLabel.getScene().setRoot(previousParent);
+            timeLabel.getScene().setRoot(getUpParent());
         });
     }
 

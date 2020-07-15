@@ -52,6 +52,8 @@ public class AdminHomeController implements Initializable {
         topbarController.showAddButton(true);
         topbarController.setAddButtonAction(e -> {
             ViewLoader<MeetingEditorController> loader = new ViewLoader<>("views/MeetingEditor.fxml");
+            loader.getController().setUpParent(root.getScene().getRoot());
+            root.getScene().setRoot(loader.getRoot());
         });
     }
 

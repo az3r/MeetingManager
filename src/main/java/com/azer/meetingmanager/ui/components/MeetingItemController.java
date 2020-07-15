@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.Meeting;
+import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.ui.OnItemActionListener;
 
 import javafx.fxml.FXML;
@@ -103,7 +104,7 @@ public class MeetingItemController implements Initializable {
         photoImageView.setVisible(hasPhoto);
         
         if (hasPhoto)
-            photoImageView.setImage(new Image(new ByteArrayInputStream(meeting.getPhoto())));
+            photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
     }
 
 }
