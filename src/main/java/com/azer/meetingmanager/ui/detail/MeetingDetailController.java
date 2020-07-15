@@ -9,8 +9,8 @@ import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.LoggedUserResource;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
-import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
+import com.azer.meetingmanager.ui.BackableController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-public class MeetingDetailController implements Initializable {
+public class MeetingDetailController extends BackableController implements Initializable {
 
     @FXML
     private TopbarController topbarController;
@@ -101,9 +101,18 @@ public class MeetingDetailController implements Initializable {
     }
 
     private void setupTopbar() {
+        setupTopbar(LoggedUserResource.getInstance().isAdmin());
+    }
+
+    private void setupTopbar(boolean admin) {
         topbarController.setTitle("Detail");
+        
+        topbarController.showEditButton(admin);
+        topbarController.setOnEdithAction(e -> {
+
+        });
+
         topbarController.showBackButton(true);
-        topbarController.showEditButton(true);
         topbarController.setOnBackAction(e -> {
             timeLabel.getScene().setRoot(previousParent);
         });
@@ -167,16 +176,5 @@ public class MeetingDetailController implements Initializable {
         }
 
         repository.close();
-    }
-
-    /**
-     * set the Preivous root node that navigates to this view
-     */
-    public void setPreviousParent(Parent previousNode) {
-        this.previousParent = previousNode;
-    }
-
-    public Parent getPreviousParent() {
-        return this.previousParent;
     }
 }

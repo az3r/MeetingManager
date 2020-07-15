@@ -119,12 +119,12 @@ public class TopbarController implements Initializable {
     }
 
     @FXML
-    void onEditMeeting(ActionEvent event) {
+    void onCreateMeeting(ActionEvent event) {
 
     }
 
     @FXML
-    void onCreateMeeting(ActionEvent event) {
+    void onOpenUserManager(ActionEvent event) {
 
     }
 
@@ -137,7 +137,7 @@ public class TopbarController implements Initializable {
     @FXML
     void onOpenAccount(ActionEvent event) {
         ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml", root.getScene().getRoot());
-        loader.getController().setPreviousNode(root.getScene().getRoot());
+        loader.getController().setUpParent(root.getScene().getRoot());
         root.getScene().setRoot(loader.getRoot());
     }
 

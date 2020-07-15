@@ -10,14 +10,13 @@ import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.helpers.AccountHelper;
 import com.azer.meetingmanager.helpers.StringHelper;
+import com.azer.meetingmanager.ui.BackableController;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -26,7 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class AccountController implements Initializable {
+public class AccountController extends BackableController implements Initializable {
 
     private static final String TAG = "AccountController";
     @FXML
@@ -71,8 +70,6 @@ public class AccountController implements Initializable {
 
     @FXML
     private MeetingContainerController meetingContainerController;
-
-    private Parent previousParent;
 
     @FXML
     void onCancel(ActionEvent event) {
@@ -154,7 +151,7 @@ public class AccountController implements Initializable {
         topbarController.showSearchOption(true);
         topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
-            getScene().setRoot(getPreviousNode());
+            root.getScene().setRoot(getUpParent());
         });
         topbarController.setOnSearchAction(e -> {
             String query = topbarController.getSearchQuery();
@@ -182,21 +179,5 @@ public class AccountController implements Initializable {
         });
 
         meetingContainerController.notifyCollectionChanged(acceptedMeetings);
-
-    }
-
-    /**
-     * set the Preivous root node that navigates to this view
-     */
-    public void setPreviousNode(Parent previousNode) {
-        this.previousParent = previousNode;
-    }
-
-    public Parent getPreviousNode() {
-        return this.previousParent;
-    }
-
-    private Scene getScene() {
-        return root.getScene();
     }
 }

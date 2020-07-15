@@ -103,7 +103,7 @@ public class HomeController implements Initializable {
         overlayController.setRightButtonAction(e -> {
             ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
                     root.getScene().getRoot());
-            loader.getController().setPreviousParent(loader.getPreviousParent());
+            loader.getController().setUpParent(loader.getPreviousParent());
             loader.getController().notifyDataChanged(lastestMeeting);
             root.getScene().setRoot(loader.getRoot());
         });
