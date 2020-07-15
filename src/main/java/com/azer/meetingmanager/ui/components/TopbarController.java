@@ -129,7 +129,8 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onCreateMeeting(final ActionEvent event) {
-        final DialogLoader<Meeting> dialog = new DialogLoader<>("views/MeetingEditor.fxml", (Stage) root.getScene().getWindow());
+        final DialogLoader<Meeting> dialog = new DialogLoader<>("views/MeetingEditor.fxml",
+                (Stage) root.getScene().getWindow());
         dialog.showAndWait(createMeetingCallback);
     }
 
@@ -212,7 +213,6 @@ public class TopbarController implements Initializable {
         addButton.setOnAction(handler);
     }
 
-
     public void setOnBackAction(final EventHandler<ActionEvent> handler) {
         backButton.setOnAction(handler);
     }
@@ -282,12 +282,12 @@ public class TopbarController implements Initializable {
 
     };
 
-    private final OnCompleteListener<Meeting> createMeetingCallback = new OnCompleteListener<Meeting>(){
+    private final OnCompleteListener<Meeting> createMeetingCallback = new OnCompleteListener<Meeting>() {
 
         @Override
         public void onCompleted(Meeting result) {
             boolean success = App.getUnitOfWork().createMeeting(result);
-            String message = success ? "Update meeting successfully" : "Internal error, check log!";
+            String message = success ? "Create meeting successfully" : "Internal error, check log!";
             AlertType alertType = success ? AlertType.INFORMATION : AlertType.ERROR;
             new Alert(alertType, message, ButtonType.OK).showAndWait();
         }
