@@ -51,7 +51,7 @@ public class AdminHomeController implements Initializable {
         topbarController.setTitle("Manage meetings");
         topbarController.showAddButton(true);
         topbarController.setAddButtonAction(e -> {
-            ViewLoader<MeetingEditorController> loader = new ViewLoader<>("views/MeetingEditor.fxml", root.getScene().getRoot());
+            ViewLoader<MeetingEditorController> loader = new ViewLoader<>("views/MeetingEditor.fxml");
         });
     }
 

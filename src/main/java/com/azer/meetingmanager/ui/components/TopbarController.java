@@ -12,6 +12,8 @@ import com.azer.meetingmanager.ui.OnCompleteListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.account.AccountController;
 import com.azer.meetingmanager.ui.admin.AdminHomeController;
+import com.azer.meetingmanager.ui.admin.AdminUserController;
+import com.azer.meetingmanager.ui.admin.MeetingEditorController;
 import com.azer.meetingmanager.ui.home.HomeController;
 
 import javafx.event.ActionEvent;
@@ -120,23 +122,27 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onCreateMeeting(ActionEvent event) {
-
+        ViewLoader<MeetingEditorController> loader = new ViewLoader<>("views/MeetingEditor.fxml");
+        loader.getController().setUpParent(root.getScene().getRoot());
+        root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onOpenUserManager(ActionEvent event) {
-
+        ViewLoader<AdminUserController> loader = new ViewLoader<>("views/AdminUser.fxml");
+        loader.getController().setUpParent(root.getScene().getRoot());
+        root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onOpenHome(ActionEvent event) {
-        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml", root.getScene().getRoot());
+        ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
         root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
     void onOpenAccount(ActionEvent event) {
-        ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml", root.getScene().getRoot());
+        ViewLoader<AccountController> loader = new ViewLoader<>("views/Account.fxml");
         loader.getController().setUpParent(root.getScene().getRoot());
         root.getScene().setRoot(loader.getRoot());
     }

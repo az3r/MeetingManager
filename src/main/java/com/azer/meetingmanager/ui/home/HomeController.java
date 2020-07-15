@@ -101,9 +101,8 @@ public class HomeController implements Initializable {
 
         overlayController.setRightButtonText("Detail");
         overlayController.setRightButtonAction(e -> {
-            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
-                    root.getScene().getRoot());
-            loader.getController().setUpParent(loader.getPreviousParent());
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml");
+            loader.getController().setUpParent(root.getScene().getRoot());
             loader.getController().notifyDataChanged(lastestMeeting);
             root.getScene().setRoot(loader.getRoot());
         });

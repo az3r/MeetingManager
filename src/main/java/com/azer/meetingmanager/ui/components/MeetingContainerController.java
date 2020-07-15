@@ -68,9 +68,8 @@ public class MeetingContainerController implements Initializable, ListChangeList
         setLeftButtonText("Detail");
         setRightButtonText("Register");
         setLeftButtonListener(meeting -> {
-            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml",
-                    root.getScene().getRoot());
-            loader.getController().setUpParent(loader.getPreviousParent());
+            ViewLoader<MeetingDetailController> loader = new ViewLoader<>("views/MeetingDetail.fxml");
+            loader.getController().setUpParent(root.getScene().getRoot());
             loader.getController().notifyDataChanged(meeting);
             root.getScene().setRoot(loader.getRoot());
         });
