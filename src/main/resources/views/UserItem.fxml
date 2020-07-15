@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox spacing="15.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.UserItemController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity">
@@ -28,7 +27,7 @@
                               <ColorAdjust brightness="0.6" />
                            </effect>
                         </ImageView>
-                        <Text fx:id="userNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="user's name" />
+                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="user's name" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -41,16 +40,16 @@
                               <ColorAdjust brightness="0.6" />
                            </effect>
                         </ImageView>
-                        <Text fx:id="userNameEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="user's email" />
+                        <Text fx:id="emailText" strokeType="OUTSIDE" strokeWidth="0.0" text="user's email" />
                      </children>
                   </HBox>
                </children>
             </VBox>
          </left>
          <right>
-            <HBox spacing="30.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="actionContainer" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" onMouseReleased="#onAcceptRequest" spacing="10.0">
+                  <VBox fx:id="acceptAction" alignment="CENTER" onMouseReleased="#onAcceptRequest" spacing="10.0">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -60,7 +59,7 @@
                         <Label text="Accept" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" onMouseReleased="#onDenyRequest" spacing="10.0">
+                  <VBox fx:id="denyAction" alignment="CENTER" onMouseReleased="#onDenyRequest" spacing="10.0">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,7 +69,7 @@
                         <Label text="Deny" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" onMouseReleased="#onBlockUser" spacing="10.0">
+                  <VBox fx:id="blockAction" alignment="CENTER" onMouseReleased="#onBlockUser" spacing="10.0">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -80,7 +79,7 @@
                         <Label text="Block" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" onMouseReleased="#onUnBlockUser" spacing="10.0">
+                  <VBox fx:id="unblockAction" alignment="CENTER" onMouseReleased="#onUnBlockUser" spacing="10.0">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>

@@ -24,20 +24,22 @@ public class UserSamples {
             "password1", "password1", "Football", "password1", "000000", "trustno1", "starwars", "password1",
             "trustno1", "qwerty123", "123qwe");
 
-    public static User createAccount(String userName, String email, String accountName, String password, boolean admin) {
+    public static User createAccount(String userName, String email, String accountName, String password,
+            boolean blocked, boolean admin) {
         byte[] salt = Utility.generateSalt(16);
         byte[] hashedPassword = Utility.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
-        User user = admin ? new Admin(userName, email, account) : new User(userName, email, account) ;
+        User user = admin ? new Admin(userName, email, blocked, account) : new User(userName, email, blocked, account);
         return user;
     }
 
-    public static Admin createAdmin(String userName, String email, String accountName, String password) {
-        return (Admin) createAccount(userName, email, accountName, password, true);
+    public static Admin createAdmin(String userName, String email, String accountName, boolean blocked,
+            String password) {
+        return (Admin) createAccount(userName, email, accountName, password, blocked, true);
     }
 
-    public static User createUser(String userName, String email, String accountName, String password) {
-        return createAccount(userName, email, accountName, password, false);
+    public static User createUser(String userName, String email, String accountName, boolean blocked, String password) {
+        return createAccount(userName, email, accountName, password, blocked, false);
     }
 
     public static User createRandomAccount(boolean admin) {
@@ -52,8 +54,9 @@ public class UserSamples {
         byte[] salt = Utility.generateSalt(16);
         byte[] hashedPassword = Utility.generatePassword(password, salt);
 
+        boolean blocked = generator.nextInt() % 2 == 0;
         Account account = new Account(accountName, salt, hashedPassword);
-        return new Admin(fullname, email, account);
+        return new Admin(fullname, email, blocked, account);
     }
 
     public static Admin createRandomAdmin() {
@@ -66,7 +69,7 @@ public class UserSamples {
 
     public static List<User> createUser(int size) {
         ArrayList<User> list = new ArrayList<>();
-        List<Integer> smallest = Arrays.asList(size,names.size(),passwords.size());
+        List<Integer> smallest = Arrays.asList(size, names.size(), passwords.size());
         smallest.sort(Integer::compare);
 
         for (int i = 0; i < smallest.get(0); i++) {
@@ -74,7 +77,8 @@ public class UserSamples {
             String password = passwords.get(i);
             String accountName = getAccountName(userName, false);
             String email = getEmail(accountName);
-            list.add(createUser(userName, email, accountName, password));
+            boolean blocked = generator.nextInt() % 2 == 0;
+            list.add(createUser(userName, email, accountName, blocked, password));
         }
         return list;
     }

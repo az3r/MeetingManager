@@ -47,6 +47,11 @@ public class UserRepository extends Repository<User> {
 		user.getPendingMeetings().add(meeting);
 	}
 
+	public void addToAccepted(int userId, Meeting meeting) {
+		User user = session.find(User.class, userId);
+		user.getAcceptedMeetings().add(meeting);
+	}
+
 	public void removeFromPending(int userId, Meeting meeting) {
 		User user = session.find(User.class, userId);
 		user.getPendingMeetings().remove(meeting);

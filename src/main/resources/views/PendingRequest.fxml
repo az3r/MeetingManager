@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,14 +13,6 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
-         <right>
-            <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#onDenyAll" styleClass="text-button" text="Deny all" />
-                  <Button mnemonicParsing="false" onAction="#onAcceptAll" text="Accept all" />
-               </children>
-            </HBox>
-         </right>
          <left>
             <HBox alignment="CENTER" styleClass="meeting-item-detail" BorderPane.alignment="CENTER">
                <children>
@@ -35,6 +26,6 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </BorderPane>
-      <ScrollPane fx:id="pendingContainer" fitToWidth="true" />
+      <ScrollPane fx:id="container" fitToWidth="true" />
    </children>
 </VBox>

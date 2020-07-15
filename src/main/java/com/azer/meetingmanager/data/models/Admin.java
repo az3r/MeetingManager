@@ -10,8 +10,8 @@ public class Admin extends User {
 
     }
     
-    public Admin(String userName, String userEmail, Account account) {
-        super(userName, userEmail, account);
+    public Admin(String userName, String userEmail, boolean blocked, Account account) {
+        super(userName, userEmail, blocked, account);
     }
 
     @Override

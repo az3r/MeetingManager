@@ -120,6 +120,7 @@
                            <right>
                               <MenuButton mnemonicParsing="false" text="Filter" BorderPane.alignment="CENTER">
                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#onFilterByAll" text="All" />
                                   <MenuItem mnemonicParsing="false" onAction="#onFilterByPending" text="Pending" />
                                   <MenuItem mnemonicParsing="false" onAction="#onFilterByAccepted" text="Accepted" />
                                 </items>

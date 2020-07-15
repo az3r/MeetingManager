@@ -200,4 +200,18 @@ public class UnitOfWork {
         repository.close();
         return result;
     }
+
+    public boolean acceptRequest(User user, Meeting meeting) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        repository.addToAccepted(user.getUserId(), meeting);
+        boolean result = false;
+        try {
+            repository.commit();
+        } catch (Exception e) {
+            result = false;
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
 }

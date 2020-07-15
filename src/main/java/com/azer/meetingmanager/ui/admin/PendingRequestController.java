@@ -11,21 +11,15 @@ import javafx.scene.control.ScrollPane;
 public class PendingRequestController implements Initializable {
 
     @FXML
-    private ScrollPane pendingContainer;
-
-    @FXML
-    void onAcceptAll(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onDenyAll(ActionEvent event) {
-
-    }
+    private ScrollPane container;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+    }
+
+    private void setupContainer() {
+
     }
 
 }

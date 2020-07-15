@@ -35,6 +35,9 @@ public class User {
     @Column(length = 50)
     private String userEmail;
 
+    @Column
+    private boolean blocked;
+
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ManyToMany
     @JoinTable(
@@ -92,13 +95,9 @@ public class User {
         this.account = account;
     }
 
-    @Override
-    public String toString() {
-        return "User [userId=" + userId + ", userName=" + userName + ", accountName=" + account.getAccountName() + "]";
-    }
-
-    public User(String userName, String userEmail, Account account) {
+    public User(String userName, String userEmail, boolean blocked, Account account) {
         this.userName = userName;
+        this.blocked = blocked;
         this.userEmail = userEmail;
         this.account = account;
     }
@@ -131,4 +130,17 @@ public class User {
         this.acceptedMeetings = acceptedMeetings;
     }
 
+    public boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    @Override
+    public String toString() {
+        return "User [blocked=" + blocked + ", userEmail=" + userEmail + ", userId=" + userId + ", userName=" + userName
+                + "]";
+    }
 }
