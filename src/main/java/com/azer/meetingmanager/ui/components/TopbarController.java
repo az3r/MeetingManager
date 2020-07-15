@@ -11,7 +11,7 @@ import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.account.AccountController;
-import com.azer.meetingmanager.ui.admin.AdminMeetingController;
+import com.azer.meetingmanager.ui.admin.AdminHomeController;
 import com.azer.meetingmanager.ui.home.HomeController;
 
 import javafx.event.ActionEvent;
@@ -201,7 +201,7 @@ public class TopbarController implements Initializable {
         public void onCompleted(User result) {
             System.out.println("Logged in " + result);
             if (result instanceof Admin) {
-                ViewLoader<AdminMeetingController> loader = new ViewLoader<>("views/AdminMeeting.fxml");
+                ViewLoader<AdminHomeController> loader = new ViewLoader<>("views/AdminMeeting.fxml");
                 root.getScene().setRoot(loader.getRoot());
             } else {
                 setTopbarType(TOPBAR_MEMBER);

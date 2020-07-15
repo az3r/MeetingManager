@@ -9,7 +9,7 @@ import com.azer.meetingmanager.ui.components.TopbarController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-public class AdminMeetingController implements Initializable {
+public class AdminHomeController implements Initializable {
 
     @FXML
     private TopbarController topbarController;
