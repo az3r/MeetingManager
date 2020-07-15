@@ -103,6 +103,7 @@ public class MeetingDetailController implements Initializable {
     private void setupTopbar() {
         topbarController.setTitle("Detail");
         topbarController.showBackButton(true);
+        topbarController.showEditButton(true);
         topbarController.setOnBackAction(e -> {
             timeLabel.getScene().setRoot(previousParent);
         });

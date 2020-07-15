@@ -24,12 +24,12 @@ public class AdminHomeController implements Initializable {
     }
 
     private void setupMeetingItem() {
-        meetingContainerController.setLeftButtonText("Edit");
+        meetingContainerController.setLeftButtonText("Detail");
         meetingContainerController.setLeftButtonListener(value -> {
 
         });
 
-        meetingContainerController.setRightButtonText("Accept all");
+        meetingContainerController.setRightButtonText("Request");
         meetingContainerController.setRightButtonListener(value -> {
 
         });

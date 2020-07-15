@@ -56,6 +56,9 @@ public class TopbarController implements Initializable {
     private Button loginButton;
 
     @FXML
+    private Button editButton;
+
+    @FXML
     private Button signUpButton;
 
     @FXML
@@ -85,9 +88,9 @@ public class TopbarController implements Initializable {
         }
 
         searchView.visibleProperty().bind(searchButton.visibleProperty());
-        showAddButton(false);
         showBackButton(false);
         showSearchOption(false);
+        showEditButton(false);
 
         LoggedUserResource instance = LoggedUserResource.getInstance();
         if (instance.isGuess())
@@ -113,6 +116,16 @@ public class TopbarController implements Initializable {
     void onLogin(ActionEvent event) {
         DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) root.getScene().getWindow());
         loader.showAndWait(loginCallback);
+    }
+
+    @FXML
+    void onEditMeeting(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onCreateMeeting(ActionEvent event) {
+
     }
 
     @FXML
@@ -172,6 +185,10 @@ public class TopbarController implements Initializable {
         searchButton.setVisible(visible);
     }
 
+    public void showEditButton(boolean visible) {
+        editButton.setVisible(visible);
+    }
+
     public void setTitle(String title) {
         titleText.setText(title);
     }
@@ -184,6 +201,10 @@ public class TopbarController implements Initializable {
         searchButton.setOnAction(handler);
     }
 
+    public void setOnEdithAction(EventHandler<ActionEvent> handler) {
+        editButton.setOnAction(handler);
+    }
+
     public String getSearchQuery() {
         return searchView.getText();
     }
@@ -193,6 +214,7 @@ public class TopbarController implements Initializable {
         showSignUpButton(type == TOPBAR_GUESS);
         showLoginButton(type == TOPBAR_GUESS);
         showAdminMenuItem(type == TOPBAR_ADMIN);
+        showAddButton(type == TOPBAR_ADMIN);
     }
 
     private OnCompleteListener<User> loginCallback = new OnCompleteListener<User>() {
