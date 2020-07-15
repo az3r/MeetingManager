@@ -214,4 +214,48 @@ public class UnitOfWork {
         repository.close();
         return result;
     }
+
+    public boolean denyRequest(User user, Meeting meeting) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        repository.removeFromPending(user.getUserId(), meeting);
+        boolean result = false;
+        try {
+            repository.commit();
+        } catch (Exception e) {
+            result = false;
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
+
+    public boolean blockUser(User user) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        user.setBlocked(true);
+        repository.update(user);
+        boolean result = false;
+        try {
+            repository.commit();
+        } catch (Exception e) {
+            result = false;
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
+
+    public boolean unblockUser(User user) {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        user.setBlocked(false);
+        repository.update(user);
+        boolean result = false;
+        try {
+            repository.commit();
+        } catch (Exception e) {
+            result = false;
+            Log.e(TAG, e.toString());
+        }
+        repository.close();
+        return result;
+    }
 }

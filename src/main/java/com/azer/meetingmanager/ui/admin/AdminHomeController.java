@@ -10,7 +10,6 @@ import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.components.MeetingContainerController;
 import com.azer.meetingmanager.ui.components.TopbarController;
 import com.azer.meetingmanager.ui.detail.MeetingDetailController;
-import com.azer.meetingmanager.ui.dialogs.MeetingEditorController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

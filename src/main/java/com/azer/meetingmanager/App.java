@@ -104,11 +104,11 @@ public class App extends Application {
         Log.i(TAG, "add all meetings into database");
         meetingRepository.insert(meetings);
 
-        User staticUser = UserSamples.createUser("tuan nguyen", "tuan@gmail.com", "user", "123");
+        User staticUser = UserSamples.createUser("tuan nguyen", "tuan@gmail.com", "user", false, "123");
         userRepository.insert(staticUser);
         Log.i(TAG, "created a static " + staticUser);
 
-        Admin staticAdmin = UserSamples.createAdmin("tuan nguyen", "tuan@gmail.com", "admin", "123");
+        Admin staticAdmin = UserSamples.createAdmin("tuan nguyen", "tuan@gmail.com", "admin", false, "123");
         Log.i(TAG, "create a static " + staticAdmin);
         userRepository.insertAdmin(staticAdmin);
 

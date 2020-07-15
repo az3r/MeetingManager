@@ -49,7 +49,7 @@ public class UserItemController implements Initializable {
 
     @FXML
     void onBlockUser(MouseEvent event) {
-
+        
     }
 
     @FXML
