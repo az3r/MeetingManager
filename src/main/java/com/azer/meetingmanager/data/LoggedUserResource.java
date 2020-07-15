@@ -43,19 +43,20 @@ public class LoggedUserResource {
         return instance;
     }
 
-    public boolean login(String accountName, String password) {
+    public User login(String accountName, String password) {
         User user = App.getUnitOfWork().login(accountName, password);
         loggedUser = user;
-        return loggedUser != null;
+        return loggedUser;
     }
 
     public boolean register(String userName, String userEmail, String accountName, String password) {
         byte[] salt = Utility.generateSalt(16);
         byte[] hashedPassword = Utility.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
-        User user = new User(userName, userEmail, account);
+        User user = new User(userName, userEmail, false, account);
         boolean result = App.getUnitOfWork().registerUser(user);
-        if (result) this.loggedUser = user;
+        if (result)
+            this.loggedUser = user;
         return result;
     }
 

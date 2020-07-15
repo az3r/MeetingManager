@@ -5,6 +5,9 @@ import com.azer.meetingmanager.data.models.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -33,10 +36,16 @@ public class LoginController extends DialogController<User> {
     @FXML
     void onLogin(ActionEvent event) {
         LoggedUserResource resource = LoggedUserResource.getInstance();
-        if (resource.login(userNameTextField.getText(), passwordTextField.getText())) {
-            success(resource.getUser());
-            getContainer().close();
-
+        User loggedUser = resource.login(userNameTextField.getText(), passwordTextField.getText());
+        if (loggedUser != null) {
+            if (!loggedUser.getBlocked()) {
+                success(resource.getUser());
+                getContainer().close();
+            } else {
+                new Alert(AlertType.INFORMATION,
+                        "Your account is blocked by admin. Please contact admin for more information", ButtonType.OK)
+                                .showAndWait();
+            }
         } else {
             errorLabel.setText("*account or password is incorrect");
             errorLabel.setVisible(true);
