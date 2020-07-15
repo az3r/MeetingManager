@@ -12,6 +12,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -107,12 +108,24 @@
                <children>
                 <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <MenuButton mnemonicParsing="false" text="Sort" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#onSortByLatest" text="Latest" />
-                            <MenuItem mnemonicParsing="false" onAction="#onSortbyAlphabet" text="Name A-Z" />
-                          </items>
-                        </MenuButton>
+                        <BorderPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <left>
+                              <MenuButton mnemonicParsing="false" text="Sort" BorderPane.alignment="CENTER">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#onSortByLatest" text="Latest" />
+                                  <MenuItem mnemonicParsing="false" onAction="#onSortbyAlphabet" text="Name A-Z" />
+                                </items>
+                              </MenuButton>
+                           </left>
+                           <right>
+                              <MenuButton mnemonicParsing="false" text="Filter" BorderPane.alignment="CENTER">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#onFilterByPending" text="Pending" />
+                                  <MenuItem mnemonicParsing="false" onAction="#onFilterByAccepted" text="Accepted" />
+                                </items>
+                              </MenuButton>
+                           </right>
+                        </BorderPane>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -21,8 +21,8 @@ public class MeetingRepository extends Repository<Meeting> {
     }
 
     public Meeting getLatestMeeting() {
-        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).setMaxResults(1)
-                .uniqueResult();
+        return session.createQuery("from Meeting where ended = false order by holdTime DESC", Meeting.class)
+                .setMaxResults(1).uniqueResult();
     }
 
     public Set<User> getAcceptedUsers(int meetingId) {
@@ -35,8 +35,9 @@ public class MeetingRepository extends Repository<Meeting> {
         return meeting.getPendingUsers();
     }
 
-    public List<Meeting> get() {
-        return session.createQuery("from Meeting order by holdTime DESC", Meeting.class).list();
+    public List<Meeting> get(boolean includeEnded) {
+        String query = includeEnded? "from Meeting order by holdTime DESC" : "from Meeting where ended = false order by holdTime DESC";
+        return session.createQuery(query, Meeting.class).list();
     }
 
     public int countPendingUsers(int meetingId) {
@@ -47,8 +48,8 @@ public class MeetingRepository extends Repository<Meeting> {
         return session.find(Meeting.class, meetingId).getAcceptedUsers().size();
     }
 
-	public Meeting find(int meetingId) {
-		return session.find(Meeting.class, meetingId);
+    public Meeting find(int meetingId) {
+        return session.find(Meeting.class, meetingId);
     }
 
 }

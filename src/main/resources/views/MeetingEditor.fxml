@@ -99,23 +99,23 @@
                         <TextField fx:id="locationCapacityTextField" />
                      </children>
                   </VBox>
-                  <VBox>
+                  <VBox prefHeight="100.0">
                      <children>
                         <Label text="Brief description" />
-                        <TextArea fx:id="briefDescriptionTextField" prefHeight="50.0" prefWidth="200.0" />
+                        <TextArea fx:id="briefDescriptionTextField" minHeight="100.0" wrapText="true" />
                      </children>
                   </VBox>
                   <Separator prefHeight="2.0" />
                   <VBox>
                      <children>
                         <Label text="Detail description" />
-                        <TextArea fx:id="detailDescriptionTextField" prefHeight="200.0" prefWidth="200.0" />
+                        <TextArea fx:id="detailDescriptionTextField" minHeight="200.0" wrapText="true" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button fx:id="leftButton" mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
-                        <Button fx:id="rightButton" mnemonicParsing="false" prefWidth="120.0" text="Save" />
+                        <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

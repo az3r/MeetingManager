@@ -1,6 +1,7 @@
 package com.azer.meetingmanager.data.models;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -24,14 +25,14 @@ public class Meeting {
     @Column(length = 1000)
     private String detailDesc;
 
-    @Column(length = 100000)
+    @Column(length = 100000, nullable = true)
     private byte[] photo;
 
     @Column
     private Date holdTime;
 
     @Column
-    private int duration;
+    private boolean ended;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "locationId")
@@ -39,12 +40,12 @@ public class Meeting {
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<User> pendingUsers;
+    private Set<User> pendingUsers = new HashSet<>();
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Fetch(FetchMode.SELECT)
-    private Set<User> acceptedUsers;
+    private Set<User> acceptedUsers = new HashSet<>();;
 
     public Meeting() {
 
@@ -98,21 +99,15 @@ public class Meeting {
         this.photo = photo;
     }
 
-    public Meeting(String name, String shortDesc, String detailDesc, byte[] photo, Date holdTime, int duration,
+    public Meeting(String name, String shortDesc, String detailDesc, byte[] photo, Date holdTime, boolean ended,
             Location location) {
         this.name = name;
         this.shortDesc = shortDesc;
         this.detailDesc = detailDesc;
         this.photo = photo;
         this.holdTime = holdTime;
-        this.duration = duration;
+        this.ended = ended;
         this.location = location;
-    }
-
-    @Override
-    public String toString() {
-        return "Meeting [duration=" + duration + ", holdTime=" + holdTime + ", " + location + ", meetingId=" + meetingId
-                + "]";
     }
 
     public String getName() {
@@ -121,14 +116,6 @@ public class Meeting {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
     @Override
@@ -159,5 +146,19 @@ public class Meeting {
 
     public void setAcceptedUsers(Set<User> acceptedUsers) {
         this.acceptedUsers = acceptedUsers;
+    }
+
+    public boolean getEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    @Override
+    public String toString() {
+        return "Meeting [ended=" + ended + ", location=" + location + ", meetingId=" + meetingId + ", name=" + name
+                + "]";
     }
 }

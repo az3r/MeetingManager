@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 
 /**
  * Represent a meeting item, provide 2 options to interact with
@@ -84,6 +85,8 @@ public class MeetingItemController implements Initializable {
         int pendingCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
 
         titleLabel.setText(meeting.getName());
+        if (meeting.getEnded())
+            titleLabel.setTextFill(Paint.valueOf("red"));
 
         String capacity = String.format("%d / %d", acceptedCount, meeting.getLocation().getCapacity());
         capacityLabel.setText(capacity);
@@ -100,7 +103,7 @@ public class MeetingItemController implements Initializable {
         boolean hasPhoto = meeting.getPhoto() != null;
         photoEmptyPane.setVisible(!hasPhoto);
         photoImageView.setVisible(hasPhoto);
-        
+
         if (hasPhoto)
             photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
     }

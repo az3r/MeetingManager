@@ -139,7 +139,14 @@ public class UnitOfWork {
 
     public List<Meeting> getAllMeetings() {
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
-        List<Meeting> collection = repository.get();
+        List<Meeting> collection = repository.get(true);
+        repository.close();
+        return collection;
+    }
+
+    public List<Meeting> getOpeningMeetings() {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        List<Meeting> collection = repository.get(false);
         repository.close();
         return collection;
     }
@@ -180,6 +187,7 @@ public class UnitOfWork {
     }
 
     public boolean updateMeeting(Meeting meeting) {
+        Log.i(TAG, "update " + meeting.toString());
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
         repository.update(meeting);
         boolean result = false;

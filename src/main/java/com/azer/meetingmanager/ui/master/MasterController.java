@@ -37,7 +37,7 @@ public class MasterController implements Initializable {
 
     private void settupMeetingContainer() {
         changeMeetingContainer(true);
-        List<Meeting> meetings = App.getUnitOfWork().getAllMeetings();
+        List<Meeting> meetings = App.getUnitOfWork().getOpeningMeetings();
         meetingContainerController.notifyCollectionChanged(meetings);
     }
     private void setupTopbar() {

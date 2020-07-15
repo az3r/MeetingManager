@@ -239,4 +239,10 @@ public class MeetingContainerController implements Initializable, ListChangeList
         }
         container.getChildren().setAll(copied);
     }
+
+	public void filterByAccepted() {
+	}
+
+	public void filterByPending() {
+	}
 }

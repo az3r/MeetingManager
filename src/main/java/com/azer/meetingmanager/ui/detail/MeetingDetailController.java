@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 public class MeetingDetailController extends BackableController implements Initializable {
@@ -76,6 +77,9 @@ public class MeetingDetailController extends BackableController implements Initi
         int pendingCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
 
         titleLabel.setText(meeting.getName());
+        if (meeting.getEnded())
+            titleLabel.setTextFill(Paint.valueOf("red"));
+        
         detailLabel.setText(meeting.getDetailDesc());
 
         String capacity = String.format("%d / %d", acceptedCount, meeting.getLocation().getCapacity());
@@ -124,6 +128,11 @@ public class MeetingDetailController extends BackableController implements Initi
 
         topbarController.showEditButton(admin);
         topbarController.setOnEdithAction(e -> {
+            if (this.meeting.getEnded()) {
+                new Alert(AlertType.INFORMATION, "You can not edit this meeting because it has ended", ButtonType.OK)
+                        .showAndWait();
+                return;
+            }
             DialogLoader<Meeting> loader = new DialogLoader<>("views/MeetingEditor.fxml",
                     (Stage) root.getScene().getWindow());
             MeetingEditorController controller = (MeetingEditorController) loader.getController();
@@ -200,6 +209,10 @@ public class MeetingDetailController extends BackableController implements Initi
         @Override
         public void onCompleted(Meeting result) {
             boolean success = App.getUnitOfWork().updateMeeting(result);
+
+            if (success)
+                notifyDataChanged(result);
+
             String message = success ? "Update meeting successfully" : "Internal error, check log!";
             AlertType alertType = success ? AlertType.INFORMATION : AlertType.ERROR;
             new Alert(alertType, message, ButtonType.OK).showAndWait();

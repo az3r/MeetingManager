@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -71,15 +70,13 @@ public class MeetingEditorController extends DialogController<Meeting> implement
     @FXML
     private TextArea detailDescriptionTextField;
 
-    @FXML
-    private Button leftButton;
-
-    @FXML
-    private Button rightButton;
-
     private File imageFile;
 
+    private Meeting meeting;
+
     public void notifyDataChanged(Meeting meeting) {
+        this.meeting = meeting;
+
         titleTextField.setText(meeting.getName());
         briefDescriptionTextField.setText(meeting.getShortDesc());
         detailDescriptionTextField.setText(meeting.getDetailDesc());
@@ -97,7 +94,8 @@ public class MeetingEditorController extends DialogController<Meeting> implement
         hourTextField.setText(String.valueOf(calender.get(Calendar.HOUR_OF_DAY)));
         minuteTextField.setText(String.valueOf(calender.get(Calendar.MINUTE)));
 
-        photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
+        if(meeting.getPhoto() != null)
+            photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
     }
 
     @Override
@@ -135,8 +133,6 @@ public class MeetingEditorController extends DialogController<Meeting> implement
             return;
         }
 
-        Meeting meeting = new Meeting();
-
         meeting.setName(titleTextField.getText());
         meeting.setShortDesc(briefDescriptionTextField.getText());
         meeting.setDetailDesc(detailDescriptionTextField.getText());
@@ -145,6 +141,7 @@ public class MeetingEditorController extends DialogController<Meeting> implement
         location.setAddress(locationAddressTextFIeld.getText());
         location.setName(locationNameTextField.getText());
         location.setCapacity(Integer.parseInt(locationCapacityTextField.getText()));
+        meeting.setLocation(location);
 
         GregorianCalendar calender = new GregorianCalendar(Integer.parseInt(yearTextField.getText()),
                 Integer.parseInt(monthTextField.getText()) - 1, Integer.parseInt(dateTextField.getText()),
@@ -153,11 +150,13 @@ public class MeetingEditorController extends DialogController<Meeting> implement
         meeting.setHoldTime(calender.getTime());
 
         try {
-            if(imageFile != null) meeting.setPhoto(Files.readAllBytes(imageFile.toPath()));
+            if (imageFile != null) {
+                meeting.setPhoto(Files.readAllBytes(imageFile.toPath()));
+                photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
+            }
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
-        photoImageView.setImage(Utility.getImage(meeting.getPhoto()));
 
         success(meeting);
         getContainer().close();
@@ -203,9 +202,9 @@ public class MeetingEditorController extends DialogController<Meeting> implement
             Integer.parseInt(yearTextField.getText());
             Integer.parseInt(hourTextField.getText());
             Integer.parseInt(minuteTextField.getText());
-            return true;
-        } catch (Exception e) {
             return false;
+        } catch (Exception e) {
+            return true;
         }
     }
 }

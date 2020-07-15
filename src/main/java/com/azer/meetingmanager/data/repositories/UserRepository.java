@@ -80,7 +80,7 @@ public class UserRepository extends Repository<User> {
 	}
 
 	public List<Meeting> getAcceptedMeeting(int userId) {
-		return session
+		return  session
 				.createQuery("select acceptedMeetings from User where userId = :userId")
 				.setParameter("userId", userId).list();
 	}
