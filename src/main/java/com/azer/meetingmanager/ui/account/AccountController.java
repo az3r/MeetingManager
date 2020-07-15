@@ -130,22 +130,6 @@ public class AccountController extends BackableController implements Initializab
         meetingContainerController.sortByName();
     }
 
-    @FXML
-    void onFilterByPending(ActionEvent event) {
-        meetingContainerController.filterByPending();
-    }
-
-    @FXML
-    void onFilterByAccepted(ActionEvent event) {
-        meetingContainerController.filterByAccepted();
-    }
-    
-    @FXML
-    void onFilterByAll(ActionEvent event) {
-        meetingContainerController.filterByAccepted();
-    }
-    
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTopbar();

@@ -85,9 +85,12 @@ public class UserRepository extends Repository<User> {
 	}
 
 	public List<Meeting> getAcceptedMeeting(int userId) {
-		return  session
-				.createQuery("select acceptedMeetings from User where userId = :userId")
+		return session.createQuery("select acceptedMeetings from User where userId = :userId")
 				.setParameter("userId", userId).list();
+	}
+
+	public List<User> get() {
+		return session.createQuery("from User where userType = :userType").setParameter("userType", "member").list();
 	}
 
 }

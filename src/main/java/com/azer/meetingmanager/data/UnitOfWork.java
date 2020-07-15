@@ -202,11 +202,13 @@ public class UnitOfWork {
     }
 
     public boolean acceptRequest(User user, Meeting meeting) {
+        Log.i(TAG, String.format("accept request of %s to %s", user, meeting));
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
         repository.addToAccepted(user.getUserId(), meeting);
         boolean result = false;
         try {
             repository.commit();
+            Log.i(TAG, "accept successfully");
         } catch (Exception e) {
             result = false;
             Log.e(TAG, e.toString());
@@ -216,11 +218,13 @@ public class UnitOfWork {
     }
 
     public boolean denyRequest(User user, Meeting meeting) {
+        Log.i(TAG, String.format("deny request of %s to %s", user, meeting));
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
         repository.removeFromPending(user.getUserId(), meeting);
         boolean result = false;
         try {
             repository.commit();
+            Log.i(TAG, "deny successfully");
         } catch (Exception e) {
             result = false;
             Log.e(TAG, e.toString());
@@ -230,31 +234,44 @@ public class UnitOfWork {
     }
 
     public boolean blockUser(User user) {
+        Log.i(TAG, "block " + user.toString());
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
         user.setBlocked(true);
         repository.update(user);
-        boolean result = false;
+        boolean success = false;
         try {
             repository.commit();
+            success = true;
+            Log.i(TAG, "block successfully");
         } catch (Exception e) {
-            result = false;
+            success = false;
             Log.e(TAG, e.toString());
         }
         repository.close();
-        return result;
+        return success;
     }
 
     public boolean unblockUser(User user) {
+        Log.i(TAG, "unblock " + user.toString());
         UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
         user.setBlocked(false);
         repository.update(user);
-        boolean result = false;
+        boolean success = false;
         try {
             repository.commit();
+            success = true;
+            Log.i(TAG, "unblock successfully");
         } catch (Exception e) {
-            result = false;
+            success = false;
             Log.e(TAG, e.toString());
         }
+        repository.close();
+        return success;
+    }
+
+    public List<User> getUsers() {
+        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
+        List<User> result = repository.get();
         repository.close();
         return result;
     }

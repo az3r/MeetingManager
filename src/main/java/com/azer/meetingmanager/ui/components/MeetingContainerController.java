@@ -109,7 +109,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
         controller.setRightButtonAction(rightButtonListener, value);
     }
 
-    private Parent createMeetingItemNode(Meeting meeting) {
+    private Parent createItemLayout(Meeting meeting) {
         ViewLoader<MeetingItemController> loader = new ViewLoader<>(file);
         MeetingItemController controller = loader.getController();
         bindItemBehavior(controller, meeting);
@@ -186,7 +186,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
         Log.i(TAG, "adding new meetings to container");
         for (Meeting meeting : items) {
             Log.i(TAG, meeting.toString());
-            Parent node = createMeetingItemNode(meeting);
+            Parent node = createItemLayout(meeting);
             node.setUserData(meeting);
             container.getChildren().add(node);
         }
@@ -239,10 +239,4 @@ public class MeetingContainerController implements Initializable, ListChangeList
         }
         container.getChildren().setAll(copied);
     }
-
-	public void filterByAccepted() {
-	}
-
-	public void filterByPending() {
-	}
 }

@@ -198,3 +198,12 @@
     -fx-font-size: 10;
     visibility: false;;
 }
+
+.user-action-button {
+    -fx-background-color: transparent;
+}
+
+.user-action-button:hover {
+    -fx-background-color: transparent;
+    -fx-opacity: 0.6;
+}

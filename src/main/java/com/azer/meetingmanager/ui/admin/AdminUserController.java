@@ -1,19 +1,22 @@
 package com.azer.meetingmanager.ui.admin;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.azer.meetingmanager.App;
+import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.BackableController;
+import com.azer.meetingmanager.ui.components.UserItemContainerController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 
 public class AdminUserController extends BackableController implements Initializable {
 
     @FXML
-    private ScrollPane uesrItemContainer;
+    private UserItemContainerController userItemContainerController;
 
     @FXML
     void onSortByEmailAsc(ActionEvent event) {
@@ -27,8 +30,9 @@ public class AdminUserController extends BackableController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-
+        List<User> users = App.getUnitOfWork().getUsers();
+        userItemContainerController.setItemActionType(true);
+        userItemContainerController.notifyCollectionChanged(users);
     }
 
 }

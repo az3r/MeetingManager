@@ -3,10 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.admin.AdminUserController">
    <children>
@@ -15,22 +13,21 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuButton mnemonicParsing="false" text="MenuButton">
+                  <MenuButton mnemonicParsing="false" text="Sort">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#onSortByNameAsc" text="Name A-Z" />
                       <MenuItem mnemonicParsing="false" onAction="#onSortByEmailAsc" text="Email A-Z" />
                     </items>
                   </MenuButton>
                </children>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
             </HBox>
-            <ScrollPane fx:id="uesrItemContainer" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
+            <fx:include fx:id="userItemContainer" source="UserItemContainer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
          </children>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" />
+            <Insets bottom="30.0" />
          </padding>
       </AnchorPane>
    </children>

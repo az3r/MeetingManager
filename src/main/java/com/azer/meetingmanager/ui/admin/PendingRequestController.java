@@ -10,7 +10,7 @@ import javafx.scene.control.ScrollPane;
 public class PendingRequestController implements Initializable {
 
     @FXML
-    private ScrollPane container;
+    private ScrollPane uesrItemContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

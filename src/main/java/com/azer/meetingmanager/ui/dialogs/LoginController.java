@@ -42,6 +42,7 @@ public class LoginController extends DialogController<User> {
                 success(resource.getUser());
                 getContainer().close();
             } else {
+                LoggedUserResource.getInstance().logout();
                 new Alert(AlertType.INFORMATION,
                         "Your account is blocked by admin. Please contact admin for more information", ButtonType.OK)
                                 .showAndWait();
