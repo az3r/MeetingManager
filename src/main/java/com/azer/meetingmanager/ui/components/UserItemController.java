@@ -41,25 +41,37 @@ public class UserItemController implements Initializable {
     private User user;
     private Meeting meeting;
 
+    private OnUserRequestListener acceptListener;
+    private OnUserRequestListener denyListener;
+    private OnUserRequestListener blockListener;
+    private OnUserRequestListener unblockListener;
 
     @FXML
     void onAcceptRequest(MouseEvent event) {
-        App.getUnitOfWork().acceptRequest(user, meeting);
-    }  
+        if (denyListener != null) {
+            denyListener.onAction(user, meeting);
+        }
+    }
 
     @FXML
     void onBlockUser(MouseEvent event) {
-        
+        if (denyListener != null) {
+            denyListener.onAction(user, meeting);
+        }
     }
 
     @FXML
     void onDenyRequest(MouseEvent event) {
-
+        if (blockListener != null) {
+            blockListener.onAction(user, meeting);
+        }
     }
 
     @FXML
     void onUnBlockUser(MouseEvent event) {
-
+        if (unblockListener != null) {
+            unblockListener.onAction(user, meeting);
+        }
     }
 
     @Override
@@ -95,4 +107,23 @@ public class UserItemController implements Initializable {
         unblockAction.setVisible(visible);
     }
 
+    public void setOnAcceptListener(OnUserRequestListener listener) {
+        this.acceptListener = listener;
+    }
+
+    public void setOnDenyListener(OnUserRequestListener listener) {
+        this.denyListener = listener;
+    }
+
+    public void setOnBlockListener(OnUserRequestListener listener) {
+        this.blockListener = listener;
+    }
+
+    public void setOnUnblockListener(OnUserRequestListener listener) {
+        this.unblockListener = listener;
+    }
+
+    public interface OnUserRequestListener {
+        void onAction(User user, Meeting meeting);
+    }
 }
