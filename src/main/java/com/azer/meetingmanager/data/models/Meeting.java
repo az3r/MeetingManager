@@ -40,12 +40,12 @@ public class Meeting {
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<User> pendingUsers = new HashSet<>();
-
+    private Set<User> pendingUsers;
+    
     @ManyToMany
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Fetch(FetchMode.SELECT)
-    private Set<User> acceptedUsers = new HashSet<>();;
+    private Set<User> acceptedUsers;
 
     public Meeting() {
 

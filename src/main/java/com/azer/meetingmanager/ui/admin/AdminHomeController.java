@@ -44,7 +44,10 @@ public class AdminHomeController implements Initializable {
 
         meetingContainerController.setRightButtonText("Pending");
         meetingContainerController.setRightButtonListener(value -> {
-
+            ViewLoader<PendingRequestController> loader = new ViewLoader<>("views/PendingRequest.fxml");
+            loader.getController().setUpParent(root.getScene().getRoot());
+            loader.getController().notifyMeetingChanged(value);
+            root.getScene().setRoot(loader.getRoot());
         });
 
         List<Meeting> allMeetings = App.getUnitOfWork().getAllMeetings();

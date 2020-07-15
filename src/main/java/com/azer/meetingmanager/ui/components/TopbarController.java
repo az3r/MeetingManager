@@ -74,7 +74,7 @@ public class TopbarController implements Initializable {
     private MenuButton accountButton;
 
     @FXML
-    private MenuItem adminMenuItem;
+    private MenuItem manageUserItem;
 
     @FXML
     private TextField searchView;
@@ -135,18 +135,17 @@ public class TopbarController implements Initializable {
     }
 
     @FXML
-    void onOpenUserManager(final ActionEvent event) {
-        final ViewLoader<AdminUserController> loader = new ViewLoader<>("views/AdminUser.fxml");
-        loader.getController().setUpParent(root.getScene().getRoot());
-        root.getScene().setRoot(loader.getRoot());
-    }
-
-    @FXML
     void onOpenHome(final ActionEvent event) {
         String view = "views/Home.fxml";
         if (LoggedUserResource.getInstance().getAdmin() != null)
             view = "views/AdminHome.fxml";
         final ViewLoader<HomeController> loader = new ViewLoader<>(view);
+        root.getScene().setRoot(loader.getRoot());
+    }
+
+    @FXML
+    void onOpenUserManager(final ActionEvent event) {
+        final ViewLoader<AdminUserController> loader = new ViewLoader<>("views/AdminUser.fxml");
         root.getScene().setRoot(loader.getRoot());
     }
 
@@ -189,8 +188,8 @@ public class TopbarController implements Initializable {
         accountButton.setVisible(visible);
     }
 
-    public void showAdminMenuItem(final boolean visible) {
-        adminMenuItem.setVisible(visible);
+    public void showManageUserItem(final boolean visible) {
+        manageUserItem.setVisible(visible);
     }
 
     public void showSearchOption(final boolean visible) {
@@ -233,7 +232,8 @@ public class TopbarController implements Initializable {
         showAccountButton(type != TOPBAR_GUESS);
         showSignUpButton(type == TOPBAR_GUESS);
         showLoginButton(type == TOPBAR_GUESS);
-        showAdminMenuItem(type == TOPBAR_ADMIN);
+
+        showManageUserItem(type == TOPBAR_ADMIN);
         showAddButton(type == TOPBAR_ADMIN);
     }
 

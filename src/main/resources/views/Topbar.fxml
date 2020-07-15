@@ -76,8 +76,7 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onOpenAccount" text="My account" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onOpenUserManager" text="Manage user" />
-                  <MenuItem fx:id="adminMenuItem" mnemonicParsing="false" onAction="#onOpenMeetingManager" text="Manage meeting" />
+                  <MenuItem fx:id="manageUserItem" mnemonicParsing="false" onAction="#onOpenUserManager" text="Manage user" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#onLogOut" text="Log out" />
               </items>

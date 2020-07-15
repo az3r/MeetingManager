@@ -25,14 +25,16 @@ public class MeetingRepository extends Repository<Meeting> {
                 .setMaxResults(1).uniqueResult();
     }
 
-    public Set<User> getAcceptedUsers(int meetingId) {
-        Meeting meeting = session.find(Meeting.class, meetingId);
-        return meeting.getAcceptedUsers();
+    public List<User> getAcceptedUsers(int meetingId) {
+        return session.createQuery("select acceptedUsers from Meeting where meetingId = :meetingId")
+        .setParameter("meetingId", meetingId)
+        .list();
     }
 
-    public Set<User> getPendingUsers(int meetingId) {
-        Meeting meeting = session.find(Meeting.class, meetingId);
-        return meeting.getPendingUsers();
+    public List<User> getPendingUsers(int meetingId) {
+        return session.createQuery("select pendingUsers from Meeting where meetingId = :meetingId")
+        .setParameter("meetingId", meetingId)
+        .list();
     }
 
     public List<Meeting> get(boolean includeEnded) {

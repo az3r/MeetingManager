@@ -2,33 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.admin.PendingRequestController">
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.admin.PendingRequestController">
    <children>
-      <BorderPane>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <left>
-            <HBox alignment="CENTER" styleClass="meeting-item-detail" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="currentLabel" text="0" />
-                  <Label text="/" />
-                  <Label fx:id="CapacityLabel" text="150" />
-               </children>
-            </HBox>
-         </left>
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
-      </BorderPane>
-      <ScrollPane fx:id="container" fitToWidth="true">
-         <content>
-            <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0" />
-         </content></ScrollPane>
+      <VBox stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <BorderPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <left>
+                  <HBox alignment="CENTER" styleClass="meeting-item-detail" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="currentLabel" text="0" />
+                        <Label text="/" />
+                        <Label fx:id="capacityLabel" text="150" />
+                     </children>
+                  </HBox>
+               </left>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <center>
+                  <fx:include fx:id="userItemContainer" source="UserItemContainer.fxml" />
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+      <fx:include fx:id="topbar" source="Topbar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
-</VBox>
+</AnchorPane>

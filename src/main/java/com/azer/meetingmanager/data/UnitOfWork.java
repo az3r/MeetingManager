@@ -2,6 +2,7 @@ package com.azer.meetingmanager.data;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
@@ -275,4 +276,12 @@ public class UnitOfWork {
         repository.close();
         return result;
     }
+
+
+	public List<User> getPendingUser(Meeting meeting) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        List<User> users = repository.getPendingUsers(meeting.getMeetingId());
+        repository.close();
+        return users;
+	}
 }

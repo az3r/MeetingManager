@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-public class AdminUserController extends BackableController implements Initializable {
+public class AdminUserController implements Initializable {
 
     @FXML
     private UserItemContainerController userItemContainerController;
