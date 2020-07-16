@@ -4,7 +4,7 @@
     <session-factory>
 
         <property name="show_sql">
-            false
+            true
         </property>
 
         <!-- mysql database-->

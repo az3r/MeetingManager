@@ -12,6 +12,8 @@ import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.helpers.RequestResult;
 
+import org.hibernate.Session;
+
 public class UnitOfWork {
     private static final String TAG = "UnitOfWork";
 
@@ -204,24 +206,22 @@ public class UnitOfWork {
 
     public boolean acceptRequest(User user, Meeting meeting) {
         Log.i(TAG, String.format("accept request of %s to %s", user, meeting));
-        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        MeetingRepository meetingRepository = new MeetingRepository(App.getSessionFactory().openSession());
+        UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
 
         boolean result = false;
-        meeting = repository.find(meeting.getMeetingId());
-        Set<User> acceptedUsers = meeting.getAcceptedUsers();
-        Set<User> pendingUsers = meeting.getPendingUsers();
-        Log.i(TAG, String.valueOf(acceptedUsers.size()));
-        Log.i(TAG, String.valueOf(pendingUsers.size()));
-        if (pendingUsers.contains(user) && acceptedUsers.size() < meeting.getLocation().getCapacity()) {
-            try {
-                pendingUsers.remove(user);
-                acceptedUsers.add(user);
-                repository.commit();
 
+        int acceptedSize = meetingRepository.countAcceptedUsers(meeting.getMeetingId());
+        int capacity = meeting.getLocation().getCapacity();
+
+        if (acceptedSize < capacity) {
+            try {
+
+                userRepository.addToAccepted(user.getUserId(), meeting);
+                userRepository.commit();
                 Log.i(TAG, "accept successfully");
-                Log.i(TAG, String.valueOf(acceptedUsers.size()));
-                Log.i(TAG, String.valueOf(pendingUsers.size()));
                 result = true;
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -229,29 +229,28 @@ public class UnitOfWork {
             Log.i(TAG, "can not accept request because meeting is full");
         }
 
-        repository.close();
+        meetingRepository.close();
+        userRepository.close();
         return result;
     }
 
     public boolean denyRequest(User user, Meeting meeting) {
         Log.i(TAG, String.format("deny request of %s to %s", user, meeting));
-        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
 
         boolean result = false;
-        meeting = repository.find(meeting.getMeetingId());
-        Set<User> pendingUsers = meeting.getPendingUsers();
-        if (pendingUsers.contains(user)) {
-            try {
-                pendingUsers.remove(user);
-                repository.commit();
-                Log.i(TAG, "deny successfully");
-                result = true;
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
+        try {
+
+            userRepository.removeFromPending(user.getUserId(), meeting);
+            userRepository.commit();
+            Log.i(TAG, "deny successfully");
+            result = true;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
         }
 
-        repository.close();
+        userRepository.close();
         return result;
     }
 

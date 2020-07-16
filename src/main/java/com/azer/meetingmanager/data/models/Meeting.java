@@ -44,7 +44,6 @@ public class Meeting {
 
     @ManyToMany(mappedBy = "acceptedMeetings")
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @Fetch(FetchMode.SELECT)
     private Set<User> acceptedUsers;
 
     public Meeting() {
