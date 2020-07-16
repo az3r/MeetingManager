@@ -13,7 +13,7 @@
 
 <VBox spacing="15.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.components.UserItemController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <left>
             <VBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
@@ -63,6 +63,6 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </BorderPane>
-      <Pane prefHeight="2.0" />
+      <Pane prefHeight="2.0" styleClass="seperator" />
    </children>
 </VBox>

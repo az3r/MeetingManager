@@ -2,6 +2,7 @@ package com.azer.meetingmanager.data.models;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
@@ -39,18 +40,18 @@ public class User {
     private boolean blocked;
 
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "User_Meeting_Pending",
+        name = "PendingRequest",
         joinColumns = { @JoinColumn(referencedColumnName = "userId") },
         inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
     )
     private Set<Meeting> pendingMeetings;
 
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "User_Meeting_Accepted",
+        name = "AcceptedRequest",
         joinColumns = { @JoinColumn(referencedColumnName = "userId") },
         inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
     )

@@ -204,32 +204,53 @@ public class UnitOfWork {
 
     public boolean acceptRequest(User user, Meeting meeting) {
         Log.i(TAG, String.format("accept request of %s to %s", user, meeting));
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        repository.addToAccepted(user.getUserId(), meeting);
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+
         boolean result = false;
-        try {
-            repository.commit();
-            Log.i(TAG, "accept successfully");
-        } catch (Exception e) {
-            result = false;
-            Log.e(TAG, e.toString());
+        meeting = repository.find(meeting.getMeetingId());
+        Set<User> acceptedUsers = meeting.getAcceptedUsers();
+        Set<User> pendingUsers = meeting.getPendingUsers();
+        Log.i(TAG, String.valueOf(acceptedUsers.size()));
+        Log.i(TAG, String.valueOf(pendingUsers.size()));
+        if (pendingUsers.contains(user) && acceptedUsers.size() < meeting.getLocation().getCapacity()) {
+            try {
+                pendingUsers.remove(user);
+                acceptedUsers.add(user);
+                repository.commit();
+
+                Log.i(TAG, "accept successfully");
+                Log.i(TAG, String.valueOf(acceptedUsers.size()));
+                Log.i(TAG, String.valueOf(pendingUsers.size()));
+                result = true;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        } else {
+            Log.i(TAG, "can not accept request because meeting is full");
         }
+
         repository.close();
         return result;
     }
 
     public boolean denyRequest(User user, Meeting meeting) {
         Log.i(TAG, String.format("deny request of %s to %s", user, meeting));
-        UserRepository repository = new UserRepository(App.getSessionFactory().openSession());
-        repository.removeFromPending(user.getUserId(), meeting);
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+
         boolean result = false;
-        try {
-            repository.commit();
-            Log.i(TAG, "deny successfully");
-        } catch (Exception e) {
-            result = false;
-            Log.e(TAG, e.toString());
+        meeting = repository.find(meeting.getMeetingId());
+        Set<User> pendingUsers = meeting.getPendingUsers();
+        if (pendingUsers.contains(user)) {
+            try {
+                pendingUsers.remove(user);
+                repository.commit();
+                Log.i(TAG, "deny successfully");
+                result = true;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
         }
+
         repository.close();
         return result;
     }
@@ -245,7 +266,6 @@ public class UnitOfWork {
             success = true;
             Log.i(TAG, "block successfully");
         } catch (Exception e) {
-            success = false;
             Log.e(TAG, e.toString());
         }
         repository.close();
@@ -277,11 +297,10 @@ public class UnitOfWork {
         return result;
     }
 
-
-	public List<User> getPendingUser(Meeting meeting) {
+    public List<User> getPendingUser(Meeting meeting) {
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
         List<User> users = repository.getPendingUsers(meeting.getMeetingId());
         repository.close();
         return users;
-	}
+    }
 }

@@ -89,6 +89,7 @@ public class UserRepository extends Repository<User> {
 				.setParameter("userId", userId).list();
 	}
 
+
 	public List<User> get() {
 		return session.createQuery("from User where userType = :userType").setParameter("userType", "member").list();
 	}

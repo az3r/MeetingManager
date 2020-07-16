@@ -30,7 +30,7 @@ public class Meeting {
 
     @Column
     private Date holdTime;
-
+    
     @Column
     private boolean ended;
 
@@ -38,11 +38,11 @@ public class Meeting {
     @JoinColumn(name = "locationId")
     private Location location;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "pendingMeetings")
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> pendingUsers;
-    
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "acceptedMeetings")
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Fetch(FetchMode.SELECT)
     private Set<User> acceptedUsers;

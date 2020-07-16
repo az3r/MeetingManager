@@ -9,6 +9,7 @@ import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
 import com.azer.meetingmanager.data.models.Meeting;
 import com.azer.meetingmanager.data.models.User;
+import com.azer.meetingmanager.ui.OnItemActionListener;
 import com.azer.meetingmanager.ui.ViewLoader;
 
 import javafx.collections.FXCollections;
@@ -40,6 +41,10 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     private ObservableList<User> items = FXCollections.observableArrayList();
 
+    private OnItemActionListener<User> acceptListener;
+
+    private OnItemActionListener<User> denyListener;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         items.addListener(this);
@@ -50,8 +55,11 @@ public class UserItemContainerController implements Initializable, ListChangeLis
         for (User user : items) {
             Log.i(TAG, user.toString());
             Parent node = createItemLayout(user);
-            node.setUserData(user);
-            container.getChildren().add(node);
+            if (node != null) {
+                node.setUserData(user);
+                container.getChildren().add(node);
+            }
+
         }
     }
 
@@ -82,7 +90,18 @@ public class UserItemContainerController implements Initializable, ListChangeLis
         this.items.setAll(collection);
     }
 
+    public void setOnAcceptListener(OnItemActionListener<User> listener) {
+        this.acceptListener = listener;
+    }
+
+    public void setOnDenyListener(OnItemActionListener<User> listener) {
+        this.denyListener = listener;
+    }
+
     private Parent createItemLayout(User user) {
+        if (!blockAction && user.getBlocked())
+            return null;
+
         ViewLoader<UserItemController> loader = new ViewLoader<>("views/UserItem.fxml");
         UserItemController controller = loader.getController();
         setupItemController(controller, user, loader.getRoot());
@@ -102,14 +121,18 @@ public class UserItemContainerController implements Initializable, ListChangeLis
                 return;
             }
             boolean success = App.getUnitOfWork().acceptRequest(user, meeting);
-            if (success)
+            if (success) {
+                if (acceptListener != null)
+                    acceptListener.onAction(user);
                 container.getChildren().remove(owner);
-            else
+            } else
                 new Alert(AlertType.ERROR, "Unable to remove item from container, check log", ButtonType.OK)
                         .showAndWait();
         });
         controller.setOnDenyListener(e -> {
             if (meeting == null) {
+                if (denyListener != null)
+                    denyListener.onAction(user);
                 Log.e(TAG, "No meeting to deny request of " + user);
                 return;
             }
@@ -139,4 +162,5 @@ public class UserItemContainerController implements Initializable, ListChangeLis
         });
 
     }
+
 }

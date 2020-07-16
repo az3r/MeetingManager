@@ -44,14 +44,20 @@ public class PendingRequestController extends BackableController implements Init
         topbarController.setOnBackAction(e -> {
             root.getScene().setRoot(getUpParent());
         });
+
+        userItemContainerController.setOnAcceptListener(user -> {
+            int value = Integer.parseInt(currentLabel.getText());
+            currentLabel.setText(String.valueOf(value + 1));
+        });
     }
 
-    private void setupContainer() {
+    private void inflateContainer() {
         if (meeting != null) {
             Log.i(TAG, "load pending request from " + meeting.toString());
             List<User> pendingUsers = App.getUnitOfWork().getPendingUser(meeting);
             userItemContainerController.notifyCollectionChanged(pendingUsers);
             userItemContainerController.setItemActionType(false);
+            userItemContainerController.setMeeting(meeting);
         } else {
             Log.e(TAG, "can not get pending users because meeting is null");
         }
@@ -66,7 +72,7 @@ public class PendingRequestController extends BackableController implements Init
         int currentCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
         currentLabel.setText(String.valueOf(currentCount));
 
-        setupContainer();
+        inflateContainer();
     }
 
 }
