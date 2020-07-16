@@ -2,8 +2,10 @@ package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.Log;
@@ -29,6 +31,9 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     private static final String TAG = "UserItemContainerController";
 
+    private static final int SORT_BY_NAME = 1;
+    private static final int SORT_BY_EMAIL = 2;
+
     @FXML
     private ScrollPane root;
 
@@ -44,6 +49,31 @@ public class UserItemContainerController implements Initializable, ListChangeLis
     private OnItemActionListener<User> acceptListener;
 
     private OnItemActionListener<User> denyListener;
+
+    private int sortType = SORT_BY_NAME;
+    private boolean ascendingSort = true;
+
+    private List<Node> originalChildren;
+
+    private Comparator<Node> emailComparator = new Comparator<Node>() {
+
+        @Override
+        public int compare(Node left, Node right) {
+            User leftData = (User) left.getUserData();
+            User rightData = (User) right.getUserData();
+            return leftData.getUserEmail().compareTo(rightData.getUserEmail());
+        }
+    };
+
+    private Comparator<Node> nameComparator = new Comparator<Node>() {
+
+        @Override
+        public int compare(Node left, Node right) {
+            User leftData = (User) left.getUserData();
+            User rightData = (User) right.getUserData();
+            return leftData.getUserName().compareTo(rightData.getUserName());
+        }
+    };
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,6 +118,7 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     public void notifyCollectionChanged(Collection<User> collection) {
         this.items.setAll(collection);
+        originalChildren = container.getChildren().stream().collect(Collectors.toList());
     }
 
     public void setOnAcceptListener(OnItemActionListener<User> listener) {
@@ -161,6 +192,60 @@ public class UserItemContainerController implements Initializable, ListChangeLis
                 new Alert(AlertType.ERROR, "Unable to block user, check log", ButtonType.OK).showAndWait();
         });
 
+    }
+
+    public void sortByEmailAsc() {
+        sortType = SORT_BY_EMAIL;
+        ascendingSort = true;
+        List<Node> sortedNodes = container.getChildren().sorted(emailComparator);
+        container.getChildren().setAll(sortedNodes);
+    }
+
+    public void sortByNameAsc() {
+        sortType = SORT_BY_NAME;
+        ascendingSort = true;
+        List<Node> sortedNodes = container.getChildren().sorted(nameComparator);
+        container.getChildren().setAll(sortedNodes);
+    }
+
+    public void filterByNone() {
+        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        copied.sort(sortType == SORT_BY_NAME ? nameComparator : emailComparator);
+        container.getChildren().setAll(copied);
+    }
+
+    public void filterByBlocked() {
+        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        copied.removeIf(node -> {
+            User user = (User) node.getUserData();
+            return !user.getBlocked();
+        });
+        copied.sort(sortType == SORT_BY_NAME ? nameComparator : emailComparator);
+        container.getChildren().setAll(copied);
+    }
+
+    public void filterByNotBlocked() {
+        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        copied.removeIf(node -> {
+            User user = (User) node.getUserData();
+            return user.getBlocked();
+        });
+        copied.sort(sortType == SORT_BY_NAME ? nameComparator : emailComparator);
+        container.getChildren().setAll(copied);
+    }
+
+    public void sortByEmailDsc() {
+        sortType = SORT_BY_EMAIL;
+        ascendingSort = false;
+        List<Node> sortedNodes = container.getChildren().sorted(emailComparator.reversed());
+        container.getChildren().setAll(sortedNodes);
+    }
+
+    public void sortByNameDsc() {
+        sortType = SORT_BY_NAME;
+        ascendingSort = false;
+        List<Node> sortedNodes = container.getChildren().sorted(nameComparator.reversed());
+        container.getChildren().setAll(sortedNodes);
     }
 
 }

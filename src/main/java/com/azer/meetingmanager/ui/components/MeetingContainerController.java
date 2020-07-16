@@ -217,7 +217,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
             return;
         }
 
-        // copy to another collection and use this for filtering
+        // copy to another collec   tion and use this for filtering
         List<Node> copied = originalChildren.stream().collect(Collectors.toList());
         copied.removeIf(node -> {
             Meeting nodeData = (Meeting) node.getUserData();

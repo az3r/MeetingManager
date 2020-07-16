@@ -16,7 +16,16 @@
                   <MenuButton mnemonicParsing="false" text="Sort">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#onSortByNameAsc" text="Name A-Z" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSortByNameDsc" text="Name Z-A" />
                       <MenuItem mnemonicParsing="false" onAction="#onSortByEmailAsc" text="Email A-Z" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSortByEmailDsc" text="Email Z-A" />
+                    </items>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Filter">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#onNoFilter" text="No Filter" />
+                      <MenuItem mnemonicParsing="false" onAction="#onFilterByBlocked" text="Blocked" />
+                        <MenuItem mnemonicParsing="false" onAction="#onFilterByNotBlocked" text="Not Blocked" />
                     </items>
                   </MenuButton>
                </children>

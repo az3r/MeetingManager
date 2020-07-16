@@ -20,12 +20,37 @@ public class AdminUserController implements Initializable {
 
     @FXML
     void onSortByEmailAsc(ActionEvent event) {
-
+        userItemContainerController.sortByEmailAsc();
     }
 
     @FXML
     void onSortByNameAsc(ActionEvent event) {
+        userItemContainerController.sortByNameAsc();
+    }
 
+    @FXML
+    void onSortByEmailDsc(ActionEvent event) {
+        userItemContainerController.sortByEmailDsc();
+    }
+
+    @FXML
+    void onSortByNameDsc(ActionEvent event) {
+        userItemContainerController.sortByNameDsc();
+    }
+
+    @FXML
+    void onNoFilter(ActionEvent event) {
+        userItemContainerController.filterByNone();
+    }
+
+    @FXML
+    void onFilterByBlocked(ActionEvent event) {
+        userItemContainerController.filterByBlocked();
+    }
+
+    @FXML
+    void onFilterByNotBlocked(ActionEvent event) {
+        userItemContainerController.filterByNotBlocked();
     }
 
     @Override
