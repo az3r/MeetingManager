@@ -31,8 +31,8 @@
       </VBox>
       <HBox alignment="CENTER_RIGHT">
          <children>
-            <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="40.0" prefWidth="120.0" styleClass="text-button" text="Cancel" />
-            <Button mnemonicParsing="false" onAction="#onLogin" prefHeight="40.0" prefWidth="120.0" text="Login" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancel" prefHeight="40.0" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLogin" prefHeight="40.0" prefWidth="120.0" text="Login" />
          </children>
       </HBox>
    </children>

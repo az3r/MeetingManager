@@ -1,10 +1,7 @@
 package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.azer.meetingmanager.App;
@@ -34,6 +31,12 @@ public class UserItemContainerController implements Initializable, ListChangeLis
     private static final int SORT_BY_NAME = 1;
     private static final int SORT_BY_EMAIL = 2;
 
+    public static final int ACTION_NONE = 0;
+    public static final int ACTION_BLOCK = 1;
+    public static final int ACTION_REQUEST = 2;
+
+    private int actionFlags = 0;
+
     @FXML
     private ScrollPane root;
 
@@ -44,7 +47,7 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     private boolean blockAction;
 
-    private ObservableList<User> items = FXCollections.observableArrayList();
+    private final ObservableList<User> items = FXCollections.observableArrayList();
 
     private OnItemActionListener<User> acceptListener;
 
@@ -55,24 +58,16 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     private List<Node> originalChildren;
 
-    private Comparator<Node> emailComparator = new Comparator<Node>() {
-
-        @Override
-        public int compare(Node left, Node right) {
-            User leftData = (User) left.getUserData();
-            User rightData = (User) right.getUserData();
-            return leftData.getUserEmail().compareTo(rightData.getUserEmail());
-        }
+    private final Comparator<Node> emailComparator = (left, right) -> {
+        User leftData = (User) left.getUserData();
+        User rightData = (User) right.getUserData();
+        return leftData.getUserEmail().compareTo(rightData.getUserEmail());
     };
 
-    private Comparator<Node> nameComparator = new Comparator<Node>() {
-
-        @Override
-        public int compare(Node left, Node right) {
-            User leftData = (User) left.getUserData();
-            User rightData = (User) right.getUserData();
-            return leftData.getUserName().compareTo(rightData.getUserName());
-        }
+    private final Comparator<Node> nameComparator = (left, right) -> {
+        User leftData = (User) left.getUserData();
+        User rightData = (User) right.getUserData();
+        return leftData.getUserName().compareTo(rightData.getUserName());
     };
 
     @Override
@@ -112,13 +107,13 @@ public class UserItemContainerController implements Initializable, ListChangeLis
         this.meeting = meeting;
     }
 
-    public void setItemActionType(boolean blockAction) {
-        this.blockAction = blockAction;
+    public void setItemActionType(int actionFlags) {
+        this.actionFlags = actionFlags;
     }
 
     public void notifyCollectionChanged(Collection<User> collection) {
         this.items.setAll(collection);
-        originalChildren = container.getChildren().stream().collect(Collectors.toList());
+        originalChildren = new ArrayList<>(container.getChildren());
     }
 
     public void setOnAcceptListener(OnItemActionListener<User> listener) {
@@ -141,10 +136,10 @@ public class UserItemContainerController implements Initializable, ListChangeLis
 
     private void setupItemController(UserItemController controller, User user, Node owner) {
         controller.notifyDataChanged(user);
-        controller.showAcceptAction(!blockAction);
-        controller.showDenyAction(!blockAction);
-        controller.showBlockAction(blockAction && !user.getBlocked());
-        controller.showUnblockAction(blockAction && user.getBlocked());
+        controller.showAcceptAction(actionFlags == ACTION_REQUEST);
+        controller.showDenyAction(actionFlags == ACTION_REQUEST);
+        controller.showBlockAction((actionFlags == ACTION_BLOCK) && !user.getBlocked());
+        controller.showUnblockAction((actionFlags == ACTION_BLOCK) && user.getBlocked());
 
         controller.setOnAcceptListener(e -> {
             if (meeting == null) {
@@ -209,13 +204,12 @@ public class UserItemContainerController implements Initializable, ListChangeLis
     }
 
     public void filterByNone() {
-        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
-        copied.sort(sortType == SORT_BY_NAME ? nameComparator : emailComparator);
+        List<Node> copied = originalChildren.stream().sorted(sortType == SORT_BY_NAME ? nameComparator : emailComparator).collect(Collectors.toList());
         container.getChildren().setAll(copied);
     }
 
     public void filterByBlocked() {
-        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        List<Node> copied = new ArrayList<>(originalChildren);
         copied.removeIf(node -> {
             User user = (User) node.getUserData();
             return !user.getBlocked();
@@ -225,7 +219,7 @@ public class UserItemContainerController implements Initializable, ListChangeLis
     }
 
     public void filterByNotBlocked() {
-        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        List<Node> copied = new ArrayList<>(originalChildren);
         copied.removeIf(node -> {
             User user = (User) node.getUserData();
             return user.getBlocked();

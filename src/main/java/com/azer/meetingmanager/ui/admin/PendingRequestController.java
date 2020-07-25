@@ -56,7 +56,7 @@ public class PendingRequestController extends BackableController implements Init
             Log.i(TAG, "load pending request from " + meeting.toString());
             List<User> pendingUsers = App.getUnitOfWork().getPendingUser(meeting);
             userItemContainerController.notifyCollectionChanged(pendingUsers);
-            userItemContainerController.setItemActionType(false);
+            userItemContainerController.setItemActionType(UserItemContainerController.ACTION_REQUEST);
             userItemContainerController.setMeeting(meeting);
         } else {
             Log.e(TAG, "can not get pending users because meeting is null");

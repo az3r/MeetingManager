@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.azer.meetingmanager.App;
 import com.azer.meetingmanager.data.models.User;
 import com.azer.meetingmanager.ui.BackableController;
+import com.azer.meetingmanager.ui.components.TopbarController;
 import com.azer.meetingmanager.ui.components.UserItemContainerController;
 
 import javafx.event.ActionEvent;
@@ -17,6 +18,9 @@ public class AdminUserController implements Initializable {
 
     @FXML
     private UserItemContainerController userItemContainerController;
+
+    @FXML
+    private TopbarController topbarController;
 
     @FXML
     void onSortByEmailAsc(ActionEvent event) {
@@ -55,8 +59,10 @@ public class AdminUserController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        topbarController.setTitle("Manage users");
+
         List<User> users = App.getUnitOfWork().getUsers();
-        userItemContainerController.setItemActionType(true);
+        userItemContainerController.setItemActionType(UserItemContainerController.ACTION_BLOCK);
         userItemContainerController.notifyCollectionChanged(users);
     }
 

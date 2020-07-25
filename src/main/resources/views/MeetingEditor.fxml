@@ -115,8 +115,8 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
-                              <Button mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
+                              <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+                              <Button defaultButton="true" mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />

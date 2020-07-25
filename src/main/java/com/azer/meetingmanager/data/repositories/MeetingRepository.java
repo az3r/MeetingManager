@@ -26,19 +26,19 @@ public class MeetingRepository extends Repository<Meeting> {
     }
 
     public List<User> getAcceptedUsers(int meetingId) {
-        return session.createQuery("select acceptedUsers from Meeting where meetingId = :meetingId")
+        return session.createQuery("select acceptedUsers from Meeting where meetingId = :meetingId order by userName")
         .setParameter("meetingId", meetingId)
         .list();
     }
 
     public List<User> getPendingUsers(int meetingId) {
-        return session.createQuery("select pendingUsers from Meeting where meetingId = :meetingId")
+        return session.createQuery("select pendingUsers from Meeting where meetingId = :meetingId order by userName")
         .setParameter("meetingId", meetingId)
         .list();
     }
 
     public List<Meeting> get(boolean includeEnded) {
-        String query = includeEnded? "from Meeting order by holdTime DESC" : "from Meeting where ended = false order by holdTime DESC";
+        String query = includeEnded? "from Meeting order by holdTime DESC" : "from Meeting where ended = false order by holdTime DESC, name ASC";
         return session.createQuery(query, Meeting.class).list();
     }
 

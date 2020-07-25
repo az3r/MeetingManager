@@ -1,6 +1,7 @@
 package com.azer.meetingmanager.ui.components;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,8 +48,8 @@ public class MeetingContainerController implements Initializable, ListChangeList
 
     // container propperties
     private Pane container;
-    private VBox vboxLayout = createVBoxContainer();
-    private TilePane tilePaneLayout = createTilePaneContainer();
+    private final VBox vboxLayout = createVBoxContainer();
+    private final TilePane tilePaneLayout = createTilePaneContainer();
     private String file = "views/MeetingItemHBox.fxml";
     private ObservableList<Meeting> items = FXCollections.observableArrayList();
     private List<Node> originalChildren = null;
@@ -126,8 +127,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
     }
 
     private static VBox createVBoxContainer() {
-        VBox container = new VBox();
-        return container;
+        return new VBox();
     }
 
     private static TilePane createTilePaneContainer() {
@@ -210,7 +210,7 @@ public class MeetingContainerController implements Initializable, ListChangeList
     public void onFilter(String query) {
         // store original collection
         if (originalChildren == null)
-            originalChildren = container.getChildren().stream().collect(Collectors.toList());
+            originalChildren = new ArrayList<>(container.getChildren());
 
         if (StringHelper.nullOrEmpty(query)) {
             container.getChildren().setAll(originalChildren);
@@ -218,20 +218,20 @@ public class MeetingContainerController implements Initializable, ListChangeList
         }
 
         // copy to another collec   tion and use this for filtering
-        List<Node> copied = originalChildren.stream().collect(Collectors.toList());
+        List<Node> copied = new ArrayList<>(originalChildren);
         copied.removeIf(node -> {
             Meeting nodeData = (Meeting) node.getUserData();
             return !nodeData.getName().toLowerCase().contains(query.toLowerCase());
         });
         if (copied.isEmpty()) {
-            copied = originalChildren.stream().collect(Collectors.toList());
+            copied = new ArrayList<>(originalChildren);
             copied.removeIf(node -> {
                 Meeting nodeData = (Meeting) node.getUserData();
                 return !nodeData.getLocation().getName().toLowerCase().contains(query.toLowerCase());
             });
         }
         if (copied.isEmpty()) {
-            copied = originalChildren.stream().collect(Collectors.toList());
+            copied = new ArrayList<>(originalChildren);
             copied.removeIf(node -> {
                 Meeting nodeData = (Meeting) node.getUserData();
                 return !nodeData.getLocation().getAddress().toLowerCase().contains(query.toLowerCase());

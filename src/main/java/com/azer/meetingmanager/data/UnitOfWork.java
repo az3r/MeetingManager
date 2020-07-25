@@ -302,4 +302,11 @@ public class UnitOfWork {
         repository.close();
         return users;
     }
+
+    public List<User> getAcceptedUsers(Meeting meeting) {
+        MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
+        List<User> users = repository.getAcceptedUsers(meeting.getMeetingId());
+        repository.close();
+        return users;
+    }
 }

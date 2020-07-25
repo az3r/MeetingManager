@@ -130,7 +130,7 @@ public class TopbarController implements Initializable {
     @FXML
     void onCreateMeeting(final ActionEvent event) {
         final DialogLoader<Meeting> dialog = new DialogLoader<>("views/MeetingEditor.fxml",
-                (Stage) root.getScene().getWindow(), "Meeting editor");
+                (Stage) root.getScene().getWindow(), "Create new meeting");
         dialog.showAndWait(createMeetingCallback);
     }
 

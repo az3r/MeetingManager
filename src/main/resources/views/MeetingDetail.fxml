@@ -104,6 +104,7 @@
                                           <Label fx:id="pendingLabel" text="number of pending requests" />
                                        </children>
                                     </HBox>
+                                    <Button mnemonicParsing="false" onAction="#onOpenAcceptedList" style="-fx-font-size: 12; -fx-padding: 0;" styleClass="text-button" text="Attendance users" />
                                  </children>
                                  <effect>
                                     <DropShadow />
@@ -122,7 +123,7 @@
                         <HBox fx:id="actionHBox" alignment="CENTER_RIGHT">
                            <children>
                               <Button mnemonicParsing="false" onAction="#onUnregister" prefWidth="150.0" styleClass="text-button" text="Unregister" />
-                              <Button mnemonicParsing="false" onAction="#onRegister" prefWidth="150.0" text="Register" />
+                              <Button defaultButton="true" mnemonicParsing="false" onAction="#onRegister" prefWidth="150.0" text="Register" />
                            </children>
                         </HBox>
                      </children>

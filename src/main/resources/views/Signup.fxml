@@ -50,8 +50,8 @@
       </VBox>
       <HBox alignment="CENTER_RIGHT">
          <children>
-            <Button mnemonicParsing="false" onAction="#onCancel" styleClass="text-button" text="Cancel" />
-            <Button mnemonicParsing="false" onAction="#onRegister" text="Register" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onRegister" prefWidth="120.0" text="Register" />
          </children>
       </HBox>
    </children>

@@ -14,6 +14,7 @@ import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.ui.BackableController;
 import com.azer.meetingmanager.ui.DialogLoader;
 import com.azer.meetingmanager.ui.OnCompleteListener;
+import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.components.TopbarController;
 import com.azer.meetingmanager.ui.dialogs.MeetingEditorController;
 
@@ -134,7 +135,7 @@ public class MeetingDetailController extends BackableController implements Initi
                 return;
             }
             DialogLoader<Meeting> loader = new DialogLoader<>("views/MeetingEditor.fxml",
-                    (Stage) root.getScene().getWindow(), "Meeting editor");
+                    (Stage) root.getScene().getWindow(), "Edit meeting");
             MeetingEditorController controller = (MeetingEditorController) loader.getController();
             controller.notifyDataChanged(this.meeting);
             loader.showAndWait(meetingEditCallback);
@@ -143,6 +144,13 @@ public class MeetingDetailController extends BackableController implements Initi
 
     public void showActionButton(boolean visible) {
         actionHBox.setVisible(visible);
+    }
+
+    @FXML
+    private void onOpenAcceptedList(ActionEvent e) {
+        ViewLoader<AcceptedListController> loader = new ViewLoader<>("views/AcceptedList.fxml");
+        loader.getController().notifyDataChanged(this.meeting);
+        root.getScene().setRoot(loader.getRoot());
     }
 
     @FXML
