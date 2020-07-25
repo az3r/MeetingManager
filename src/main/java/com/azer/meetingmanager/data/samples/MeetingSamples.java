@@ -56,7 +56,7 @@ public class MeetingSamples {
         String detailDesc = "detail description";
         detailDesc = repeat(detailDesc, 1000 / detailDesc.length());
 
-        InputStream istream = MeetingSamples.class.getClassLoader().getResourceAsStream("images/" + i + ".jpg");
+        InputStream istream = MeetingSamples.class.getClassLoader().getResourceAsStream("images/" + (i + 1) + ".jpg");
         byte[] photo = new byte[0];
 
         try {
@@ -68,7 +68,7 @@ public class MeetingSamples {
 
         Date holdTime = new GregorianCalendar(2020, random.nextInt(12), random.nextInt(30) + 1, random.nextInt(24) + 1,
                 random.nextInt(60)).getTime();
-        boolean ended = random.nextInt() % 10 <= 1;
+        boolean ended = random.nextInt() % 12 <= 1;
 
         Meeting meeting = new Meeting(name, shortDesc, detailDesc, photo, holdTime, ended, location);
         System.out.println("created " + meeting.toString());

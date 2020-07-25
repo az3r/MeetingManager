@@ -38,7 +38,7 @@ public class MeetingRepository extends Repository<Meeting> {
     }
 
     public List<Meeting> get(boolean includeEnded) {
-        String query = includeEnded? "from Meeting order by holdTime DESC" : "from Meeting where ended = false order by holdTime DESC, name ASC";
+        String query = includeEnded? "from Meeting order by ended ASC, holdTime DESC, name ASC" : "from Meeting where ended = false order by holdTime DESC, name ASC";
         return session.createQuery(query, Meeting.class).list();
     }
 
