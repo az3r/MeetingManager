@@ -29,31 +29,27 @@ Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](http
 
 ## Installation
 
-This application requires JDK 11 and JRE 11
-
-[Maven](https://maven.apache.org/download.cgi) and a version of MySql Server are required
+This application requires Java version 11, [Maven](https://maven.apache.org/download.cgi) and a version of MySql Server
 
 If you haven't installed MySql Server yet then you can download [MariaDB Server](https://mariadb.com/downloads/)
 
-1. Login to the server and create database named **MeetingManager**
+1. Login to the server and create database named **MeetingManager**.
 
-1. Clone the repository 
-    
-    *git clone https://github.com/Az3r/MeetingManager.git*
+1. Clone the repository *git clone https://github.com/Az3r/MeetingManager.git*.
 
-1. Open MeetingManager directory, then open *hibernate.cfg.xml* located in *./src\main\resources\hibernate.cfg.xml*
+1. Open MeetingManager directory, then open *hibernate.cfg.xml* located in *./src/main/resources/hibernate.cfg.xml*:
 
-    Find 2 properties called **connection.username** and **connection.password** and change them to your server's username and password
+    Find 2 properties called **connection.username** and **connection.password** and change them to your server's username and password.
 
-    Depend on your version of MySql Server, you may need to edit the **dialect** property. Check [this list](https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/dialect/package-summary.html) to see which dialect you should use for your database server. I use MariaDB Server 10.5 so i choose *MariaDB103Dialect*
+    Depend on your version of MySql Server, you may need to edit the **dialect** property. Check [this list](https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/dialect/package-summary.html) to see which dialect you should use for your database server. I use MariaDB Server 10.5 so i choose *MariaDB103Dialect*.
 
     The **hbm2ddl.auto** tell hibernate what to do with the database when the ***Session Factory*** is created and closed. [Here are available options](https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl). Some of them which i use are:
     * *create*: Database dropping will be generated followed by database creation.
     * *update*: Update the database schema.
 
-1. Run *mvn clean install*
+1. Run *mvn clean install*.
 
-1. Run *mvn javafx:run*
+1. Run *mvn javafx:run*.
     
 ## References
 * [Hibernate: save, persist, update, merge, saveOrUpdate](https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate)
