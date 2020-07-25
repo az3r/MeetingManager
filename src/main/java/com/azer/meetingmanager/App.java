@@ -90,9 +90,11 @@ public class App extends Application {
 
     private static void createSamples() {
         int userCount = 10;
+        int meetingCount = 10;
 
         Log.i(TAG, "Creating database samples...");
         Log.i(TAG, "number of users: " + userCount);
+        Log.i(TAG, "number of meetings: " + meetingCount);
 
         UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
         MeetingRepository meetingRepository = new MeetingRepository(App.getSessionFactory().openSession());
@@ -104,7 +106,7 @@ public class App extends Application {
         userRepository.insertUser(users);
 
         Log.i(TAG, "creating random meetings...");
-        List<Meeting> meetings = MeetingSamples.createMeeting(10);
+        List<Meeting> meetings = MeetingSamples.getMeetings(meetingCount);
 
         Log.i(TAG, "add all meetings into database");
         meetingRepository.insert(meetings);
