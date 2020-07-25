@@ -56,7 +56,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../mnt/201a5b55-f8bd-4c39-8289-73c09862e4de/work/java/meeting-manager/src/main/resources/icons/edit.png" />
+                        <Image url="@../icons/edit.png" />
                      </image>
                   </ImageView>
                </graphic>

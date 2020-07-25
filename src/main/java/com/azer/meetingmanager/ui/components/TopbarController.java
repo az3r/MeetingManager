@@ -123,14 +123,14 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onLogin(final ActionEvent event) {
-        final DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) root.getScene().getWindow());
+        final DialogLoader<User> loader = new DialogLoader<>("views/Login.fxml", (Stage) root.getScene().getWindow(), "Login");
         loader.showAndWait(loginCallback);
     }
 
     @FXML
     void onCreateMeeting(final ActionEvent event) {
         final DialogLoader<Meeting> dialog = new DialogLoader<>("views/MeetingEditor.fxml",
-                (Stage) root.getScene().getWindow());
+                (Stage) root.getScene().getWindow(), "Meeting editor");
         dialog.showAndWait(createMeetingCallback);
     }
 
@@ -158,7 +158,7 @@ public class TopbarController implements Initializable {
 
     @FXML
     void onSignup(final ActionEvent event) {
-        final DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", (Stage) root.getScene().getWindow());
+        final DialogLoader<User> loader = new DialogLoader<>("views/Signup.fxml", (Stage) root.getScene().getWindow(), "Signup");
         loader.showAndWait(signUpCallback);
     }
 

@@ -13,118 +13,121 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azer.meetingmanager.ui.dialogs.MeetingEditorController">
    <content>
-      <VBox alignment="CENTER" spacing="20.0" styleClass="user-input-layout">
+      <StackPane>
          <children>
-            <Label styleClass="navbar-title" text="Meeting Editor">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Group>
+            <VBox alignment="CENTER" maxWidth="1000.0" spacing="20.0" styleClass="user-input-layout">
                <children>
-                  <StackPane>
+                  <Label styleClass="navbar-title" text="Meeting Editor">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Group>
                      <children>
-                        <StackPane fx:id="photoEmptyPane" styleClass="photo-empty-pane">
+                        <StackPane>
                            <children>
-                              <Label text="Empty photo" textAlignment="CENTER" />
+                              <StackPane fx:id="photoEmptyPane" styleClass="photo-empty-pane">
+                                 <children>
+                                    <Label text="Empty photo" textAlignment="CENTER" />
+                                 </children>
+                              </StackPane>
+                              <ImageView fx:id="photoImageView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+                              <Button mnemonicParsing="false" onAction="#onSelectImageFromFile" styleClass="text-button" text="Edit" StackPane.alignment="BOTTOM_RIGHT" />
                            </children>
                         </StackPane>
-                        <ImageView fx:id="photoImageView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" onAction="#onSelectImageFromFile" styleClass="text-button" text="Edit" StackPane.alignment="BOTTOM_RIGHT" />
                      </children>
-                  </StackPane>
-               </children>
-            </Group>
-            <VBox spacing="15.0">
-               <children>
-                  <VBox>
-                     <children>
-                        <Label text="Title" />
-                        <TextField fx:id="titleTextField" />
-                     </children>
-                  </VBox>
-                  <HBox spacing="20.0">
+                  </Group>
+                  <VBox spacing="15.0">
                      <children>
                         <VBox>
                            <children>
-                              <Label text="Date" />
-                              <TextField fx:id="dateTextField" prefWidth="80.0" />
+                              <Label text="Title" />
+                              <TextField fx:id="titleTextField" />
+                           </children>
+                        </VBox>
+                        <HBox spacing="20.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="Date" />
+                                    <TextField fx:id="dateTextField" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Month" />
+                                    <TextField fx:id="monthTextField" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Year" />
+                                    <TextField fx:id="yearTextField" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Hour" />
+                                    <TextField fx:id="hourTextField" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Minute" />
+                                    <TextField fx:id="minuteTextField" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Separator prefHeight="2.0" />
+                        <VBox>
+                           <children>
+                              <Label text="Location's name" />
+                              <TextField fx:id="locationNameTextField" />
                            </children>
                         </VBox>
                         <VBox>
                            <children>
-                              <Label text="Month" />
-                              <TextField fx:id="monthTextField" prefWidth="80.0" />
+                              <Label text="Location's address" />
+                              <TextField fx:id="locationAddressTextFIeld" />
                            </children>
                         </VBox>
                         <VBox>
                            <children>
-                              <Label text="Year" />
-                              <TextField fx:id="yearTextField" prefWidth="80.0" />
+                              <Label text="Location's Capacity" />
+                              <TextField fx:id="locationCapacityTextField" />
                            </children>
                         </VBox>
+                        <VBox prefHeight="100.0">
+                           <children>
+                              <Label text="Brief description" />
+                              <TextArea fx:id="briefDescriptionTextField" minHeight="100.0" wrapText="true" />
+                           </children>
+                        </VBox>
+                        <Separator prefHeight="2.0" />
                         <VBox>
                            <children>
-                              <Label text="Hour" />
-                              <TextField fx:id="hourTextField" prefWidth="80.0" />
+                              <Label text="Detail description" />
+                              <TextArea fx:id="detailDescriptionTextField" minHeight="200.0" wrapText="true" />
                            </children>
                         </VBox>
-                        <VBox>
+                        <HBox alignment="CENTER_RIGHT">
                            <children>
-                              <Label text="Minute" />
-                              <TextField fx:id="minuteTextField" prefWidth="80.0" />
+                              <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
+                              <Button mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
                            </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="2.0" />
-                  <VBox>
-                     <children>
-                        <Label text="Location's name" />
-                        <TextField fx:id="locationNameTextField" />
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
                   </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Location's address" />
-                        <TextField fx:id="locationAddressTextFIeld" />
-                     </children>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Location's Capacity" />
-                        <TextField fx:id="locationCapacityTextField" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="100.0">
-                     <children>
-                        <Label text="Brief description" />
-                        <TextArea fx:id="briefDescriptionTextField" minHeight="100.0" wrapText="true" />
-                     </children>
-                  </VBox>
-                  <Separator prefHeight="2.0" />
-                  <VBox>
-                     <children>
-                        <Label text="Detail description" />
-                        <TextArea fx:id="detailDescriptionTextField" minHeight="200.0" wrapText="true" />
-                     </children>
-                  </VBox>
-                  <HBox alignment="CENTER_RIGHT">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="120.0" styleClass="text-button" text="Cancel" />
-                        <Button mnemonicParsing="false" onAction="#onSave" prefWidth="120.0" text="Save" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
                </children>
             </VBox>
          </children>
-      </VBox>
+      </StackPane>
    </content>
    <padding>
       <Insets bottom="60.0" left="60.0" right="60.0" top="60.0" />

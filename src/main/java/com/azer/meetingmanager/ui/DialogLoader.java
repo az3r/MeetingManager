@@ -5,6 +5,7 @@ import com.azer.meetingmanager.ui.dialogs.DialogController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -18,6 +19,7 @@ public class DialogLoader<T> {
     private Parent root;
     private DialogController<T> controller;
     private Stage owner;
+    private String title = "";
 
     private DialogLoader(String resource) {
         try {
@@ -35,6 +37,12 @@ public class DialogLoader<T> {
         this.owner = owner;
     }
 
+    public DialogLoader(String resource, Stage owner, String title) {
+        this(resource);
+        this.owner = owner;
+        this.title = title;
+    }
+
     public Parent getRoot() {
         return root;
     }
@@ -50,9 +58,13 @@ public class DialogLoader<T> {
     public void showAndWait(OnCompleteListener<T> callback) {
         
         Stage container = new Stage();
+        container.setTitle(title);
+        container.getIcons().setAll(this.owner.getIcons());
+
         container.setScene(new Scene(getRoot()));
         container.initOwner(getOwner());
         container.initModality(Modality.APPLICATION_MODAL);
+
         getController().setContainer(container);
         getController().showAndWait(callback);
     }

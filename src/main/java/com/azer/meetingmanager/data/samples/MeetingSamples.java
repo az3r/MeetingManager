@@ -68,7 +68,8 @@ public class MeetingSamples {
 
         Date holdTime = new GregorianCalendar(2020, random.nextInt(12), random.nextInt(30) + 1, random.nextInt(24) + 1,
                 random.nextInt(60)).getTime();
-        boolean ended = random.nextInt() % 2 == 0;
+        boolean ended = false;
+        // boolean ended = random.nextInt() % 2 == 0;
 
         Meeting meeting = new Meeting(name, shortDesc, detailDesc, photo, holdTime, ended, location);
         System.out.println("created " + meeting.toString());

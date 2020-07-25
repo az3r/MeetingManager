@@ -10,9 +10,11 @@ import com.azer.meetingmanager.data.repositories.MeetingRepository;
 import com.azer.meetingmanager.data.repositories.UserRepository;
 import com.azer.meetingmanager.data.samples.MeetingSamples;
 import com.azer.meetingmanager.data.samples.UserSamples;
+import com.azer.meetingmanager.helpers.Utility;
 import com.azer.meetingmanager.ui.ViewLoader;
 import com.azer.meetingmanager.ui.home.HomeController;
 
+import javafx.scene.image.Image;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -26,7 +28,7 @@ public class App extends Application {
     private static final String TAG = "App";
     private static SessionFactory sessionFactory;
     private static Application app = null;
-    private static UnitOfWork unitOfWork = new UnitOfWork();
+    private static final UnitOfWork unitOfWork = new UnitOfWork();
 
     public static void main(String[] args) {
 
@@ -40,8 +42,9 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         app = this;
-
         primaryStage.setTitle("Meetings Manager");
+        primaryStage.getIcons().add(new Image(App.class.getClassLoader().getResourceAsStream("icons/app-2.png")));
+
         ViewLoader<HomeController> loader = new ViewLoader<>("views/Home.fxml");
         Scene scene = new Scene(loader.getRoot(), 1200, 800);
         primaryStage.setScene(scene);

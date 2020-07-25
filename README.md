@@ -19,9 +19,9 @@ A semester project, writing a desktop application using [JavaFx](https://openjfx
 * use FXML with [SceneBuilder](https://gluonhq.com/products/scene-builder/) support to create views
 
 ### Use case diagram
-![]((https://github.com/Az3r/MeetingManager/blob/master/./document/use-case.png))
+![]((https://github.com/Az3r/MeetingManager/blob/master/./docs/use-case.png))
 
-### [Requirement](https://github.com/Az3r/MeetingManager/blob/master/./document/requirement.pdf)
+### [Requirement](https://github.com/Az3r/MeetingManager/blob/master/./docs/requirement.pdf)
 
 ### [Figma prototype](https://www.figma.com/file/uHQH9yLd98ozFIYeMp0gET/Javafx?node-id=0%3A1)
 > Because i didn't have enough time, some features in prototype maybe missing compared to actual application
@@ -34,7 +34,11 @@ If you haven't installed MySql Server yet then you can download [MariaDB Server]
 
 1. Login to the server and create database named **MeetingManager**.
 
-1. Clone the repository *git clone https://github.com/Az3r/MeetingManager.git*.
+        create database MeetingManager;
+
+1. Clone the repository.
+
+        git clone https://github.com/Az3r/MeetingManager.git
 
 1. Open MeetingManager directory, then open *hibernate.cfg.xml* located in *./src/main/resources/hibernate.cfg.xml*:
 

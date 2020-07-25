@@ -134,7 +134,7 @@ public class MeetingDetailController extends BackableController implements Initi
                 return;
             }
             DialogLoader<Meeting> loader = new DialogLoader<>("views/MeetingEditor.fxml",
-                    (Stage) root.getScene().getWindow());
+                    (Stage) root.getScene().getWindow(), "Meeting editor");
             MeetingEditorController controller = (MeetingEditorController) loader.getController();
             controller.notifyDataChanged(this.meeting);
             loader.showAndWait(meetingEditCallback);
