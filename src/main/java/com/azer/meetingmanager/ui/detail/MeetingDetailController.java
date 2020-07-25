@@ -149,6 +149,7 @@ public class MeetingDetailController extends BackableController implements Initi
     @FXML
     private void onOpenAcceptedList(ActionEvent e) {
         ViewLoader<AcceptedListController> loader = new ViewLoader<>("views/AcceptedList.fxml");
+        loader.getController().setUpParent(root.getScene().getRoot());
         loader.getController().notifyDataChanged(this.meeting);
         root.getScene().setRoot(loader.getRoot());
     }
