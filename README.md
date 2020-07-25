@@ -1,8 +1,7 @@
 
 # Meeting Mangager
 
-Window application using [JavaFx](https://openjfx.io/) with [Hibernate ORM](https://hibernate.org/)
-
+A semester project, writing a desktop application using [JavaFx](https://openjfx.io/) and [Hibernate ORM](https://hibernate.org/)
 
 ## Student's info
 
