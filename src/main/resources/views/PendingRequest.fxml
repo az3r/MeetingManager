@@ -10,7 +10,7 @@
    <children>
       <VBox stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" styleClass="meeting-item-detail">
+            <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="60.0" styleClass="meeting-item-detail">
                <children>
                   <Label fx:id="currentLabel" text="0" />
                   <Label text="/" />

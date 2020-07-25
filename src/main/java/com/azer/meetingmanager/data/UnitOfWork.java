@@ -163,7 +163,7 @@ public class UnitOfWork {
 
     public int countAcceptedUsers(int meetingId) {
         MeetingRepository repository = new MeetingRepository(App.getSessionFactory().openSession());
-        int size = repository.countPendingUsers(meetingId);
+        int size = repository.countAcceptedUsers(meetingId);
         repository.close();
         return size;
     }

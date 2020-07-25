@@ -152,7 +152,7 @@ public class UserItemContainerController implements Initializable, ListChangeLis
                     acceptListener.onAction(user);
                 container.getChildren().remove(owner);
             } else
-                new Alert(AlertType.ERROR, "Unable to remove item from container, check log", ButtonType.OK)
+                new Alert(AlertType.ERROR, "This meeting is full, you can't accept anymore", ButtonType.OK)
                         .showAndWait();
         });
         controller.setOnDenyListener(e -> {

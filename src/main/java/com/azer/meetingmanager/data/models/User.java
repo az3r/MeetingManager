@@ -1,5 +1,6 @@
 package com.azer.meetingmanager.data.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,7 +47,7 @@ public class User {
         joinColumns = { @JoinColumn(referencedColumnName = "userId") },
         inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
     )
-    private Set<Meeting> pendingMeetings;
+    private Set<Meeting> pendingMeetings = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @ManyToMany(cascade = CascadeType.ALL)
@@ -55,7 +56,7 @@ public class User {
         joinColumns = { @JoinColumn(referencedColumnName = "userId") },
         inverseJoinColumns = { @JoinColumn(columnDefinition = "meetingId") }
     )
-    private Set<Meeting> acceptedMeetings;
+    private Set<Meeting> acceptedMeetings = new HashSet<>();
 
     @Embedded
     private Account account;

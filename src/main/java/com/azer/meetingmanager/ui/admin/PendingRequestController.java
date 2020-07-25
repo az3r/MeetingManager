@@ -49,6 +49,7 @@ public class PendingRequestController extends BackableController implements Init
             int value = Integer.parseInt(currentLabel.getText());
             currentLabel.setText(String.valueOf(value + 1));
         });
+        userItemContainerController.setItemActionType(UserItemContainerController.ACTION_REQUEST);
     }
 
     private void inflateContainer() {
@@ -56,20 +57,19 @@ public class PendingRequestController extends BackableController implements Init
             Log.i(TAG, "load pending request from " + meeting.toString());
             List<User> pendingUsers = App.getUnitOfWork().getPendingUser(meeting);
             userItemContainerController.notifyCollectionChanged(pendingUsers);
-            userItemContainerController.setItemActionType(UserItemContainerController.ACTION_REQUEST);
             userItemContainerController.setMeeting(meeting);
         } else {
             Log.e(TAG, "can not get pending users because meeting is null");
         }
     }
 
-    public void notifyMeetingChanged(Meeting meeting) {
+    public void notifyDataChanged(Meeting meeting) {
         this.meeting = meeting;
 
         int capacity = meeting.getLocation().getCapacity();
         capacityLabel.setText(String.valueOf(capacity));
 
-        int currentCount = App.getUnitOfWork().countPendingUsers(meeting.getMeetingId());
+        int currentCount = App.getUnitOfWork().countAcceptedUsers(meeting.getMeetingId());
         currentLabel.setText(String.valueOf(currentCount));
 
         inflateContainer();

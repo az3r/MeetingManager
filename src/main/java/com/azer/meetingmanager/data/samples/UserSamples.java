@@ -29,8 +29,7 @@ public class UserSamples {
         byte[] salt = Utility.generateSalt(16);
         byte[] hashedPassword = Utility.generatePassword(password, salt);
         Account account = new Account(accountName, salt, hashedPassword);
-        User user = admin ? new Admin(userName, email, blocked, account) : new User(userName, email, blocked, account);
-        return user;
+        return admin ? new Admin(userName, email, blocked, account) : new User(userName, email, blocked, account);
     }
 
     public static Admin createAdmin(String userName, String email, String accountName, boolean blocked,
@@ -54,7 +53,7 @@ public class UserSamples {
         byte[] salt = Utility.generateSalt(16);
         byte[] hashedPassword = Utility.generatePassword(password, salt);
 
-        boolean blocked = generator.nextInt() % 2 == 0;
+        boolean blocked = false;
         Account account = new Account(accountName, salt, hashedPassword);
         return new Admin(fullname, email, blocked, account);
     }

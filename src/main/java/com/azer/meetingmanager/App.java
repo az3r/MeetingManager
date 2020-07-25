@@ -99,17 +99,26 @@ public class App extends Application {
         UserRepository userRepository = new UserRepository(App.getSessionFactory().openSession());
         MeetingRepository meetingRepository = new MeetingRepository(App.getSessionFactory().openSession());
 
+        Log.i(TAG, "creating random meetings...");
+        List<Meeting> meetings = MeetingSamples.getMeetings(meetingCount);
+
+        Log.i(TAG, "add all meetings into database");
+        meetingRepository.insert(meetings);
+
         Log.i(TAG, "Creating random users...");
         List<User> users = UserSamples.createUser(userCount);
 
         Log.i(TAG, "add all users into database");
         userRepository.insertUser(users);
 
-        Log.i(TAG, "creating random meetings...");
-        List<Meeting> meetings = MeetingSamples.getMeetings(meetingCount);
+        Log.i(TAG, "add all users to all meetings' pending lists...");
+        for (User user : users) {
+            for (Meeting meeting :
+                    meetings) {
+                user.getPendingMeetings().add(meeting);
+            }
+        }
 
-        Log.i(TAG, "add all meetings into database");
-        meetingRepository.insert(meetings);
 
         User staticUser = UserSamples.createUser("tuan nguyen", "tuan@gmail.com", "user", false, "123");
         userRepository.insert(staticUser);
@@ -119,9 +128,10 @@ public class App extends Application {
         Log.i(TAG, "create a static " + staticAdmin);
         userRepository.insertAdmin(staticAdmin);
 
-        Log.i(TAG, "commit all changed");
-        userRepository.commit();
+        Log.i(TAG, "commit all changes");
+
         meetingRepository.commit();
+        userRepository.commit();
 
         Log.i(TAG, "Closing all repositories...");
         userRepository.close();
