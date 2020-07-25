@@ -59,6 +59,8 @@ public class App extends Application {
     public void stop() throws Exception {
         super.stop();
         Log.i(TAG, "Closing application...");
+        sessionFactory.close();
+        Log.i(TAG, "Closed Session Factory");
         Log.i(TAG, "DONE!");
     }
 

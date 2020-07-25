@@ -9,7 +9,7 @@
 
         <!-- mysql database-->
         <property name="dialect">
-            org.hibernate.dialect.MariaDB53Dialect
+            org.hibernate.dialect.MariaDB103Dialect
         </property>
 
         <property name="connection.driver_class">
@@ -17,12 +17,12 @@
         </property>
 
         <property name="hbm2ddl.auto">
-            create-drop
+            create
         </property>
 
         <!-- connection -->
         <property name="connection.url">
-            jdbc:mysql://localhost/javafx
+            jdbc:mysql://localhost/MeetingManager
         </property>
 
         <property name="connection.username">
