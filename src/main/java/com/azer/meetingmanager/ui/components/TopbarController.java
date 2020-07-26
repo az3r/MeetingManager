@@ -137,7 +137,7 @@ public class TopbarController implements Initializable {
     @FXML
     void onOpenHome(final ActionEvent event) {
         String view = "views/Home.fxml";
-        if (LoggedUserResource.getInstance().getAdmin() != null)
+        if (LoggedUserResource.getInstance().isAdmin())
             view = "views/AdminHome.fxml";
         final ViewLoader<HomeController> loader = new ViewLoader<>(view);
         root.getScene().setRoot(loader.getRoot());
