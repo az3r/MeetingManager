@@ -67,14 +67,14 @@
 ![](./images/admin-user-2.jpg)
 
 ### Lọc, sắp sếp User
-Lọc các user không bị chặn
+#### Lọc các user không bị chặn
 ![](./images/user-filter-1.jpg)
 
-Lọc các user đã bị chặn
+#### Lọc các user đã bị chặn
 ![](./images/user-filter-2.jpg)
 
-Sắp xếp user theo tên A-Z
+#### Sắp xếp user theo tên A-Z
 ![](./images/user-sort-1.jpg)
 
-Sắp xếp user theo email Z-A
+#### Sắp xếp user theo email Z-A
 ![](./images/user-sort-2.jpg)
