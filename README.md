@@ -3,15 +3,18 @@
 
 A semester project, writing a desktop application using [JavaFx](https://openjfx.io/) and [Hibernate ORM](https://hibernate.org/)
 
-## Student's info
+## Overview
 
-* Nguyễn Mạnh Tuấn - 1712875
+### Student's info
 
-* azerprojects@gmail.com
+* Student's name: Nguyễn Mạnh Tuấn - 1712875
 
-## Project's info
+* Student's email: azerprojects@gmail.com
 
-### Overview
+### Project's overview
+
+* Report: [report.md](https://github.com/Az3r/MeetingManager/blob/master/./docs/report.md)
+
 * Database: MySql using MariaDB server
 
 * Hibernate ORM for mapping domain model to relational database
