@@ -161,7 +161,7 @@ public class AccountController extends BackableController implements Initializab
 
     private void setupMeetingContainer() {
 
-        User user = LoggedUserResource.getInstance().getUser();
+        final User user = LoggedUserResource.getInstance().getUser();
         Collection<Meeting> acceptedMeetings = App.getUnitOfWork().getAcceptedMeetings(user);
 
         meetingContainerController.setRightButtonText("Unregister");
@@ -172,9 +172,15 @@ public class AccountController extends BackableController implements Initializab
             ButtonType result = alert.showAndWait().get();
             if (result == ButtonType.YES) {
                 boolean success = App.getUnitOfWork().cancelMeeting(user, meeting);
-                String message = success ? "Successfully unregister meeting" : "Internal error happened, check log!";
-                AlertType alertType = success ? AlertType.INFORMATION : AlertType.ERROR;
-                new Alert(alertType, message, ButtonType.OK).showAndWait();
+
+                if (success) {
+                    Collection<Meeting> meetings = App.getUnitOfWork().getAcceptedMeetings(user);
+                    meetingContainerController.notifyCollectionChanged(meetings);
+                } else {
+                    String message = "Internal error happened, check log!";
+                    AlertType alertType = AlertType.ERROR;
+                    new Alert(alertType, message, ButtonType.OK).showAndWait();
+                }
             }
         });
 

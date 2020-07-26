@@ -80,6 +80,10 @@ public class MeetingContainerController implements Initializable, ListChangeList
                 new Alert(AlertType.ERROR, "You must login first!", ButtonType.OK).showAndWait();
                 return;
             }
+            if (App.getUnitOfWork().countAcceptedUsers(meeting.getMeetingId()) >= meeting.getLocation().getCapacity()) {
+                new Alert(AlertType.INFORMATION, "This meeting is full!", ButtonType.OK).showAndWait();
+                return;
+            }
             User user = resource.getUser();
 
             String message = "";

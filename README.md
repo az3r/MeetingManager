@@ -5,9 +5,9 @@ A semester project, writing a desktop application using [JavaFx](https://openjfx
 
 ## Student's info
 
-* Nguyễn Mạnh Tuấn
+* Nguyễn Mạnh Tuấn - 1712875
 
-* 1712875
+* azerprojects@gmail.com
 
 ## Project's info
 
@@ -19,7 +19,7 @@ A semester project, writing a desktop application using [JavaFx](https://openjfx
 * use FXML with [SceneBuilder](https://gluonhq.com/products/scene-builder/) support to create views
 
 ### Use case diagram
-![]((https://github.com/Az3r/MeetingManager/blob/master/./docs/use-case.png))
+![](https://github.com/Az3r/MeetingManager/blob/master/./docs/use-case.png)
 
 ### [Requirement](https://github.com/Az3r/MeetingManager/blob/master/./docs/requirement.pdf)
 
@@ -54,6 +54,11 @@ If you haven't installed MySql Server yet then you can download [MariaDB Server]
 
 1. Run *mvn javafx:run*.
     
+## Usage
+You can login either as an user using username: *user* and password: *123*, or as an admin with *admin* and *123*
+
+10 users and 10 meetings are created each time application start, the code for creating samples is written in function *createSamples* in file **App.java** located in *src\main\java\com\azer\meetingmanager\App.java*
+
 ## References
 * [Hibernate: save, persist, update, merge, saveOrUpdate](https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate)
 

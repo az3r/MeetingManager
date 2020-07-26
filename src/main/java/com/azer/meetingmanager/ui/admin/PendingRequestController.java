@@ -40,6 +40,7 @@ public class PendingRequestController extends BackableController implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        topbarController.setTitle("Pending requests");
         topbarController.showBackButton(true);
         topbarController.setOnBackAction(e -> {
             root.getScene().setRoot(getUpParent());
